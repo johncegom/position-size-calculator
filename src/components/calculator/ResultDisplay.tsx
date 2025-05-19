@@ -1,11 +1,4 @@
-import React from "react";
-// import { CalculationResult } from "../../types";
-
-interface ResultDisplayProps {
-  // TODO: Define what calculation results to display
-}
-
-const ResultDisplay = (props: ResultDisplayProps) => {
+const ResultDisplay = () => {
   return (
     <div>
       {/*
