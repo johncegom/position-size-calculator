@@ -44,7 +44,9 @@ const CalculatorForm = () => {
             Total Trading Capital ($)
           </label>
           <input
-            type="number"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             id="totalCapital"
             name="totalCapital"
             min="0"
@@ -62,7 +64,9 @@ const CalculatorForm = () => {
             Entry Price ($)
           </label>
           <input
-            type="number"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             id="entryPrice"
             name="entryPrice"
             min="0"
@@ -80,7 +84,9 @@ const CalculatorForm = () => {
             Stop-Loss Price ($)
           </label>
           <input
-            type="number"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             id="stopLossPrice"
             name="stopLossPrice"
             min="0"
@@ -98,7 +104,9 @@ const CalculatorForm = () => {
             Risk Percentage (%)
           </label>
           <input
-            type="number"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             id="riskPercentage"
             name="riskPercentage"
             min="0"
@@ -117,7 +125,9 @@ const CalculatorForm = () => {
             Take-Profit Price ($) (Optional)
           </label>
           <input
-            type="number"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             id="takeProfitPrice"
             name="takeProfitPrice"
             min="0"
