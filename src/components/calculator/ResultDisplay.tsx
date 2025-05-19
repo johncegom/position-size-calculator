@@ -1,5 +1,5 @@
 import React from "react";
-import { CalculationResult } from "../../types";
+// import { CalculationResult } from "../../types";
 
 interface ResultDisplayProps {
   // TODO: Define what calculation results to display

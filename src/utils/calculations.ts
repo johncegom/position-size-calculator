@@ -21,13 +21,13 @@ export const calculatePositionSize = ({
   totalCapital,
   riskPercentage,
   entryPrice,
-  stoplossPrice,
-  takeprofitPrice = undefined,
+  stopLossPrice,
+  takeProfitPrice = null,
 }: TradeParameters): CalculationResult => {
   const riskByPercent = riskAmount(totalCapital);
   const maxLossAmount = riskByPercent(riskPercentage); // e.g: maxloss is 5% of capital
-  const stoplossPercent = stoplossPercentage(stoplossPrice, entryPrice);
-  const takeprofitPercent = takeprofitPercentage(takeprofitPrice, entryPrice);
+  const stoplossPercent = stoplossPercentage(stopLossPrice, entryPrice);
+  const takeprofitPercent = takeprofitPercentage(takeProfitPrice, entryPrice);
 
   const positionSize = maxLossAmount / stoplossPercent;
   const potentialProfit = positionSize * takeprofitPercent;
@@ -79,7 +79,7 @@ const stoplossPercentage = (stoplossPrice: number, entryPrice: number) => {
  * @returns The percentage difference as a decimal value formatted to two decimal places, or 0 if takeprofitPrice is undefined
  */
 const takeprofitPercentage = (
-  takeprofitPrice: number | undefined,
+  takeprofitPrice: number | null,
   entryPrice: number
 ) => {
   if (!takeprofitPrice) return 0;
