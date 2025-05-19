@@ -7,8 +7,8 @@ export interface TradeParameters {
   totalCapital: number;
   riskPercentage: number;
   entryPrice: number;
-  stoplossPrice: number;
-  takeprofitPrice?: number;
+  stopLossPrice: number;
+  takeProfitPrice?: number | null;
 }
 
 // Questions to consider for CalculationResult:
@@ -22,4 +22,11 @@ export interface CalculationResult {
   potentialLoss: number;
   potentialProfit: number;
   riskRewardRatio: number;
+}
+
+export interface CalculatorState {
+  tradeParameters: TradeParameters;
+  calculationResult: CalculationResult | null;
+  isLoading: boolean;
+  error: string | null;
 }
