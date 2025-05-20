@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import type { ChangeEvent, FormEvent } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import {
   calculatePosition,
   updateTradeParameter,
@@ -13,26 +13,52 @@ const CalculatorForm = () => {
   );
   const dispatch = useDispatch();
 
+  // Local form state for handling input
+  const [formValues, setFormValues] = useState({
+    totalCapital: tradeParameters.totalCapital?.toString() || "",
+    entryPrice: tradeParameters.entryPrice?.toString() || "",
+    stopLossPrice: tradeParameters.stopLossPrice?.toString() || "",
+    riskPercentage: tradeParameters.riskPercentage?.toString() || "",
+    takeProfitPrice: tradeParameters.takeProfitPrice?.toString() || "",
+  });
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    const parsedValue =
-      value === ""
-        ? name === "takeProfitPrice"
-          ? null
-          : 0
-        : parseFloat(value);
-
-    dispatch(
-      updateTradeParameter({
-        name: name as keyof TradeParameters,
-        value: parsedValue,
-      })
-    );
+    if (value === "" || /^(0|[1-9]\d*)(\.\d*)?$/.test(value)) {
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          [name]: value,
+        };
+      });
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Parse and dispatch each form value with appropriate validation
+    Object.entries(formValues).forEach(([paramName, strValue]) => {
+      const isOptionalTakeProfit = paramName === "takeProfitPrice";
+
+      // Convert to appropriate numeric value or null for optional fields
+      const numericValue =
+        strValue === ""
+          ? isOptionalTakeProfit
+            ? null
+            : 0
+          : parseFloat(strValue);
+
+      // Update the parameter in the store
+      dispatch(
+        updateTradeParameter({
+          name: paramName as keyof TradeParameters,
+          value: numericValue,
+        })
+      );
+    });
+
     dispatch(calculatePosition());
   };
 
@@ -46,7 +72,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
+            pattern="(0|[1-9]\d*)(\.\d*)?"
             id="totalCapital"
             name="totalCapital"
             min="0"
@@ -54,7 +80,7 @@ const CalculatorForm = () => {
             required
             aria-labelledby="totalCapitalLabel"
             aria-required="true"
-            value={tradeParameters.totalCapital || ""}
+            value={formValues.totalCapital || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -66,7 +92,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
+            pattern="(0|[1-9]\d*)(\.\d*)?"
             id="entryPrice"
             name="entryPrice"
             min="0"
@@ -74,7 +100,7 @@ const CalculatorForm = () => {
             required
             aria-labelledby="entryPriceLabel"
             aria-required="true"
-            value={tradeParameters.entryPrice || ""}
+            value={formValues.entryPrice || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -86,7 +112,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
+            pattern="(0|[1-9]\d*)(\.\d*)?"
             id="stopLossPrice"
             name="stopLossPrice"
             min="0"
@@ -94,7 +120,7 @@ const CalculatorForm = () => {
             required
             aria-labelledby="stopLossPriceLabel"
             aria-required="true"
-            value={tradeParameters.stopLossPrice || ""}
+            value={formValues.stopLossPrice || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -106,7 +132,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
+            pattern="(0|[1-9]\d*)(\.\d*)?"
             id="riskPercentage"
             name="riskPercentage"
             min="0"
@@ -115,7 +141,7 @@ const CalculatorForm = () => {
             required
             aria-labelledby="riskPercentageLabel"
             aria-required="true"
-            value={tradeParameters.riskPercentage || ""}
+            value={formValues.riskPercentage || ""}
             onChange={handleInputChange}
           />
         </div>
@@ -127,13 +153,13 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
+            pattern="(0|[1-9]\d*)(\.\d*)?"
             id="takeProfitPrice"
             name="takeProfitPrice"
             min="0"
             step="0.0001"
             aria-labelledby="takeProfitPriceLabel"
-            value={tradeParameters.takeProfitPrice || ""}
+            value={formValues.takeProfitPrice || ""}
             onChange={handleInputChange}
           />
         </div>
