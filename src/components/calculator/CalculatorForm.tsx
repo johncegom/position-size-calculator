@@ -46,7 +46,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="[0-9]*"
+            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
             id="totalCapital"
             name="totalCapital"
             min="0"
@@ -66,7 +66,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="[0-9]*"
+            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
             id="entryPrice"
             name="entryPrice"
             min="0"
@@ -86,7 +86,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="[0-9]*"
+            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
             id="stopLossPrice"
             name="stopLossPrice"
             min="0"
@@ -106,7 +106,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="[0-9]*"
+            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
             id="riskPercentage"
             name="riskPercentage"
             min="0"
@@ -127,7 +127,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="[0-9]*"
+            pattern="(0|[1-9]\d*)(\.\d{0,2})?"
             id="takeProfitPrice"
             name="takeProfitPrice"
             min="0"
