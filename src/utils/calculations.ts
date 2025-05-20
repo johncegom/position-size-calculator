@@ -29,7 +29,7 @@ export const calculatePositionSize = ({
   const stoplossPercent = stoplossPercentage(stopLossPrice, entryPrice);
   const takeprofitPercent = takeprofitPercentage(takeProfitPrice, entryPrice);
 
-  const positionSize = maxLossAmount / stoplossPercent;
+  const positionSize = formatToTwoDecimals(maxLossAmount / stoplossPercent);
   const potentialProfit = positionSize * takeprofitPercent;
   const riskRewardRatio = formatToTwoDecimals(
     takeprofitPercent / stoplossPercent

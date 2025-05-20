@@ -45,7 +45,7 @@ const CalculatorForm = () => {
           </label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             id="totalCapital"
             name="totalCapital"
@@ -65,7 +65,7 @@ const CalculatorForm = () => {
           </label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             id="entryPrice"
             name="entryPrice"
@@ -85,7 +85,7 @@ const CalculatorForm = () => {
           </label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             id="stopLossPrice"
             name="stopLossPrice"
@@ -105,7 +105,7 @@ const CalculatorForm = () => {
           </label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             id="riskPercentage"
             name="riskPercentage"
@@ -126,7 +126,7 @@ const CalculatorForm = () => {
           </label>
           <input
             type="tel"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9]*"
             id="takeProfitPrice"
             name="takeProfitPrice"
