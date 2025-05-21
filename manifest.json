@@ -1,0 +1,11 @@
+{
+  "short_name": "PositionCalc",
+  "name": "Position Size Calculator",
+  "description": "Calculate optimal trading position sizes based on risk parameters",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#3b82f6",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "categories": ["finance", "trading", "tools", "crypto"]
+}
