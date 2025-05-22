@@ -1,11 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import {
   calculatePosition,
   updateTradeParameter,
 } from "../../store/slices/calculatorSlice";
 import type { TradeParameters } from "../../types";
+
+const saveToLocalStorage = (paramName: string, value: string): void => {
+  localStorage.setItem(paramName, value);
+};
+
+const loadFromLocalStorage = (key: string) => {
+  return localStorage.getItem(key);
+};
 
 const CalculatorForm = () => {
   const { tradeParameters, calculationResult } = useSelector(
@@ -21,6 +29,19 @@ const CalculatorForm = () => {
     riskPercentage: tradeParameters.riskPercentage?.toString() || "",
     takeProfitPrice: tradeParameters.takeProfitPrice?.toString() || "",
   });
+
+  useEffect(() => {
+    const keys: string[] = Object.keys(formValues);
+    keys.forEach((key) => {
+      const value = loadFromLocalStorage(key);
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          [key]: value,
+        };
+      });
+    });
+  }, []);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,6 +79,8 @@ const CalculatorForm = () => {
             ? null
             : 0
           : parseFloat(strValue);
+
+      saveToLocalStorage(paramName, strValue);
 
       // Update the parameter in the store
       dispatch(
