@@ -25,11 +25,13 @@ const CalculatorForm = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    if (value === "" || /^(0|[1-9]\d*)(\.\d*)?$/.test(value)) {
+    const normalizedValue = value.replace(",", ".");
+
+    if (normalizedValue === "" || /^(0|[1-9]\d*)([.,]\d*)?$/.test(value)) {
       setFormValues((prev) => {
         return {
           ...prev,
-          [name]: value,
+          [name]: normalizedValue,
         };
       });
     }
@@ -72,7 +74,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d*)?"
+            pattern="(0|[1-9]\d*)([.,]\d*)?"
             id="totalCapital"
             name="totalCapital"
             min="0"
@@ -92,7 +94,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d*)?"
+            pattern="(0|[1-9]\d*)([.,]\d*)?"
             id="entryPrice"
             name="entryPrice"
             min="0"
@@ -112,7 +114,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d*)?"
+            pattern="(0|[1-9]\d*)([.,]\d*)?"
             id="stopLossPrice"
             name="stopLossPrice"
             min="0"
@@ -132,7 +134,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d*)?"
+            pattern="(0|[1-9]\d*)([.,]\d*)?"
             id="riskPercentage"
             name="riskPercentage"
             min="0"
@@ -153,7 +155,7 @@ const CalculatorForm = () => {
           <input
             type="tel"
             inputMode="decimal"
-            pattern="(0|[1-9]\d*)(\.\d*)?"
+            pattern="(0|[1-9]\d*)([.,]\d*)?"
             id="takeProfitPrice"
             name="takeProfitPrice"
             min="0"
