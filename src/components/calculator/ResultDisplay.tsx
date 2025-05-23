@@ -14,7 +14,7 @@ const ResultDisplay = () => {
           <p className="text-gray-800">
             <span className="font-medium">Position Size:</span>{" "}
             <span className="text-blue-600 font-bold">
-              {`${calculationResult.positionSize}$`}
+              {`$${calculationResult.positionSize}`}
             </span>
           </p>
         </div>
@@ -24,7 +24,7 @@ const ResultDisplay = () => {
           <p className="text-gray-800">
             <span className="font-medium">Potential Loss:</span>{" "}
             <span className="text-blue-600 font-bold">
-              {`${calculationResult.potentialLoss}$`}
+              {`$${calculationResult.potentialLoss}`}
             </span>
           </p>
         </div>
@@ -34,7 +34,7 @@ const ResultDisplay = () => {
           <p className="text-gray-800">
             <span className="font-medium">Potential Profit:</span>{" "}
             <span className="text-blue-600 font-bold">
-              {calculationResult?.potentialProfit}
+              {`$${calculationResult?.potentialProfit}`}
             </span>
           </p>
         </div>
