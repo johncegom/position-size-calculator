@@ -8,7 +8,7 @@ import {
 import type { TradeParameters } from "../../types";
 
 const saveToLocalStorage = (paramName: string, value: string): void => {
-  localStorage.setItem(paramName, value);
+  if (value !== "null") localStorage.setItem(paramName, value);
 };
 
 const loadFromLocalStorage = (key: string) => {
@@ -34,14 +34,13 @@ const CalculatorForm = () => {
     const keys: string[] = Object.keys(formValues);
     keys.forEach((key) => {
       const value = loadFromLocalStorage(key);
-      if (value) {
-        setFormValues((prev) => {
-          return {
-            ...prev,
-            [key]: value,
-          };
-        });
-      }
+      const parsedValue = value === "null" ? 0 : value;
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          [key]: parsedValue,
+        };
+      });
     });
   }, []);
 
