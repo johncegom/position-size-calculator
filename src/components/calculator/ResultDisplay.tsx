@@ -1,11 +1,6 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 
-type ResultConfig = {
-  title: string;
-  value: number | null | undefined;
-};
-
 const ResultDisplay = () => {
   const { calculationResult } = useSelector(
     (state: RootState) => state.calculator
@@ -30,6 +25,16 @@ const ResultDisplay = () => {
             <span className="font-medium">Potential Loss:</span>{" "}
             <span className="text-blue-600 font-bold">
               {`${calculationResult.potentialLoss}$`}
+            </span>
+          </p>
+        </div>
+      )}
+      {(calculationResult?.potentialProfit || null) && (
+        <div className="mt-4 p-4 bg-gray-50 rounded-md border border-gray-200">
+          <p className="text-gray-800">
+            <span className="font-medium">Potential Profit:</span>{" "}
+            <span className="text-blue-600 font-bold">
+              {calculationResult?.potentialProfit}
             </span>
           </p>
         </div>

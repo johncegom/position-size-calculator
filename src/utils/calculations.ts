@@ -27,13 +27,16 @@ export const calculatePositionSize = ({
   const riskByPercent = riskAmount(totalCapital);
   const maxLossAmount = riskByPercent(riskPercentage); // e.g: maxloss is 5% of capital
   const stoplossPercent = stoplossPercentage(stopLossPrice, entryPrice);
-  const takeprofitPercent = takeprofitPercentage(takeProfitPrice, entryPrice);
+  let potentialProfit = 0;
+  let riskRewardRatio = 0;
 
   const positionSize = formatToTwoDecimals(maxLossAmount / stoplossPercent);
-  const potentialProfit = positionSize * takeprofitPercent;
-  const riskRewardRatio = formatToTwoDecimals(
-    takeprofitPercent / stoplossPercent
-  );
+
+  if (takeProfitPrice) {
+    const takeprofitPercent = takeprofitPercentage(takeProfitPrice, entryPrice);
+    potentialProfit = formatToTwoDecimals(positionSize * takeprofitPercent);
+    riskRewardRatio = formatToTwoDecimals(takeprofitPercent / stoplossPercent);
+  }
 
   return {
     positionSize: positionSize,

@@ -12,10 +12,7 @@ const saveToLocalStorage = (paramName: string, value: string): void => {
 };
 
 const loadFromLocalStorage = (key: string) => {
-  const value = localStorage.getItem(key);
-  if (value) {
-    return value;
-  }
+  return localStorage.getItem(key);
 };
 
 const CalculatorForm = () => {
@@ -37,12 +34,14 @@ const CalculatorForm = () => {
     const keys: string[] = Object.keys(formValues);
     keys.forEach((key) => {
       const value = loadFromLocalStorage(key);
-      setFormValues((prev) => {
-        return {
-          ...prev,
-          [key]: value,
-        };
-      });
+      if (value) {
+        setFormValues((prev) => {
+          return {
+            ...prev,
+            [key]: value,
+          };
+        });
+      }
     });
   }, []);
 
