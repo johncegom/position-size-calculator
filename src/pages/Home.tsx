@@ -14,23 +14,18 @@ const Home = () => {
         </p>
       </header>
 
-      <section className="flex flex-col lg:flex gap-6">
+      <section className="flex flex-col lg:flex-row gap-6">
+        {/* Left side */}
         <aside className="w-full lg:w-2/5">
           <div className="bg-white p-4 rounded-lg shadow-md">
             <CalculatorForm />
           </div>
         </aside>
 
+        {/* Right side */}
         <article className="w-full lg:w-3/5">
-          <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-            <h2 className="text-xl font-semibold mb-4">Calculation Results</h2>
-            <ResultDisplay />
-          </div>
-
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h2 className="text-xl font-semibold mb-4">Risk/Reward Analysis</h2>
-            <RiskRewardVisual />
-          </div>
+          <ResultDisplay />
+          <RiskRewardVisual />
         </article>
       </section>
     </div>

@@ -12,11 +12,14 @@ const saveToLocalStorage = (paramName: string, value: string): void => {
 };
 
 const loadFromLocalStorage = (key: string) => {
-  return localStorage.getItem(key);
+  const value = localStorage.getItem(key);
+  if (value) {
+    return value;
+  }
 };
 
 const CalculatorForm = () => {
-  const { tradeParameters, calculationResult } = useSelector(
+  const { tradeParameters } = useSelector(
     (state: RootState) => state.calculator
   );
   const dispatch = useDispatch();
@@ -80,7 +83,7 @@ const CalculatorForm = () => {
             : 0
           : parseFloat(strValue);
 
-      saveToLocalStorage(paramName, strValue);
+      saveToLocalStorage(paramName, strValue ? strValue : "0");
 
       // Update the parameter in the store
       dispatch(
@@ -235,17 +238,6 @@ const CalculatorForm = () => {
           </button>
         </div>
       </form>
-
-      {calculationResult?.positionSize && (
-        <div className="mt-6 p-4 bg-gray-50 rounded-md border border-gray-200">
-          <p className="text-gray-700">
-            <span className="font-medium">Position Size:</span>{" "}
-            <span className="text-blue-600 font-bold">
-              {calculationResult.positionSize}
-            </span>
-          </p>
-        </div>
-      )}
     </>
   );
 };
