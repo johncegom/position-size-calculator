@@ -5,6 +5,113 @@
 
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
+import { formatToTwoDecimals } from "../../utils/formatters";
+
+const RATIO_THRESHOLDS = {
+  GOOD: 2,
+  DECENT: 1,
+};
+
+const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
+  const { GOOD, DECENT } = RATIO_THRESHOLDS;
+  if (ratio >= GOOD) {
+    return (
+      <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
+        Excellent ratio
+      </div>
+    );
+  } else if (ratio >= DECENT) {
+    return (
+      <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
+        Acceptable ratio
+      </div>
+    );
+  } else if (ratio > 0) {
+    return (
+      <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full">
+        Improve your ratio
+      </div>
+    );
+  }
+  return (
+    <div className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+      No data available
+    </div>
+  );
+};
+
+const RatioDisplay = ({ ratio }: { ratio: number }) => {
+  const { GOOD, DECENT } = RATIO_THRESHOLDS;
+  const getRatioTextColor = () => {
+    if (ratio >= GOOD) return "text-green-600";
+    if (ratio >= DECENT) return "text-yellow-600";
+    if (ratio > 0) return "text-red-600";
+    return "text-gray-600";
+  };
+
+  return (
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
+      <div>
+        <p className="text-gray-600 text-sm mb-1">Risk/Reward Ratio</p>
+        <p className={`text-2xl font-bold ${getRatioTextColor()}`}>
+          {ratio ? `1:${formatToTwoDecimals(ratio)}` : "N/A"}
+        </p>
+      </div>
+      <div className="mt-2 sm:mt-0 text-sm">
+        <RatioStatusBadge ratio={ratio} />
+      </div>
+    </div>
+  );
+};
+
+type ProgressBarType = {
+  label: string;
+  value: number;
+  width: number;
+  color: string;
+};
+
+const ProgressBar = ({ label, value, width, color }: ProgressBarType) => {
+  return (
+    <div>
+      <div className="flex justify-between mb-1">
+        <span className="text-sm font-medium">{label}</span>
+        <span className={`text-sm font-bold ${color}`}>
+          ${formatToTwoDecimals(value)}
+        </span>
+      </div>
+      <div className="h-8 bg-gray-100 rounded-lg overflow-hidden">
+        <div
+          className={`h-full ${
+            color === "text-red-600" ? "bg-red-500" : "bg-green-500"
+          } rounded-lg transition-all duration-300 ease-out`}
+          style={{ width: `${width}%` }}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
+type PriceLevelCardType = {
+  label: string;
+  value: number | null;
+  bgColor: string;
+  borderColor: string;
+};
+
+const PriceLevelCard = ({
+  label,
+  value,
+  bgColor,
+  borderColor,
+}: PriceLevelCardType) => {
+  return (
+    <div className={`${bgColor} ${borderColor} rounded-md p-2`}>
+      <p className="text-xs text-gray-500 mb-1">{label}</p>
+      <p className="font-semibold">${value || "N/A"}</p>
+    </div>
+  );
+};
 
 const RiskRewardVisual = () => {
   const { calculationResult, tradeParameters } = useSelector(
@@ -16,11 +123,6 @@ const RiskRewardVisual = () => {
   const rewardAmount = calculationResult?.potentialProfit || 0;
   const ratio = calculationResult?.riskRewardRatio || 0;
 
-  // Determine ratio quality
-  const isGoodRatio = ratio >= 2;
-  const isDecentRatio = ratio >= 1 && ratio < 2;
-  const isPoorRatio = ratio > 0 && ratio < 1;
-
   // Calculate bar widths (relative to each other)
   const maxValue = Math.max(riskAmount, rewardAmount);
   const riskWidth = maxValue > 0 ? (riskAmount / maxValue) * 100 : 0;
@@ -31,105 +133,47 @@ const RiskRewardVisual = () => {
       <h2 className="text-xl font-semibold mb-4">Risk/Reward Analysis</h2>
 
       {/* Ratio display with color coding */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
-        <div>
-          <p className="text-gray-600 text-sm mb-1">Risk/Reward Ratio</p>
-          <p
-            className={`text-2xl font-bold ${
-              isGoodRatio
-                ? "text-green-600"
-                : isDecentRatio
-                ? "text-yellow-600"
-                : isPoorRatio
-                ? "text-red-600"
-                : "text-gray-600"
-            }`}
-          >
-            {ratio ? `1:${ratio.toFixed(2)}` : "N/A"}
-          </p>
-        </div>
-
-        <div className="mt-2 sm:mt-0 text-sm">
-          {isGoodRatio && (
-            <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-              Excellent ratio
-            </div>
-          )}
-          {isDecentRatio && (
-            <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
-              Acceptable ratio
-            </div>
-          )}
-          {isPoorRatio && (
-            <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full">
-              Improve your ratio
-            </div>
-          )}
-          {!ratio && (
-            <div className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
-              No data available
-            </div>
-          )}
-        </div>
-      </div>
+      <RatioDisplay ratio={ratio} />
 
       {/* Visual comparison bars */}
       <div className="space-y-4 mb-6">
         {/* Risk visualization */}
-        <div>
-          <div className="flex justify-between mb-1">
-            <span className="text-sm font-medium">Risk</span>
-            <span className="text-sm font-bold text-red-600">
-              ${riskAmount.toFixed(2)}
-            </span>
-          </div>
-          <div className="h-8 bg-gray-100 rounded-lg overflow-hidden">
-            <div
-              className="h-full bg-red-500 rounded-lg transition-all duration-300 ease-out"
-              style={{ width: `${riskWidth}%` }}
-            ></div>
-          </div>
-        </div>
-
+        <ProgressBar
+          label="Risk"
+          value={riskAmount}
+          width={riskWidth}
+          color="text-red-600"
+        />
         {/* Reward visualization */}
-        <div>
-          <div className="flex justify-between mb-1">
-            <span className="text-sm font-medium">Potential Reward</span>
-            <span className="text-sm font-bold text-green-600">
-              ${rewardAmount.toFixed(2)}
-            </span>
-          </div>
-          <div className="h-8 bg-gray-100 rounded-lg overflow-hidden">
-            <div
-              className="h-full bg-green-500 rounded-lg transition-all duration-300 ease-out"
-              style={{ width: `${rewardWidth}%` }}
-            ></div>
-          </div>
-        </div>
+        <ProgressBar
+          label="Potential Reward"
+          value={rewardAmount}
+          width={rewardWidth}
+          color="text-green-600"
+        />
       </div>
 
       {/* Price levels grid */}
       <div className="grid grid-cols-3 gap-2 text-center mt-6">
-        <div className="bg-red-50 border border-red-100 rounded-md p-2">
-          <p className="text-xs text-gray-500 mb-1">Stop Loss</p>
-          <p className="font-semibold">
-            ${tradeParameters.stopLossPrice || "N/A"}
-          </p>
-        </div>
+        <PriceLevelCard
+          label="Stop Loss"
+          value={tradeParameters.stopLossPrice}
+          bgColor="bg-red-50"
+          borderColor="border border-red-100 "
+        />
+        <PriceLevelCard
+          label="Entry Price"
+          value={tradeParameters.entryPrice}
+          bgColor="bg-blue-50"
+          borderColor="border border-blue-100"
+        />
 
-        <div className="bg-blue-50 border border-blue-100 rounded-md p-2">
-          <p className="text-xs text-gray-500 mb-1">Entry</p>
-          <p className="font-semibold">
-            ${tradeParameters.entryPrice || "N/A"}
-          </p>
-        </div>
-
-        <div className="bg-green-50 border border-green-100 rounded-md p-2">
-          <p className="text-xs text-gray-500 mb-1">Take Profit</p>
-          <p className="font-semibold">
-            ${tradeParameters.takeProfitPrice || "N/A"}
-          </p>
-        </div>
+        <PriceLevelCard
+          label="Take Profit"
+          value={tradeParameters.takeProfitPrice}
+          bgColor="bg-green-50"
+          borderColor="border border-green-100"
+        />
       </div>
 
       {/* Trading tip */}
