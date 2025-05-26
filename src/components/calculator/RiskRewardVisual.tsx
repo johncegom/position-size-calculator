@@ -64,14 +64,14 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
   );
 };
 
-type ProgressBarType = {
+type ProgressBarProps = {
   label: string;
   value: number;
   width: number;
   color: string;
 };
 
-const ProgressBar = ({ label, value, width, color }: ProgressBarType) => {
+const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
   return (
     <div>
       <div className="flex justify-between mb-1">
@@ -92,7 +92,7 @@ const ProgressBar = ({ label, value, width, color }: ProgressBarType) => {
   );
 };
 
-type PriceLevelCardType = {
+type PriceLevelCardProps = {
   label: string;
   value: number | null;
   bgColor: string;
@@ -104,7 +104,7 @@ const PriceLevelCard = ({
   value,
   bgColor,
   borderColor,
-}: PriceLevelCardType) => {
+}: PriceLevelCardProps) => {
   return (
     <div className={`${bgColor} ${borderColor} rounded-md p-2`}>
       <p className="text-xs text-gray-500 mb-1">{label}</p>
