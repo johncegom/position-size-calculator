@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { formatToTwoDecimals } from "../../utils/formatters";
+import { useTranslation } from "react-i18next";
 
 type ResultItemProps = {
   label: string;
@@ -24,14 +25,15 @@ const ResultDisplay = () => {
   const { calculationResult } = useSelector(
     (state: RootState) => state.calculator
   );
+  const { t } = useTranslation();
 
   if (!calculationResult) {
     return (
       <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold mb-4">Calculation Results</h2>
-        <p className="text-gray-500 italic">
-          Enter your trade parameters and click Calculate to see results.
-        </p>
+        <h2 className="text-xl font-semibold mb-4">
+          {t("calculator.resultsTitle")}
+        </h2>
+        <p className="text-gray-500 italic">{t("calculator.noResults")}</p>
       </div>
     );
   }
@@ -40,17 +42,25 @@ const ResultDisplay = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-      <h2 className="text-xl font-semibold mb-4">Calculation Results</h2>
+      <h2 className="text-xl font-semibold mb-4">
+        {t("calculator.resultsTitle")}
+      </h2>
       {positionSize > 0 && (
-        <ResultItem label="Position Size" value={positionSize} />
+        <ResultItem label={t("calculator.positionSize")} value={positionSize} />
       )}
 
       {potentialLoss > 0 && (
-        <ResultItem label="Potential Loss" value={potentialLoss} />
+        <ResultItem
+          label={t("calculator.potentialLoss")}
+          value={potentialLoss}
+        />
       )}
 
       {potentialProfit > 0 && (
-        <ResultItem label="Potential Profit" value={potentialProfit} />
+        <ResultItem
+          label={t("calculator.potentialProfit")}
+          value={potentialProfit}
+        />
       )}
     </div>
   );

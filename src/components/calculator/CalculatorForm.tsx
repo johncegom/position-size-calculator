@@ -6,6 +6,7 @@ import {
   updateTradeParameter,
 } from "../../store/slices/calculatorSlice";
 import type { TradeParameters } from "../../types";
+import { useTranslation } from "react-i18next";
 
 const saveToLocalStorage = (paramName: string, value: string): void => {
   if (value !== "null") localStorage.setItem(paramName, value);
@@ -20,6 +21,7 @@ const CalculatorForm = () => {
     (state: RootState) => state.calculator
   );
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   // Local form state for handling input
   const [formValues, setFormValues] = useState({
@@ -108,7 +110,7 @@ const CalculatorForm = () => {
             id="totalCapitalLabel"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Total Trading Capital ($)
+            {t("calculator.totalCapital")}
           </label>
           <input
             type="tel"
@@ -133,7 +135,7 @@ const CalculatorForm = () => {
             id="entryPriceLabel"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Entry Price ($)
+            {t("calculator.entryPrice")}
           </label>
           <input
             type="tel"
@@ -158,7 +160,7 @@ const CalculatorForm = () => {
             id="stopLossPriceLabel"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Stop-Loss Price ($)
+            {t("calculator.stopLossPrice")}
           </label>
           <input
             type="tel"
@@ -183,7 +185,7 @@ const CalculatorForm = () => {
             id="riskPercentageLabel"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Risk Percentage (%)
+            {t("calculator.riskPercentage")}
           </label>
           <input
             type="tel"
@@ -209,7 +211,7 @@ const CalculatorForm = () => {
             id="takeProfitPriceLabel"
             className="block text-sm font-medium text-gray-700 mb-1"
           >
-            Take-Profit Price ($) (Optional)
+            {t("calculator.takeProfitPrice")}
           </label>
           <input
             type="tel"
@@ -232,7 +234,7 @@ const CalculatorForm = () => {
             aria-label="Calculate Position Size"
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            Calculate
+            {t("calculator.calculateButton")}
           </button>
         </div>
       </form>

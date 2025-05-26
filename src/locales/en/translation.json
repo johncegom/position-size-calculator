@@ -1,0 +1,46 @@
+{
+  "header": {
+    "title": "Position Size Calculator",
+    "titleShort": "PSC",
+    "risk": "Risk:",
+    "capital": "Capital:",
+    "toggleTheme": "Toggle theme",
+    "openSettings": "Open settings",
+    "settings": "Settings",
+    "closeSettings": "Close settings",
+    "settingsPlaceholder": "Settings form will be implemented in Task 4"
+  },
+  "calculator": {
+    "title": "Position Size Calculator",
+    "subtitle": "Calculate optimal trade sizes based on your risk tolerance",
+    "totalCapital": "Total Trading Capital ($)",
+    "entryPrice": "Entry Price ($)",
+    "stopLossPrice": "Stop-Loss Price ($)",
+    "riskPercentage": "Risk Percentage (%)",
+    "takeProfitPrice": "Take-Profit Price ($) (Optional)",
+    "calculateButton": "Calculate",
+    "resultsTitle": "Calculation Results",
+    "noResults": "Enter your trade parameters and click Calculate to see results.",
+    "positionSize": "Position Size",
+    "potentialLoss": "Potential Loss",
+    "potentialProfit": "Potential Profit"
+  },
+  "riskReward": {
+    "title": "Risk/Reward Analysis",
+    "ratio": "Risk/Reward Ratio",
+    "excellentRatio": "Excellent ratio",
+    "acceptableRatio": "Acceptable ratio",
+    "improveRatio": "Improve your ratio",
+    "noData": "No data available",
+    "risk": "Risk",
+    "potentialReward": "Potential Reward",
+    "stopLoss": "Stop Loss",
+    "entryPrice": "Entry Price",
+    "takeProfit": "Take Profit",
+    "tradingTip": "💡 Trading Tip:",
+    "tipText": "Professional traders typically aim for a risk/reward ratio of at least 1:2 or better. This means risking $1 to potentially gain $2, improving your chances of long-term profitability."
+  },
+  "common": {
+    "language": "Language"
+  }
+}

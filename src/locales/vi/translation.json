@@ -1,0 +1,46 @@
+{
+  "header": {
+    "title": "Công Cụ Tính Kích Thước Vị Thế",
+    "titleShort": "Tính Vị Thế",
+    "risk": "Rủi ro:",
+    "capital": "Vốn:",
+    "toggleTheme": "Chuyển đổi giao diện",
+    "openSettings": "Mở cài đặt",
+    "settings": "Cài đặt",
+    "closeSettings": "Đóng cài đặt",
+    "settingsPlaceholder": "Form cài đặt sẽ được triển khai trong Task 4"
+  },
+  "calculator": {
+    "title": "Công Cụ Tính Kích Thước Vị Thế",
+    "subtitle": "Tính toán kích thước giao dịch tối ưu dựa trên khả năng chịu rủi ro của bạn",
+    "totalCapital": "Tổng Vốn Giao Dịch ($)",
+    "entryPrice": "Giá Vào Lệnh ($)",
+    "stopLossPrice": "Giá Cắt Lỗ ($)",
+    "riskPercentage": "Tỷ Lệ Rủi Ro (%)",
+    "takeProfitPrice": "Giá Chốt Lời ($) (Tùy chọn)",
+    "calculateButton": "Tính Toán",
+    "resultsTitle": "Kết Quả Tính Toán",
+    "noResults": "Nhập các thông số giao dịch và nhấn Tính Toán để xem kết quả.",
+    "positionSize": "Kích Thước Vị Thế",
+    "potentialLoss": "Thua Lỗ Tiềm Năng",
+    "potentialProfit": "Lợi Nhuận Tiềm Năng"
+  },
+  "riskReward": {
+    "title": "Phân Tích Rủi Ro/Lợi Nhuận",
+    "ratio": "Tỷ Lệ Rủi Ro/Lợi Nhuận",
+    "excellentRatio": "Tỷ lệ xuất sắc",
+    "acceptableRatio": "Tỷ lệ tạm chấp nhận",
+    "improveRatio": "Cải thiện tỷ lệ của bạn",
+    "noData": "Không có dữ liệu",
+    "risk": "Rủi Ro",
+    "potentialReward": "Lợi Nhuận Tiềm Năng",
+    "stopLoss": "Cắt Lỗ",
+    "entryPrice": "Giá Vào",
+    "takeProfit": "Chốt Lời",
+    "tradingTip": "💡 Mẹo Giao Dịch:",
+    "tipText": "Các nhà giao dịch chuyên nghiệp thường hướng đến tỷ lệ rủi ro/lợi nhuận ít nhất là 1:2 hoặc tốt hơn. Điều này có nghĩa là rủi ro $1 để có khả năng kiếm được $2, cải thiện cơ hội sinh lời dài hạn của bạn."
+  },
+  "common": {
+    "language": "Ngôn ngữ"
+  }
+}

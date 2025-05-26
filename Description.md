@@ -41,6 +41,15 @@ Many traders struggle to determine how much capital to risk per trade. This tool
   - Dollar amount at risk
   - Risk-to-Reward ratio
 
+### Trade Journal Integration
+
+- Save calculated trades to personal journal
+- Track actual execution vs. planned parameters
+- Performance analytics dashboard
+- Win/loss tracking with visual reports
+- Strategy performance comparison
+- Export functionality for external analysis
+
 ### Settings & Preferences
 
 - Save default risk % and capital using Redux
@@ -51,7 +60,7 @@ Many traders struggle to determine how much capital to risk per trade. This tool
 
 - Store input values and settings globally
 - LocalStorage middleware for persistence
-- Slice separation: calculatorSlice, themeSlice
+- Slice separation: calculatorSlice, themeSlice, journalSlice
 
 ### Responsive UI
 

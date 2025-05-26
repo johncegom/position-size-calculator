@@ -6,6 +6,7 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { formatToTwoDecimals } from "../../utils/formatters";
+import { useTranslation } from "react-i18next";
 
 const RATIO_THRESHOLDS = {
   GOOD: 2,
@@ -14,34 +15,38 @@ const RATIO_THRESHOLDS = {
 
 const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
   const { GOOD, DECENT } = RATIO_THRESHOLDS;
+  const { t } = useTranslation();
+
   if (ratio >= GOOD) {
     return (
       <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-        Excellent ratio
+        {t("riskReward.excellentRatio")}
       </div>
     );
   } else if (ratio >= DECENT) {
     return (
       <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full">
-        Acceptable ratio
+        {t("riskReward.acceptableRatio")}
       </div>
     );
   } else if (ratio > 0) {
     return (
       <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full">
-        Improve your ratio
+        {t("riskReward.improveRatio")}
       </div>
     );
   }
   return (
     <div className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
-      No data available
+      {t("riskReward.noData")}
     </div>
   );
 };
 
 const RatioDisplay = ({ ratio }: { ratio: number }) => {
   const { GOOD, DECENT } = RATIO_THRESHOLDS;
+  const { t } = useTranslation();
+
   const getRatioTextColor = () => {
     if (ratio >= GOOD) return "text-green-600";
     if (ratio >= DECENT) return "text-yellow-600";
@@ -52,7 +57,7 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
       <div>
-        <p className="text-gray-600 text-sm mb-1">Risk/Reward Ratio</p>
+        <p className="text-gray-600 text-sm mb-1">{t("riskReward.ratio")}</p>
         <p className={`text-2xl font-bold ${getRatioTextColor()}`}>
           {ratio ? `1:${formatToTwoDecimals(ratio)}` : "N/A"}
         </p>
@@ -117,6 +122,7 @@ const RiskRewardVisual = () => {
   const { calculationResult, tradeParameters } = useSelector(
     (state: RootState) => state.calculator
   );
+  const { t } = useTranslation();
 
   // Extract and calculate values for visualization
   const riskAmount = calculationResult?.potentialLoss || 0;
@@ -130,7 +136,7 @@ const RiskRewardVisual = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Risk/Reward Analysis</h2>
+      <h2 className="text-xl font-semibold mb-4">{t("riskReward.title")}</h2>
 
       {/* Ratio display with color coding */}
       <RatioDisplay ratio={ratio} />
@@ -139,14 +145,14 @@ const RiskRewardVisual = () => {
       <div className="space-y-4 mb-6">
         {/* Risk visualization */}
         <ProgressBar
-          label="Risk"
+          label={t("riskReward.risk")}
           value={riskAmount}
           width={riskWidth}
           color="text-red-600"
         />
         {/* Reward visualization */}
         <ProgressBar
-          label="Potential Reward"
+          label={t("riskReward.potentialReward")}
           value={rewardAmount}
           width={rewardWidth}
           color="text-green-600"
@@ -156,20 +162,20 @@ const RiskRewardVisual = () => {
       {/* Price levels grid */}
       <div className="grid grid-cols-3 gap-2 text-center mt-6">
         <PriceLevelCard
-          label="Stop Loss"
+          label={t("riskReward.stopLoss")}
           value={tradeParameters.stopLossPrice}
           bgColor="bg-red-50"
           borderColor="border border-red-100 "
         />
         <PriceLevelCard
-          label="Entry Price"
+          label={t("riskReward.entryPrice")}
           value={tradeParameters.entryPrice}
           bgColor="bg-blue-50"
           borderColor="border border-blue-100"
         />
 
         <PriceLevelCard
-          label="Take Profit"
+          label={t("riskReward.takeProfit")}
           value={tradeParameters.takeProfitPrice}
           bgColor="bg-green-50"
           borderColor="border border-green-100"
@@ -178,12 +184,8 @@ const RiskRewardVisual = () => {
 
       {/* Trading tip */}
       <div className="mt-6 bg-blue-50 border border-blue-100 rounded-md p-3 text-xs text-gray-700">
-        <p className="font-medium mb-1">💡 Trading Tip:</p>
-        <p>
-          Professional traders typically aim for a risk/reward ratio of at least
-          1:2 or better. This means risking $1 to potentially gain $2, improving
-          your chances of long-term profitability.
-        </p>
+        <p className="font-medium mb-1">{t("riskReward.tradingTip")}</p>
+        <p>{t("riskReward.tipText")}</p>
       </div>
     </div>
   );

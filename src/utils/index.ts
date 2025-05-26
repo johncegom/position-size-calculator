@@ -1,7 +1,7 @@
-// Questions to consider:
-// - Should utility functions be grouped by category or purpose?
-// - Would namespacing help organize related utility functions?
-// - How can we structure exports to support effective tree-shaking?
-// - Should constants be exported alongside their related functions?
+export const saveToLocalStorage = (paramName: string, value: string): void => {
+  if (value !== "null") localStorage.setItem(paramName, value);
+};
 
-// TODO: Export utility functions
+export const loadFromLocalStorage = (key: string) => {
+  return localStorage.getItem(key);
+};
