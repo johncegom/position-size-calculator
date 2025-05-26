@@ -232,7 +232,7 @@ const CalculatorForm = () => {
           <button
             type="submit"
             aria-label="Calculate Position Size"
-            className="w-full bg-blue-500 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="w-full bg-blue-500 hover:bg-blue-700 active:bg-blue-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
           >
             {t("calculator.calculateButton")}
           </button>
