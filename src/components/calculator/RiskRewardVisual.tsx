@@ -124,7 +124,7 @@ const PriceLevelCard = ({
   return (
     <div className={`${bgColor} ${borderColor} rounded-md p-2`}>
       <p className="text-xs text-gray-500 mb-1">{label}</p>
-      <p className="font-semibold">${formatValue || "N/A"}</p>
+      <p className="font-semibold">{formatValue ? `$${formatValue}` : "N/A"}</p>
     </div>
   );
 };
