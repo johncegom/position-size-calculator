@@ -1,9 +1,6 @@
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import {
-  formatToEightDecimals,
-  formatToTwoDecimals,
-} from "../../utils/formatters";
+import { formatToTwoDecimals } from "../../utils/formatters";
 import { useTranslation } from "react-i18next";
 
 type ResultItemProps = {
