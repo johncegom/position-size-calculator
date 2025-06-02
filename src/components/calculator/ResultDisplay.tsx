@@ -29,7 +29,7 @@ const ResultDisplay = () => {
 
   if (!calculationResult) {
     return (
-      <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+      <div className="bg-white p-4 rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">
           {t("calculator.resultsTitle")}
         </h2>
@@ -41,7 +41,7 @@ const ResultDisplay = () => {
   const { positionSize, potentialLoss, potentialProfit } = calculationResult;
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
+    <div className="bg-white p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">
         {t("calculator.resultsTitle")}
       </h2>

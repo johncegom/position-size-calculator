@@ -24,7 +24,7 @@ const Home = () => {
         </aside>
 
         {/* Right side */}
-        <article className="w-full lg:w-3/5">
+        <article className="w-full lg:w-3/5 flex flex-col gap-7">
           <ResultDisplay />
           <RiskRewardVisual />
           <RiskRewardSimulator />
