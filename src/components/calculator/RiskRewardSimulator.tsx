@@ -96,9 +96,7 @@ const RiskRewardSimulator = () => {
               {" "}
               {t("simulator.takeProfitPrice")}
             </span>
-            <span className="font-medium">
-              ${formatToTwoDecimals(scenario.takeProfitPrice)}
-            </span>
+            <span className="font-medium">${scenario.takeProfitPrice}</span>
           </div>
 
           <div className="flex justify-between">
@@ -152,7 +150,7 @@ const RiskRewardSimulator = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
+      <div className="flex flex-col  items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">{t("simulator.title")}</h2>
         <div className="text-sm text-gray-500">
           {t("simulator.positionLabel")} ${formatToTwoDecimals(positionSize)}

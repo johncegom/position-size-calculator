@@ -8,8 +8,8 @@ interface Language {
 }
 
 const SUPPORTED_LANGUAGES: Language[] = [
-  { code: "en", name: "English", flag: "🇺🇸" },
-  { code: "vi", name: "Tiếng Việt", flag: "🇻🇳" },
+  { code: "en", name: "English" },
+  { code: "vi", name: "Tiếng Việt" },
 ];
 
 const LanguageSwitch = () => {
@@ -35,7 +35,6 @@ const LanguageSwitch = () => {
         className="flex items-center space-x-2 p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
         aria-label={t("common.language")}
       >
-        <span className="text-lg">{currentLanguage.flag}</span>
         <span className="hidden sm:block text-sm font-medium">
           {currentLanguage.code.toUpperCase()}
         </span>
