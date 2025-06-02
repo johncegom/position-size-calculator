@@ -7,11 +7,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { formatToTwoDecimals } from "../../utils/formatters";
 import { useTranslation } from "react-i18next";
-
-const RATIO_THRESHOLDS = {
-  GOOD: 2,
-  DECENT: 1,
-};
+import { RATIO_THRESHOLDS } from "../../constants/ratioThresholds";
 
 const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
   const { GOOD, DECENT } = RATIO_THRESHOLDS;

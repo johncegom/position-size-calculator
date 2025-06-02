@@ -40,6 +40,21 @@
     "tradingTip": "💡 Trading Tip:",
     "tipText": "Professional traders typically aim for a risk/reward ratio of at least 1:2 or better. This means risking $1 to potentially gain $2, improving your chances of long-term profitability."
   },
+  "simulator": {
+    "title": "Risk/Reward Scenarios",
+    "subtitle": "Compare different risk/reward ratios based on your current trade setup:",
+    "positionLabel": "Position:",
+    "takeProfitPrice": "Take Profit Price:",
+    "potentialProfit": "Potential Profit:",
+    "profitPercentage": "Profit %:",
+    "riskAmount": "Risk Amount:",
+    "good": "Good",
+    "fair": "Fair",
+    "risk": "Risk",
+    "reward": "Reward",
+    "simulationTip": "💡 Simulation Tip:",
+    "simulationTipText": "These scenarios show potential outcomes based on different take-profit levels. A 1:2 or 1:3 ratio is generally preferred by professional traders for better long-term profitability."
+  },
   "common": {
     "language": "Language"
   }

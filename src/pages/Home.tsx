@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import CalculatorForm from "../components/calculator/CalculatorForm";
 import ResultDisplay from "../components/calculator/ResultDisplay";
 import RiskRewardVisual from "../components/calculator/RiskRewardVisual";
+import RiskRewardSimulator from "../components/calculator/RiskRewardSimulator";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ const Home = () => {
         <article className="w-full lg:w-3/5">
           <ResultDisplay />
           <RiskRewardVisual />
+          <RiskRewardSimulator />
         </article>
       </section>
     </div>
