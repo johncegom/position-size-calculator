@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 interface Language {
   code: string;
   name: string;
-  flag: string;
 }
 
 const SUPPORTED_LANGUAGES: Language[] = [
@@ -74,7 +73,6 @@ const LanguageSwitch = () => {
                   }`}
                   role="menuitem"
                 >
-                  <span className="mr-3 text-lg">{language.flag}</span>
                   <span>{language.name}</span>
                   {i18n.language === language.code && (
                     <svg
