@@ -12,6 +12,16 @@ export const formatToTwoDecimals = (value: number): number => {
   return parseFloat(value.toFixed(2));
 };
 
+export const formatToEightDecimals = (value: number): string => {
+  if (value === 0) return "0";
+
+  // Always use toFixed to avoid scientific notation, then remove trailing zeros
+  const fixed = value.toFixed(8);
+
+  // Remove trailing zeros and decimal point if not needed
+  return fixed.replace(/\.?0+$/, "");
+};
+
 export const convertToDecimal = (percentage: number) => {
   return percentage / 100;
 };

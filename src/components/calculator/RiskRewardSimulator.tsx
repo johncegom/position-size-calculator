@@ -2,7 +2,10 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import { useTranslation } from "react-i18next";
 import { calculateTakeProfitPrice } from "../../utils/calculations";
-import { formatToTwoDecimals } from "../../utils/formatters";
+import {
+  formatToEightDecimals,
+  formatToTwoDecimals,
+} from "../../utils/formatters";
 import { RATIO_THRESHOLDS } from "../../constants/ratioThresholds";
 
 interface SimulationScenario {
@@ -93,10 +96,11 @@ const RiskRewardSimulator = () => {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-gray-600">
-              {" "}
               {t("simulator.takeProfitPrice")}
             </span>
-            <span className="font-medium">${scenario.takeProfitPrice}</span>
+            <span className="font-medium">
+              ${formatToEightDecimals(scenario.takeProfitPrice)}
+            </span>
           </div>
 
           <div className="flex justify-between">
@@ -150,7 +154,7 @@ const RiskRewardSimulator = () => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <div className="flex flex-col  items-center justify-between mb-4">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">{t("simulator.title")}</h2>
         <div className="text-sm text-gray-500">
           {t("simulator.positionLabel")} ${formatToTwoDecimals(positionSize)}

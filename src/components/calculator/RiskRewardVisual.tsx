@@ -5,7 +5,10 @@
 
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
-import { formatToTwoDecimals } from "../../utils/formatters";
+import {
+  formatToEightDecimals,
+  formatToTwoDecimals,
+} from "../../utils/formatters";
 import { useTranslation } from "react-i18next";
 import { RATIO_THRESHOLDS } from "../../constants/ratioThresholds";
 
@@ -72,6 +75,17 @@ type ProgressBarProps = {
   color: string;
 };
 
+/**
+ * A progress bar component that displays a labeled value with a visual bar representation.
+ *
+ * @param props - The properties for the ProgressBar component
+ * @param props.label - The text label displayed above the progress bar
+ * @param props.value - The numeric value to display, formatted to 8 decimal places with currency symbol
+ * @param props.width - The width percentage (0-100) that determines how much of the bar is filled
+ * @param props.color - The text color class for the value display, also determines bar color (red for "text-red-600", green otherwise)
+ *
+ * @returns A JSX element containing a labeled progress bar with formatted value display
+ */
 const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
   return (
     <div>
@@ -106,10 +120,11 @@ const PriceLevelCard = ({
   bgColor,
   borderColor,
 }: PriceLevelCardProps) => {
+  const formatValue = value ? formatToEightDecimals(value) : null;
   return (
     <div className={`${bgColor} ${borderColor} rounded-md p-2`}>
       <p className="text-xs text-gray-500 mb-1">{label}</p>
-      <p className="font-semibold">${value || "N/A"}</p>
+      <p className="font-semibold">${formatValue || "N/A"}</p>
     </div>
   );
 };
