@@ -119,7 +119,6 @@ const CalculatorForm = () => {
             id="totalCapital"
             name="totalCapital"
             min="0"
-            step="0.01"
             required
             aria-labelledby="totalCapitalLabel"
             aria-required="true"
@@ -144,7 +143,6 @@ const CalculatorForm = () => {
             id="entryPrice"
             name="entryPrice"
             min="0"
-            step="0.0001"
             required
             aria-labelledby="entryPriceLabel"
             aria-required="true"
@@ -169,7 +167,6 @@ const CalculatorForm = () => {
             id="stopLossPrice"
             name="stopLossPrice"
             min="0"
-            step="0.0001"
             required
             aria-labelledby="stopLossPriceLabel"
             aria-required="true"
@@ -195,7 +192,6 @@ const CalculatorForm = () => {
             name="riskPercentage"
             min="0"
             max="100"
-            step="0.1"
             required
             aria-labelledby="riskPercentageLabel"
             aria-required="true"
@@ -220,7 +216,6 @@ const CalculatorForm = () => {
             id="takeProfitPrice"
             name="takeProfitPrice"
             min="0"
-            step="0.0001"
             aria-labelledby="takeProfitPriceLabel"
             value={formValues.takeProfitPrice || ""}
             onChange={handleInputChange}

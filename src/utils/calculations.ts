@@ -1,5 +1,5 @@
 import type { TradeParameters, CalculationResult } from "../types";
-import { normalizePercentage } from "./formatters";
+import { convertToDecimal } from "./formatters";
 
 /**
  * Creates a curried function to calculate risk amount based on total capital and risk percentage.
@@ -13,7 +13,7 @@ import { normalizePercentage } from "./formatters";
 const riskAmount =
   (totalCapital: number) =>
   (riskPercentage: number): number => {
-    return totalCapital * normalizePercentage(riskPercentage);
+    return totalCapital * convertToDecimal(riskPercentage);
   };
 
 /**
@@ -115,6 +115,26 @@ export const calculatePositionSize = ({
   stopLossPrice,
   takeProfitPrice = null,
 }: TradeParameters): CalculationResult => {
+  if (
+    !isFinite(totalCapital) ||
+    !isFinite(riskPercentage) ||
+    !isFinite(entryPrice) ||
+    !isFinite(stopLossPrice) ||
+    totalCapital <= 0 ||
+    riskPercentage <= 0 ||
+    riskPercentage > 100 ||
+    entryPrice <= 0 ||
+    stopLossPrice <= 0
+  ) {
+    throw new Error(
+      "All inputs must be positive numbers. Risk % must be between 0 and 100."
+    );
+  }
+
+  if (entryPrice === stopLossPrice) {
+    throw new Error("Entry price and stop loss price cannot be equal.");
+  }
+
   const riskByPercent = riskAmount(totalCapital);
   const maxLossAmount = riskByPercent(riskPercentage); // e.g: maxloss is 5% of capital
   const stoplossPercent = stoplossPercentage(stopLossPrice, entryPrice);

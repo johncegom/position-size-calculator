@@ -1,13 +1,3 @@
-// Questions to consider:
-// - How should currency values be formatted?
-// - How will percentages be displayed?
-// - Should we use locale-specific formatting?
-// - Would rounding be helpful for display values?
-
-// TODO: Implement formatting utilities
-
-// Utility functions for formatting values will be implemented later
-
 export const formatToTwoDecimals = (value: number): number => {
   return parseFloat(value.toFixed(2));
 };
@@ -22,6 +12,12 @@ export const formatToEightDecimals = (value: number): string => {
   return fixed.replace(/\.?0+$/, "");
 };
 
+/**
+ * Converts a percentage value to its decimal representation.
+ *
+ * @param percentage - The percentage value to convert (e.g., 25 for 25%).
+ * @returns The decimal equivalent of the percentage (e.g., 0.25 for 25%).
+ */
 export const convertToDecimal = (percentage: number) => {
   return percentage / 100;
 };

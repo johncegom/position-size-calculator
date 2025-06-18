@@ -1,67 +1,96 @@
-# Position Size Calculator
+# 📊 Position Size Calculator
 
-A React/TypeScript application for traders to calculate optimal position sizes based on risk management principles. Now powered by Redux for state management.
+A modern React + TypeScript app for traders to calculate optimal position sizes using robust risk management. Powered by Redux Toolkit and TailwindCSS.
 
-## Overview
+---
 
-This application helps traders determine the appropriate position size for trades based on their total capital, risk tolerance, and price levels (entry, stop-loss, take-profit). It uses the following formula:
+## 🚀 Quick Start
 
+```sh
+git clone https://github.com/your-username/position-size-calculator.git
+cd position-size-calculator
+npm install
+npm run dev
 ```
-Position Size = (Total Capital × Risk Percentage) ÷ |Entry Price - Stop Loss Price|
-```
 
-Redux is used to manage global state, enabling features like persistent user settings, input history, and reusable calculations across components.
+---
 
-## Features
+## 🧩 Features
 
-- 🔢 Input fields for trading parameters (entry, stop-loss, take-profit prices)
-- ⚙️ Customizable risk percentage and capital settings (stored via Redux)
-- 📈 Position size calculation with real-time updates
-- 📊 Visual risk/reward ratio display using dynamic progress bars or charts
-- 🕹️ Interactive sliders for adjusting risk percentage or leverage (optional)
-- 💾 Input history or saved configurations for different assets (powered by Redux)
-- 📱 Responsive design for desktop and mobile use
+- **Position Size Calculation**: Based on capital, entry, stop-loss, take-profit, and risk %.
+- **Risk/Reward Visualization**: Dynamic charts and progress bars.
+- **Redux State Management**: Global state, persistent settings, and input history.
+- **Internationalization**: Multi-language support (EN, VI).
+- **Responsive UI**: Mobile-first, TailwindCSS-powered.
+- **Local Storage Persistence**: Remembers your preferences and last-used values.
+- **Trade Outcome Simulation**: Visualize profit/loss scenarios.
+- **Extensible**: Modular codebase for easy feature addition.
 
-## Recommended Additional Features
+---
 
-To increase usability and learning value for traders:
+## 🛠️ Tech Stack
 
-- 🧠 Basic trade outcome simulation (e.g., profit/loss if TP/SL is hit)
-- ☁️ Local storage persistence (sync Redux store with local storage)
-- 🗃️ Add multiple calculators for managing several trades
-- 🌐 Currency selector or FX converter integration
-- 📤 Export to CSV/JSON (for journaling trades)
+- [React 19](https://react.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TailwindCSS 4](https://tailwindcss.com/)
+- [Vite](https://vitejs.dev/)
 
-## Technical Stack
+---
 
-- React 19 (Functional Components + Hooks)
-- Redux Toolkit + React-Redux
-- TypeScript
-- TailwindCSS 4
-- Vite
-
-## Project Structure
+## 🗂️ Project Structure
 
 ```
 src/
-├── components/           # UI components
-│   ├── layout/           # Layout components (Header, Footer)
-│   └── calculator/       # Calculator-specific components
-├── hooks/                # Custom React hooks
-├── pages/                # Page components (e.g., Home, Settings)
-├── redux/                # Redux slices and store setup
-│   ├── calculatorSlice.ts
-│   └── store.ts
-├── types/                # TypeScript type definitions
-└── utils/                # Utility functions for calculations
+├── components/      # UI components (layout, calculator, common)
+├── hooks/           # Custom React hooks
+├── pages/           # Page components (Home, etc.)
+├── store/           # Redux slices and store setup
+├── types/           # TypeScript types/interfaces
+├── utils/           # Calculation and formatting helpers
+└── locales/         # i18n translation files
 ```
 
-## Getting Started
+---
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
+## 🧪 Formula
 
-## License
+```
+Position Size = (Capital × Risk %) ÷ |Entry Price - Stop Loss Price|
+```
+
+Example:
+
+- Capital = $10,000
+- Risk % = 2%
+- Entry = $100
+- SL = $95
+
+Result: `(10,000 × 0.02) / 5 = 40 units`
+
+---
+
+## 🧑‍💻 For Developers
+
+- **Add a new input:** Edit `CalculatorForm.tsx`, update Redux slice, extend types.
+- **Change calculation logic:** Update `utils/calculations.ts`.
+- **Add a feature:** Scaffold a new component in `components/`, connect to Redux if needed.
+- **Testing:** (Add test instructions here if/when tests are implemented.)
+- **Contributions:** PRs welcome! Please open an issue first for major changes.
+
+---
+
+## 🌐 Internationalization
+
+- Easily add new languages in `src/locales/`.
+- Language switcher in the UI.
+
+---
+
+## 📄 License
 
 MIT
+
+---
+
+> **Tip:** For detailed feature roadmap and tasks, see [Feature Tasks.md](Feature%20Tasks.md).
