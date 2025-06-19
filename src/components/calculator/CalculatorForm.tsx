@@ -7,14 +7,7 @@ import {
 } from "../../store/slices/calculatorSlice";
 import type { TradeParameters } from "../../types";
 import { useTranslation } from "react-i18next";
-
-const saveToLocalStorage = (paramName: string, value: string): void => {
-  if (value !== "null") localStorage.setItem(paramName, value);
-};
-
-const loadFromLocalStorage = (key: string) => {
-  return localStorage.getItem(key);
-};
+import { processFormValues, saveToLocalStorage } from "../../utils";
 
 const CalculatorForm = () => {
   const { tradeParameters } = useSelector(
@@ -33,18 +26,14 @@ const CalculatorForm = () => {
   });
 
   useEffect(() => {
-    const keys: string[] = Object.keys(formValues);
-    keys.forEach((key) => {
-      const value = loadFromLocalStorage(key);
-      const parsedValue = value === "null" ? 0 : value;
-      setFormValues((prev) => {
-        return {
-          ...prev,
-          [key]: parsedValue,
-        };
-      });
+    setFormValues({
+      totalCapital: tradeParameters.totalCapital?.toString() || "",
+      entryPrice: tradeParameters.entryPrice?.toString() || "",
+      stopLossPrice: tradeParameters.stopLossPrice?.toString() || "",
+      riskPercentage: tradeParameters.riskPercentage?.toString() || "",
+      takeProfitPrice: tradeParameters.takeProfitPrice?.toString() || "",
     });
-  }, []);
+  }, [tradeParameters]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -72,24 +61,12 @@ const CalculatorForm = () => {
    */
   const updateStoreParameters = () => {
     // Parse and dispatch each form value with appropriate validation
-    Object.entries(formValues).forEach(([paramName, strValue]) => {
-      const isOptionalTakeProfit = paramName === "takeProfitPrice";
-
-      // Convert to appropriate numeric value or null for optional fields
-      const numericValue =
-        strValue === ""
-          ? isOptionalTakeProfit
-            ? null
-            : 0
-          : parseFloat(strValue);
-
-      saveToLocalStorage(paramName, strValue ? strValue : "0");
-
-      // Update the parameter in the store
+    processFormValues(formValues, (paramName, value) => {
+      saveToLocalStorage(paramName, value === null ? "0" : value.toString());
       dispatch(
         updateTradeParameter({
           name: paramName as keyof TradeParameters,
-          value: numericValue,
+          value: value,
         })
       );
     });

@@ -1,23 +1,97 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import LanguageSwitch from "../common/LanguageSwitch";
+import { processFormValues, saveToLocalStorage } from "../../utils";
+import { updateTradeParameter } from "../../store/slices/calculatorSlice";
+import type { TradeParameters } from "../../types";
 
 const Header = () => {
   const { tradeParameters } = useSelector(
     (state: RootState) => state.calculator
   );
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [formValues, setFormValues] = useState({
+    totalCapital: tradeParameters.totalCapital?.toString() || "",
+    riskPercentage: tradeParameters.riskPercentage?.toString() || "",
+  });
+
+  useEffect(() => {
+    setFormValues({
+      totalCapital: tradeParameters.totalCapital?.toString() || "",
+      riskPercentage: tradeParameters.riskPercentage?.toString() || "",
+    });
+  }, [tradeParameters.totalCapital, tradeParameters.riskPercentage]);
+
+  useEffect(() => {
+    if (!isSettingsOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsSettingsOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    // cleanup function
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSettingsOpen]);
 
   const toggleSettings = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
 
+  const resetFormValues = () => {
+    setFormValues({
+      totalCapital: tradeParameters.totalCapital?.toString() || "",
+      riskPercentage: tradeParameters.riskPercentage?.toString() || "",
+    });
+  };
+
   const toggleTheme = () => {
     // TODO: Implement theme toggle functionality in Task 4
     console.log("Theme toggle clicked");
+  };
+
+  const handleSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    processFormValues(formValues, (paramName, value) => {
+      saveToLocalStorage(paramName, value === null ? "0" : value.toString());
+      dispatch(
+        updateTradeParameter({
+          name: paramName as keyof TradeParameters,
+          value: value,
+        })
+      );
+    });
+    toggleSettings();
+  };
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    resetFormValues();
+    toggleSettings();
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    const normalizedValue = value.replace(",", ".");
+
+    if (normalizedValue === "" || /^(0|[1-9]\d*)([.,]\d*)?$/.test(value)) {
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          [name]: normalizedValue,
+        };
+      });
+    }
+  };
+
+  const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
   };
 
   return (
@@ -83,7 +157,7 @@ const Header = () => {
             {/* Settings Button */}
             <button
               onClick={toggleSettings}
-              className="hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+              className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
               aria-label="Open settings"
             >
               {/* Settings gear icon */}
@@ -112,17 +186,21 @@ const Header = () => {
         </div>
       </div>
 
-      {/* TODO: Settings Modal will be rendered here when isSettingsOpen is true */}
+      {/* Settings Modal */}
       {isSettingsOpen && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-md w-full p-6">
+        <div
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm"
+          onClick={toggleSettings}
+        >
+          <div
+            className="bg-white rounded-lg shadow-xl max-w-xl w-full p-6 mt-24"
+            onClick={handleModalClick}
+          >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                Settings
-              </h2>
+              <h2 className="text-lg font-semibold text-gray-900">Settings</h2>
               <button
-                onClick={() => setIsSettingsOpen(false)}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+                onClick={toggleSettings}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:cursor-pointer"
                 aria-label="Close settings"
               >
                 <svg
@@ -140,9 +218,72 @@ const Header = () => {
                 </svg>
               </button>
             </div>
-            <p className="text-gray-600 dark:text-gray-300">
-              Settings form will be implemented in Task 4
-            </p>
+            <form className="w-full space-y-4">
+              <div className="form-group">
+                <label
+                  htmlFor="totalCapital"
+                  id="totalCapitalLabel"
+                  className="block text-sm font-medium text-gray-700 mb-3"
+                >
+                  {t("calculator.totalCapital")}
+                </label>
+                <input
+                  type="tel"
+                  inputMode="decimal"
+                  pattern="(0|[1-9]\d*)([.,]\d*)?"
+                  id="totalCapital"
+                  name="totalCapital"
+                  min="0"
+                  required
+                  aria-labelledby="totalCapitalLabel"
+                  aria-required="true"
+                  value={formValues.totalCapital || ""}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+              <div className="form-group">
+                <label
+                  htmlFor="riskPercentage"
+                  id="riskPercentageLabel"
+                  className="block text-sm font-medium text-gray-700 mb-3"
+                >
+                  {t("calculator.riskPercentage")}
+                </label>
+                <input
+                  type="tel"
+                  inputMode="decimal"
+                  pattern="(0|[1-9]\d*)([.,]\d*)?"
+                  id="riskPercentage"
+                  name="riskPercentage"
+                  min="0"
+                  required
+                  aria-labelledby="riskPercentageLabel"
+                  aria-required="true"
+                  value={formValues.riskPercentage || ""}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                />
+              </div>
+              <div className="mt-6 flex gap-14">
+                <button
+                  type="button"
+                  aria-label="Calculate Position Size"
+                  className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  onClick={handleSave}
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  aria-label="Calculate Position Size"
+                  className="w-full bg-gray-500 hover:bg-gray-700 active:bg-gray-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
