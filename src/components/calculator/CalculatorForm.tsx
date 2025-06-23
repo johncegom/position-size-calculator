@@ -50,18 +50,12 @@ const CalculatorForm = () => {
     }
   };
 
-  /**
-   * Updates the trade parameters in the Redux store based on current form values.
-   *
-   * This function iterates through all form values, converts them from strings to
-   * appropriate numeric values, and dispatches actions to update the store.
-   *
-   * Special handling is provided for the takeProfitPrice parameter, which is optional
-   * and can be set to null when empty. All other empty values default to 0.
-   */
   const updateStoreParameters = () => {
     // Parse and dispatch each form value with appropriate validation
     processFormValues(formValues, (paramName, value) => {
+      if (paramName === "totalCapital" || paramName === "riskPercentage")
+        return;
+
       saveToLocalStorage(paramName, value === null ? "0" : value.toString());
       dispatch(
         updateTradeParameter({
@@ -75,7 +69,14 @@ const CalculatorForm = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     updateStoreParameters();
-    dispatch(calculatePosition());
+    const { totalCapital, riskPercentage } = formValues;
+
+    dispatch(
+      calculatePosition({
+        totalCapital: parseFloat(totalCapital),
+        riskPercentage: parseFloat(riskPercentage),
+      })
+    );
   };
 
   return (

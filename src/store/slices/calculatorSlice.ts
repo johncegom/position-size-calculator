@@ -31,15 +31,23 @@ const calculatorSlice = createSlice({
       (state.tradeParameters[name] as TradeParameters[typeof name]) = value;
     },
 
-    calculatePosition: (state) => {
+    calculatePosition: (
+      state,
+      action: PayloadAction<Partial<TradeParameters> | undefined>
+    ) => {
       try {
+        const params = {
+          ...state.tradeParameters,
+          ...(action.payload || {}),
+        };
+
         const {
           totalCapital,
           riskPercentage,
           entryPrice,
           stopLossPrice,
           takeProfitPrice,
-        } = state.tradeParameters;
+        } = params;
         const result = calculatePositionSize({
           totalCapital,
           riskPercentage,
