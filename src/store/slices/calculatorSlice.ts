@@ -28,7 +28,10 @@ const calculatorSlice = createSlice({
       }>
     ) => {
       const { name, value } = action.payload;
-      (state.tradeParameters[name] as TradeParameters[typeof name]) = value;
+      state.tradeParameters = {
+        ...state.tradeParameters,
+        [name]: value,
+      };
     },
 
     calculatePosition: (
