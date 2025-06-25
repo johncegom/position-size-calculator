@@ -10,10 +10,10 @@ type ResultItemProps = {
 
 const ResultItem = ({ label, value }: ResultItemProps) => {
   return (
-    <div className="mt-4 p-4 bg-gray-50 rounded-md border border-gray-200">
+    <div className="p-4 mt-4 border border-gray-200 rounded-md bg-gray-50">
       <p className="text-gray-800">
-        <span className="font-medium">{label}:</span>{" "}
-        <span className="text-blue-600 font-bold">
+        <span className="font-medium cursor-default">{label}: </span>{" "}
+        <span className="font-bold text-blue-600">
           ${formatToTwoDecimals(value)}
         </span>
       </p>
@@ -29,11 +29,11 @@ const ResultDisplay = () => {
 
   if (!calculationResult) {
     return (
-      <div className="bg-white p-4 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">
+      <div className="p-4 bg-white rounded-lg shadow-md">
+        <h2 className="mb-4 text-xl font-semibold">
           {t("calculator.resultsTitle")}
         </h2>
-        <p className="text-gray-500 italic">{t("calculator.noResults")}</p>
+        <p className="italic text-gray-500">{t("calculator.noResults")}</p>
       </div>
     );
   }
@@ -41,8 +41,8 @@ const ResultDisplay = () => {
   const { positionSize, potentialLoss, potentialProfit } = calculationResult;
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">
+    <div className="p-4 bg-white rounded-lg shadow-md">
+      <h2 className="mb-4 text-xl font-semibold cursor-default">
         {t("calculator.resultsTitle")}
       </h2>
       {positionSize > 0 && (
