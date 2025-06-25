@@ -25,17 +25,19 @@ const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
   const badgeConfigs: BadgeConfig[] = [
     {
       condition: (ratio) => ratio >= GOOD,
-      className: "text-green-800 bg-green-100",
+      className:
+        "text-green-800  bg-green-100 dark:bg-green-700 dark:text-green-100",
       text: t("riskReward.excellentRatio"),
     },
     {
       condition: (ratio) => ratio >= DECENT,
-      className: "text-yellow-800 bg-yellow-100",
+      className:
+        "text-yellow-800 bg-yellow-100 dark:bg-yellow-700 dark:text-yellow-100",
       text: t("riskReward.acceptableRatio"),
     },
     {
       condition: (ratio) => ratio > 0,
-      className: "text-red-800 bg-red-100",
+      className: "text-red-800 bg-red-100 dark:bg-red-700 dark:text-red-100 ",
       text: t("riskReward.improveRatio"),
     },
   ];
@@ -43,8 +45,6 @@ const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
   const config = badgeConfigs.find((cfg) => {
     return cfg.condition(ratio);
   });
-
-  console.log(config);
 
   if (config) {
     return (
@@ -55,7 +55,7 @@ const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
   }
 
   return (
-    <div className="px-3 py-1 text-gray-600 bg-gray-100 rounded-full">
+    <div className="px-3 py-1 text-gray-600 bg-gray-100 rounded-full dark:text-gray-200 dark:bg-gray-700">
       {t("riskReward.noData")}
     </div>
   );
@@ -66,16 +66,16 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
   const { t } = useTranslation();
 
   const getRatioTextColor = () => {
-    if (ratio >= GOOD) return "text-green-600";
-    if (ratio >= DECENT) return "text-yellow-600";
-    if (ratio > 0) return "text-red-600";
-    return "text-gray-600";
+    if (ratio >= GOOD) return "text-green-600 dark:text-green-400";
+    if (ratio >= DECENT) return "text-yellow-600 dark:text-yellow-400";
+    if (ratio > 0) return "text-red-600 dark:text-red-400";
+    return "text-gray-600 dark:text-gray-200";
   };
 
   return (
     <div className="flex flex-col items-start justify-between mb-6 sm:flex-row sm:items-center">
       <div>
-        <p className="mb-1 text-sm text-gray-600 cursor-default">
+        <p className="mb-1 text-sm text-gray-600 cursor-default dark:text-gray-200">
           {t("riskReward.ratio")}
         </p>
         <p className={`text-2xl font-bold ${getRatioTextColor()}`}>
@@ -108,19 +108,27 @@ type ProgressBarProps = {
  * @returns A JSX element containing a labeled progress bar with formatted value display
  */
 const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
+  const barBg =
+    color === "text-red-600"
+      ? "bg-red-500 dark:bg-red-700"
+      : "bg-green-500 dark:bg-green-700";
+  const textColor =
+    color === "text-red-600"
+      ? "text-red-600 dark:text-red-400"
+      : "text-green-600 dark:text-green-400";
   return (
     <div>
       <div className="flex justify-between mb-1">
-        <span className="text-sm font-medium cursor-default">{label}</span>
-        <span className={`text-sm font-bold ${color}`}>
+        <span className="text-sm font-medium cursor-default dark:text-gray-200">
+          {label}
+        </span>
+        <span className={`text-sm font-bold ${textColor}`}>
           ${formatToTwoDecimals(value)}
         </span>
       </div>
-      <div className="h-8 overflow-hidden bg-gray-100 rounded-lg">
+      <div className="h-8 overflow-hidden bg-gray-100 rounded-lg dark:bg-gray-700">
         <div
-          className={`h-full ${
-            color === "text-red-600" ? "bg-red-500" : "bg-green-500"
-          } rounded-lg transition-all duration-300 ease-out`}
+          className={`h-full ${barBg} rounded-lg transition-all duration-300 ease-out`}
           style={{ width: `${width}%` }}
         ></div>
       </div>
@@ -142,10 +150,29 @@ const PriceLevelCard = ({
   borderColor,
 }: PriceLevelCardProps) => {
   const formatValue = value ? formatToEightDecimals(value) : null;
+  // Add dark mode classes for bg and border
+  const darkBg =
+    bgColor === "bg-red-50"
+      ? "dark:bg-red-900"
+      : bgColor === "bg-blue-50"
+      ? "dark:bg-blue-900"
+      : "dark:bg-green-900";
+  const darkBorder =
+    borderColor === "border border-red-100"
+      ? "dark:border-red-900"
+      : borderColor === "border border-blue-100"
+      ? "dark:border-blue-900"
+      : "dark:border-green-900";
   return (
-    <div className={`${bgColor} ${borderColor} rounded-md p-2`}>
-      <p className="mb-1 text-xs text-gray-500 cursor-default">{label}</p>
-      <p className="font-semibold">{formatValue ? `$${formatValue}` : "N/A"}</p>
+    <div
+      className={`${bgColor} ${borderColor} ${darkBg} ${darkBorder} rounded-md p-2`}
+    >
+      <p className="mb-1 text-xs text-gray-500 cursor-default dark:text-gray-200">
+        {label}
+      </p>
+      <p className="font-semibold text-gray-900 dark:text-gray-50">
+        {formatValue ? `$${formatValue}` : "N/A"}
+      </p>
     </div>
   );
 };
@@ -167,8 +194,8 @@ const RiskRewardVisual = () => {
   const rewardWidth = maxValue > 0 ? (rewardAmount / maxValue) * 100 : 0;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="mb-4 text-xl font-semibold cursor-default">
+    <div className="p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:shadow-[0_2px_16px_0_rgba(255,255,255,0.08)]">
+      <h2 className="mb-4 text-xl font-semibold text-gray-900 cursor-default dark:text-gray-50">
         {t("riskReward.title")}
       </h2>
 
@@ -199,7 +226,7 @@ const RiskRewardVisual = () => {
           label={t("riskReward.stopLoss")}
           value={tradeParameters.stopLossPrice}
           bgColor="bg-red-50"
-          borderColor="border border-red-100 "
+          borderColor="border border-red-100"
         />
         <PriceLevelCard
           label={t("riskReward.entryPrice")}
@@ -207,7 +234,6 @@ const RiskRewardVisual = () => {
           bgColor="bg-blue-50"
           borderColor="border border-blue-100"
         />
-
         <PriceLevelCard
           label={t("riskReward.takeProfit")}
           value={tradeParameters.takeProfitPrice}
@@ -217,7 +243,7 @@ const RiskRewardVisual = () => {
       </div>
 
       {/* Trading tip */}
-      <div className="p-3 mt-6 text-xs text-gray-700 border border-blue-100 rounded-md bg-blue-50">
+      <div className="p-3 mt-6 text-xs text-gray-700 border border-blue-100 rounded-md dark:text-gray-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950">
         <p className="mb-1 font-medium cursor-default">
           {t("riskReward.tradingTip")}
         </p>

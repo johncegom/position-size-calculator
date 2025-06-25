@@ -99,17 +99,15 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm">
+    <header className="bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-400">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* App Branding - Left Side */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-lg font-bold text-gray-900 sm:text-xl">
-                <span className="block sm:hidden hover:cursor-pointer">
-                  PSC
-                </span>
-                <span className="hidden sm:block hover:cursor-default">
+              <h1 className="text-lg font-bold text-gray-900 dark:text-gray-50 sm:text-xl">
+                <span className="block cursor-pointer sm:hidden">PSC</span>
+                <span className="hidden cursor-default sm:block">
                   {t("header.title")}
                 </span>
               </h1>
@@ -119,9 +117,9 @@ const Header = () => {
           {/* Action Buttons - Right Side */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Status Indicators - Center (Hidden on mobile) */}
-            <div className="items-center hidden space-x-4 text-sm text-gray-600 md:flex">
+            <div className="items-center hidden space-x-4 text-sm text-gray-600 dark:text-gray-200 md:flex">
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 hover:cursor-default">
+                <span className="text-xs text-gray-500 cursor-default dark:text-gray-200">
                   {t("header.risk")}
                 </span>
                 <span className="font-medium">
@@ -129,7 +127,7 @@ const Header = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 hover:cursor-default">
+                <span className="text-xs text-gray-500 cursor-default dark:text-gray-200">
                   {t("header.capital")}
                 </span>
                 <span className="font-medium">{`$${tradeParameters.totalCapital}`}</span>
@@ -142,7 +140,7 @@ const Header = () => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+              className="p-2 text-gray-500 transition-colors duration-200 rounded-md cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Toggle theme"
             >
               {isDark ? (
@@ -182,7 +180,7 @@ const Header = () => {
             {/* Settings Button */}
             <button
               onClick={toggleSettings}
-              className="p-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+              className="p-2 text-gray-500 transition-colors duration-200 rounded-md cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
               aria-label="Open settings"
             >
               {/* Settings gear icon */}
@@ -214,20 +212,20 @@ const Header = () => {
       {/* Settings Modal */}
       {isSettingsOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 dark:bg-gray-900/70 backdrop-blur-sm"
           onClick={toggleSettings}
         >
           <div
-            className="w-full max-w-xl p-6 mt-24 bg-white rounded-lg shadow-xl"
+            className="w-full max-w-xl p-6 mt-24 bg-white rounded-lg shadow-xl dark:bg-gray-700"
             onClick={handleModalClick}
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 hover:cursor-default">
+              <h2 className="text-lg font-semibold text-gray-900 cursor-default dark:text-gray-200">
                 Settings
               </h2>
               <button
                 onClick={toggleSettings}
-                className="text-gray-400 hover:text-gray-600 hover:cursor-pointer"
+                className="text-gray-400 cursor-pointer dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                 aria-label="Close settings"
               >
                 <svg
@@ -250,7 +248,7 @@ const Header = () => {
                 <label
                   htmlFor="totalCapital"
                   id="totalCapitalLabel"
-                  className="block mb-3 text-sm font-medium text-gray-700"
+                  className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
                 >
                   {t("calculator.totalCapital")}
                 </label>
@@ -266,14 +264,14 @@ const Header = () => {
                   aria-required="true"
                   value={formValues.totalCapital || ""}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
               <div className="form-group">
                 <label
                   htmlFor="riskPercentage"
                   id="riskPercentageLabel"
-                  className="block mb-3 text-sm font-medium text-gray-700"
+                  className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
                 >
                   {t("calculator.riskPercentage")}
                 </label>
@@ -289,14 +287,14 @@ const Header = () => {
                   aria-required="true"
                   value={formValues.riskPercentage || ""}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
               <div className="flex mt-6 gap-14">
                 <button
                   type="button"
                   aria-label="Calculate Position Size"
-                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 active:bg-blue-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-blue-600 rounded-md shadow-sm cursor-pointer hover:bg-blue-700 active:bg-blue-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
                   onClick={handleSave}
                 >
                   Save
@@ -304,7 +302,7 @@ const Header = () => {
                 <button
                   type="button"
                   aria-label="Calculate Position Size"
-                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-gray-500 rounded-md shadow-sm hover:bg-gray-700 active:bg-gray-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-gray-500 rounded-md shadow-sm cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-800 active:bg-gray-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
                   onClick={handleCancel}
                 >
                   Cancel

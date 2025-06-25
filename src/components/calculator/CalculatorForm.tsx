@@ -86,7 +86,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="totalCapital"
             id="totalCapitalLabel"
-            className="block mb-1 text-sm font-medium text-gray-700"
+            className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200"
           >
             {t("calculator.totalCapital")}
           </label>
@@ -102,7 +102,7 @@ const CalculatorForm = () => {
             aria-required="true"
             value={formValues.totalCapital || ""}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
@@ -110,7 +110,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="entryPrice"
             id="entryPriceLabel"
-            className="block mb-1 text-sm font-medium text-gray-700"
+            className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200"
           >
             {t("calculator.entryPrice")}
           </label>
@@ -126,7 +126,7 @@ const CalculatorForm = () => {
             aria-required="true"
             value={formValues.entryPrice || ""}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
@@ -134,7 +134,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="stopLossPrice"
             id="stopLossPriceLabel"
-            className="block mb-1 text-sm font-medium text-gray-700"
+            className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200"
           >
             {t("calculator.stopLossPrice")}
           </label>
@@ -150,7 +150,7 @@ const CalculatorForm = () => {
             aria-required="true"
             value={formValues.stopLossPrice || ""}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
@@ -158,7 +158,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="riskPercentage"
             id="riskPercentageLabel"
-            className="block mb-1 text-sm font-medium text-gray-700"
+            className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200"
           >
             {t("calculator.riskPercentage")}
           </label>
@@ -175,7 +175,7 @@ const CalculatorForm = () => {
             aria-required="true"
             value={formValues.riskPercentage || ""}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 
@@ -183,7 +183,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="takeProfitPrice"
             id="takeProfitPriceLabel"
-            className="block mb-1 text-sm font-medium text-gray-700"
+            className="block mb-1 text-sm font-medium text-gray-700 dark:text-gray-200"
           >
             {t("calculator.takeProfitPrice")}
           </label>
@@ -197,7 +197,7 @@ const CalculatorForm = () => {
             aria-labelledby="takeProfitPriceLabel"
             value={formValues.takeProfitPrice || ""}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
 

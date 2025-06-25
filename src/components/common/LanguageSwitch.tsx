@@ -31,7 +31,7 @@ const LanguageSwitch = () => {
     <div className="relative">
       <button
         onClick={() => toggleDropdown()}
-        className="flex items-center p-2 space-x-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
+        className="flex items-center p-2 space-x-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200"
         aria-label={t("common.language")}
       >
         <span className="hidden text-sm font-medium sm:block">
