@@ -31,7 +31,7 @@ const LanguageSwitch = () => {
     <div className="relative">
       <button
         onClick={() => toggleDropdown()}
-        className="flex items-center space-x-2 p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+        className="flex items-center space-x-2 p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer"
         aria-label={t("common.language")}
       >
         <span className="hidden sm:block text-sm font-medium">
@@ -60,16 +60,16 @@ const LanguageSwitch = () => {
           <div className="fixed inset-0 z-10" onClick={() => closeDropdown()} />
 
           {/* Dropdown menu */}
-          <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-20">
+          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-20">
             <div className="py-1" role="menu">
               {SUPPORTED_LANGUAGES.map((language) => (
                 <button
                   key={language.code}
                   onClick={() => changeLanguage(language.code)}
-                  className={`flex items-center w-full px-4 py-2 text-sm text-left hover:bg-gray-100 dark:hover:bg-gray-700 ${
+                  className={`flex items-center w-full px-4 py-2 text-sm text-left hover:bg-gray-100 ${
                     i18n.language === language.code
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 dark:text-gray-300"
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-700"
                   }`}
                   role="menuitem"
                 >

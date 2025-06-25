@@ -30,6 +30,15 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

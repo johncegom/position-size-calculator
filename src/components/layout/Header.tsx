@@ -12,6 +12,9 @@ const Header = () => {
     (state: RootState) => state.calculator
   );
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isDark, setIsDark] = useState(
+    document.documentElement.classList.contains("dark")
+  );
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState({
@@ -52,8 +55,9 @@ const Header = () => {
   };
 
   const toggleTheme = () => {
-    // TODO: Implement theme toggle functionality in Task 4
-    console.log("Theme toggle clicked");
+    document.documentElement.classList.toggle("dark");
+    setIsDark(!isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   };
 
   const handleSave = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,13 +99,13 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-700">
+    <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* App Branding - Left Side */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+              <h1 className="text-lg sm:text-xl font-bold text-gray-900">
                 <span className="block sm:hidden">PSC</span>
                 <span className="hidden sm:block">{t("header.title")}</span>
               </h1>
@@ -111,9 +115,9 @@ const Header = () => {
           {/* Action Buttons - Right Side */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Status Indicators - Center (Hidden on mobile) */}
-            <div className="hidden md:flex items-center space-x-4 text-sm text-gray-600 dark:text-gray-300">
+            <div className="hidden md:flex items-center space-x-4 text-sm text-gray-600">
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
+                <span className="text-xs text-gray-500">
                   {t("header.risk")}
                 </span>
                 <span className="font-medium">
@@ -121,9 +125,7 @@ const Header = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  Capital:
-                </span>
+                <span className="text-xs text-gray-500">Capital:</span>
                 <span className="font-medium">{`$${tradeParameters.totalCapital}`}</span>
               </div>
             </div>
@@ -134,30 +136,47 @@ const Header = () => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="hidden p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer"
               aria-label="Toggle theme"
             >
-              {/* Sun icon for light mode, Moon icon for dark mode */}
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
+              {isDark ? (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="12" cy="12" r="5" strokeWidth={2} />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                  />
+                </svg>
+              )}
             </button>
 
             {/* Settings Button */}
             <button
               onClick={toggleSettings}
-              className="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200"
+              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer"
               aria-label="Open settings"
             >
               {/* Settings gear icon */}
@@ -200,7 +219,7 @@ const Header = () => {
               <h2 className="text-lg font-semibold text-gray-900">Settings</h2>
               <button
                 onClick={toggleSettings}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:cursor-pointer"
+                className="text-gray-400 hover:text-gray-600 hover:cursor-pointer"
                 aria-label="Close settings"
               >
                 <svg
