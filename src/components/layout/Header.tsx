@@ -99,15 +99,19 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="bg-white border-b border-gray-200 shadow-sm">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* App Branding - Left Side */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">
-                <span className="block sm:hidden">PSC</span>
-                <span className="hidden sm:block">{t("header.title")}</span>
+              <h1 className="text-lg font-bold text-gray-900 sm:text-xl">
+                <span className="block sm:hidden hover:cursor-pointer">
+                  PSC
+                </span>
+                <span className="hidden sm:block hover:cursor-default">
+                  {t("header.title")}
+                </span>
               </h1>
             </div>
           </div>
@@ -115,9 +119,9 @@ const Header = () => {
           {/* Action Buttons - Right Side */}
           <div className="flex items-center space-x-2 sm:space-x-3">
             {/* Status Indicators - Center (Hidden on mobile) */}
-            <div className="hidden md:flex items-center space-x-4 text-sm text-gray-600">
+            <div className="items-center hidden space-x-4 text-sm text-gray-600 md:flex">
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-500 hover:cursor-default">
                   {t("header.risk")}
                 </span>
                 <span className="font-medium">
@@ -125,7 +129,7 @@ const Header = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-gray-500 hover:cursor-default">
                   {t("header.capital")}
                 </span>
                 <span className="font-medium">{`$${tradeParameters.totalCapital}`}</span>
@@ -138,7 +142,7 @@ const Header = () => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer"
+              className="p-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
               aria-label="Toggle theme"
             >
               {isDark ? (
@@ -178,7 +182,7 @@ const Header = () => {
             {/* Settings Button */}
             <button
               onClick={toggleSettings}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 hover:cursor-pointer"
+              className="p-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer"
               aria-label="Open settings"
             >
               {/* Settings gear icon */}
@@ -214,11 +218,13 @@ const Header = () => {
           onClick={toggleSettings}
         >
           <div
-            className="bg-white rounded-lg shadow-xl max-w-xl w-full p-6 mt-24"
+            className="w-full max-w-xl p-6 mt-24 bg-white rounded-lg shadow-xl"
             onClick={handleModalClick}
           >
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Settings</h2>
+              <h2 className="text-lg font-semibold text-gray-900 hover:cursor-default">
+                Settings
+              </h2>
               <button
                 onClick={toggleSettings}
                 className="text-gray-400 hover:text-gray-600 hover:cursor-pointer"
@@ -244,7 +250,7 @@ const Header = () => {
                 <label
                   htmlFor="totalCapital"
                   id="totalCapitalLabel"
-                  className="block text-sm font-medium text-gray-700 mb-3"
+                  className="block mb-3 text-sm font-medium text-gray-700"
                 >
                   {t("calculator.totalCapital")}
                 </label>
@@ -267,7 +273,7 @@ const Header = () => {
                 <label
                   htmlFor="riskPercentage"
                   id="riskPercentageLabel"
-                  className="block text-sm font-medium text-gray-700 mb-3"
+                  className="block mb-3 text-sm font-medium text-gray-700"
                 >
                   {t("calculator.riskPercentage")}
                 </label>
@@ -286,11 +292,11 @@ const Header = () => {
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
-              <div className="mt-6 flex gap-14">
+              <div className="flex mt-6 gap-14">
                 <button
                   type="button"
                   aria-label="Calculate Position Size"
-                  className="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 active:bg-blue-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
                   onClick={handleSave}
                 >
                   Save
@@ -298,7 +304,7 @@ const Header = () => {
                 <button
                   type="button"
                   aria-label="Calculate Position Size"
-                  className="w-full bg-gray-500 hover:bg-gray-700 active:bg-gray-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
+                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-gray-500 rounded-md shadow-sm hover:bg-gray-700 active:bg-gray-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation hover:cursor-pointer"
                   onClick={handleCancel}
                 >
                   Cancel

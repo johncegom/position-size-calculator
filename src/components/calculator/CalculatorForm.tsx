@@ -86,7 +86,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="totalCapital"
             id="totalCapitalLabel"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block mb-1 text-sm font-medium text-gray-700"
           >
             {t("calculator.totalCapital")}
           </label>
@@ -110,7 +110,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="entryPrice"
             id="entryPriceLabel"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block mb-1 text-sm font-medium text-gray-700"
           >
             {t("calculator.entryPrice")}
           </label>
@@ -134,7 +134,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="stopLossPrice"
             id="stopLossPriceLabel"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block mb-1 text-sm font-medium text-gray-700"
           >
             {t("calculator.stopLossPrice")}
           </label>
@@ -158,7 +158,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="riskPercentage"
             id="riskPercentageLabel"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block mb-1 text-sm font-medium text-gray-700"
           >
             {t("calculator.riskPercentage")}
           </label>
@@ -183,7 +183,7 @@ const CalculatorForm = () => {
           <label
             htmlFor="takeProfitPrice"
             id="takeProfitPriceLabel"
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block mb-1 text-sm font-medium text-gray-700"
           >
             {t("calculator.takeProfitPrice")}
           </label>
@@ -205,7 +205,7 @@ const CalculatorForm = () => {
           <button
             type="submit"
             aria-label="Calculate Position Size"
-            className="w-full bg-blue-500 hover:bg-blue-700 active:bg-blue-800 active:scale-95 text-white font-medium py-3 px-4 rounded-md transition-all duration-150 shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
+            className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-blue-500 rounded-md shadow-sm hover:bg-blue-700 active:bg-blue-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
           >
             {t("calculator.calculateButton")}
           </button>
