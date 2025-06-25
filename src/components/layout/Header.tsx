@@ -125,7 +125,9 @@ const Header = () => {
                 </span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500">Capital:</span>
+                <span className="text-xs text-gray-500">
+                  {t("header.capital")}
+                </span>
                 <span className="font-medium">{`$${tradeParameters.totalCapital}`}</span>
               </div>
             </div>
