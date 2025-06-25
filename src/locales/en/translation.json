@@ -55,6 +55,11 @@
     "simulationTip": "💡 Simulation Tip:",
     "simulationTipText": "These scenarios show potential outcomes based on different take-profit levels. A 1:2 or 1:3 ratio is generally preferred by professional traders for better long-term profitability."
   },
+  "footer": {
+    "title": "Position Size Calculator",
+    "description": "Built by",
+    "author": "Minh Duong"
+  },
   "common": {
     "language": "Language"
   }
