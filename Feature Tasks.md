@@ -418,3 +418,30 @@ This document outlines the tasks required to implement the planned features for 
 - At least 2-3 languages fully translated
 
 ---
+
+### Task 19: Integrate Expected R/R Input with R/R Scenarios and Analysis
+
+**Title**: Integrate Expected R/R Input with R/R Scenarios and Analysis Visualization
+
+**Description**: Allow users to input a custom expected risk/reward (R/R) ratio. When provided, this value should:
+
+- Automatically calculate and update the take profit price in the calculator form.
+- Be visually highlighted and compared in both the R/R Scenarios (RiskRewardSimulator) and R/R Analysis (RiskRewardVisual) components.
+- Enable users to see how their chosen R/R compares to common scenarios (e.g., 1:1, 2:1, 3:1).
+
+**Acceptance Criteria**:
+
+- Add an "Expected R/R Ratio" input field to the calculator form.
+- When the user enters a value, automatically calculate and update the take profit price.
+- In RiskRewardSimulator, display the user’s expected R/R scenario alongside standard scenarios, with clear highlighting.
+- In RiskRewardVisual, visually indicate the user’s expected R/R and its impact on the risk/reward ratio and take profit.
+- Ensure all calculations and visualizations update in real time as the user changes the expected R/R input.
+
+**Definition of Done**:
+
+- User can input a custom expected R/R ratio and see its effect immediately.
+- The custom scenario is clearly highlighted in both simulator and analysis visualizations.
+- All calculations remain accurate and responsive.
+- UI/UX is intuitive and accessible on all devices.
+
+---
