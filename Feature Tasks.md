@@ -78,21 +78,22 @@ This document outlines the tasks required to implement the planned features for 
 
 **Title**: Implement User Settings and Preferences
 
-**Description**: Create a settings system to store user preferences like default risk percentage and capital.
+**Description**: Create a unified settings system to store user preferences, including default risk percentage, capital, and theme (light/dark mode).
 
 **Acceptance Criteria**:
 
-- Create settingsSlice in Redux store
-- Build settings form UI for adjusting default values
-- Implement local storage persistence for settings
-- Add light/dark mode toggle
+- Create settingsSlice in Redux store to manage all user preferences (including theme)
+- Build settings form UI for adjusting default values and toggling light/dark mode
+- Implement local storage persistence for all settings
+- Ensure theme toggle is part of the settings UI
 
 **Definition of Done**:
 
-- Settings persist between sessions via localStorage
+- All settings (including theme) persist between sessions via localStorage
 - Settings UI is accessible and intuitive
 - Theme changes apply immediately throughout the application
 - Default values are used when creating new calculations
+- No separate themeSlice is needed; theme is managed in settingsSlice
 
 ---
 
