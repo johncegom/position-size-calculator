@@ -236,7 +236,7 @@ const RiskRewardVisual = () => {
         />
         <PriceLevelCard
           label={t("riskReward.takeProfit")}
-          value={tradeParameters.takeProfitPrice}
+          value={tradeParameters.takeProfitPrice ?? null}
           bgColor="bg-green-50"
           borderColor="border border-green-100"
         />
