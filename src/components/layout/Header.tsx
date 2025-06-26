@@ -221,7 +221,7 @@ const Header = () => {
           >
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900 cursor-default dark:text-gray-200">
-                Settings
+                {t("settingsModal.title")}
               </h2>
               <button
                 onClick={toggleSettings}
@@ -250,7 +250,7 @@ const Header = () => {
                   id="totalCapitalLabel"
                   className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
                 >
-                  {t("calculator.totalCapital")}
+                  {t("settingsModal.totalCapital")}
                 </label>
                 <input
                   type="tel"
@@ -273,7 +273,7 @@ const Header = () => {
                   id="riskPercentageLabel"
                   className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
                 >
-                  {t("calculator.riskPercentage")}
+                  {t("settingsModal.riskPercentage")}
                 </label>
                 <input
                   type="tel"

@@ -10,6 +10,11 @@
     "closeSettings": "Đóng cài đặt",
     "settingsPlaceholder": "Form cài đặt sẽ được triển khai trong Task 4"
   },
+  "settingsModal": {
+    "title": "Thiết Lập",
+    "totalCapital": "Tổng Vốn Giao Dịch ($)",
+    "riskPercentage": "Tỷ Lệ Rủi Ro (%)"
+  },
   "calculator": {
     "title": "Công Cụ Tính Kích Thước Vị Thế",
     "subtitle": "Tính toán kích thước giao dịch tối ưu dựa trên khả năng chịu rủi ro của bạn",

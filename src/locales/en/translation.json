@@ -10,6 +10,11 @@
     "closeSettings": "Close settings",
     "settingsPlaceholder": "Settings form will be implemented in Task 4"
   },
+  "settingsModal": {
+    "title": "Settings",
+    "totalCapital": "Total Trading Capital ($)",
+    "riskPercentage": "Risk Percentage (%)"
+  },
   "calculator": {
     "title": "Position Size Calculator",
     "subtitle": "Calculate optimal trade sizes based on your risk tolerance",
