@@ -354,21 +354,21 @@ This document outlines the tasks required to implement the planned features for 
 
 **Title**: Implement Comprehensive Test Suite
 
-**Description**: Create tests for core functionality and UI components.
+**Description**: Create tests for core functionality and UI components using [Vitest](https://vitest.dev/).
 
 **Acceptance Criteria**:
 
-- Write unit tests for all calculation utilities
-- Add tests for Redux reducers and selectors
-- Implement integration tests for key user flows
-- Set up testing CI pipeline
+- Write unit tests for all calculation utilities with Vitest
+- Add tests for Redux reducers and selectors with Vitest
+- Implement integration tests for key user flows using [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) and Vitest
+- Set up a Vitest-based testing CI pipeline
 
 **Definition of Done**:
 
-- Test coverage exceeds 80% for core functionality
+- Test coverage exceeds 80% for core functionality (measured by Vitest)
 - All critical paths have integration tests
-- Tests run automatically on PRs
-- Documentation for running tests locally
+- Tests run automatically on PRs via CI (e.g., GitHub Actions)
+- Documentation for running tests locally with Vitest
 
 ---
 
