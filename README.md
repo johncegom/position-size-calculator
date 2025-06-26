@@ -75,8 +75,46 @@ Result: `(10,000 × 0.02) / 5 = 40 units`
 - **Add a new input:** Edit `CalculatorForm.tsx`, update Redux slice, extend types.
 - **Change calculation logic:** Update `utils/calculations.ts`.
 - **Add a feature:** Scaffold a new component in `components/`, connect to Redux if needed.
-- **Testing:** (Add test instructions here if/when tests are implemented.)
+- **Testing:** See below for test instructions.
 - **Contributions:** PRs welcome! Please open an issue first for major changes.
+
+---
+
+## 🧪 Running Tests
+
+This project uses [Vitest](https://vitest.dev/) for unit and integration testing.
+
+### 1. Install dependencies
+
+```sh
+npm install
+```
+
+### 2. Run all tests
+
+```sh
+npm test
+```
+
+or
+
+```sh
+npx vitest
+```
+
+### 3. Watch mode (recommended for development)
+
+```sh
+npx vitest --watch
+```
+
+### 4. View test coverage
+
+```sh
+npx vitest run --coverage
+```
+
+The coverage report will be available in the `coverage/` folder.
 
 ---
 

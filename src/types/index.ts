@@ -8,7 +8,7 @@ export interface TradeParameters {
   riskPercentage: number;
   entryPrice: number;
   stopLossPrice: number;
-  takeProfitPrice: number | null;
+  takeProfitPrice?: number | null;
 }
 
 // Questions to consider for CalculationResult:
