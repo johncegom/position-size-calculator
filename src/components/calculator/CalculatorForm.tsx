@@ -7,7 +7,7 @@ import {
 } from "../../store/slices/calculatorSlice";
 import type { TradeParameters } from "../../types";
 import { useTranslation } from "react-i18next";
-import { processFormValues, saveToLocalStorage } from "../../utils";
+import { processFormValues, saveToLocalStorage } from "../../utils/utils";
 
 const CalculatorForm = () => {
   const { tradeParameters } = useSelector(

@@ -5,7 +5,7 @@ import Footer from "./components/layout/Footer";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./store/store";
-import { loadFromLocalStorage } from "./utils";
+import { loadFromLocalStorage } from "./utils/utils";
 import { updateTradeParameter } from "./store/slices/calculatorSlice";
 import type { TradeParameters } from "./types";
 import { useEffect } from "react";

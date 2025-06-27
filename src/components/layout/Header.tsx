@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import LanguageSwitch from "../common/LanguageSwitch";
-import { processFormValues, saveToLocalStorage } from "../../utils";
+import { processFormValues, saveToLocalStorage } from "../../utils/utils";
 import { updateTradeParameter } from "../../store/slices/calculatorSlice";
 import type { TradeParameters } from "../../types";
 

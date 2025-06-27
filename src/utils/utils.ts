@@ -1,3 +1,10 @@
+/**
+ * Saves a string value to the browser's localStorage under the specified parameter name.
+ *
+ * @param paramName - The key under which the value will be stored in localStorage.
+ * @param value - The string value to store. If the value is the string "null", the function will not save it and will return false.
+ * @returns Returns `true` if the value was successfully saved, or `false` if the value was "null".
+ */
 export const saveToLocalStorage = (
   paramName: string,
   value: string
@@ -7,6 +14,12 @@ export const saveToLocalStorage = (
   return true;
 };
 
+/**
+ * Retrieves a value from the browser's local storage by the specified key.
+ *
+ * @param key - The key of the item to retrieve from local storage.
+ * @returns The value associated with the given key, or `null` if the key does not exist.
+ */
 export const loadFromLocalStorage = (key: string) => {
   return localStorage.getItem(key);
 };
