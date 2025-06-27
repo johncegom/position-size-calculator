@@ -9,13 +9,21 @@ vi.mock("react-i18next", () => ({
 }));
 
 describe("Footer", () => {
-  test("renders footer with translated text and author link", () => {
+  test("renders footer with translated title", () => {
     render(<Footer />);
-    expect(screen.getByText(/footer.title/)).toBeInTheDocument();
-    expect(screen.getByText(/footer.description/)).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /footer.author/ })).toHaveAttribute(
-      "href",
-      "https://github.com/johncegom"
-    );
+    const title = screen.getByText(/footer.title/);
+    expect(title).toBeInTheDocument();
+  });
+
+  test("renders footer with translated description", () => {
+    render(<Footer />);
+    const description = screen.getByText(/footer.description/);
+    expect(description).toBeInTheDocument();
+  });
+
+  test("renders footer with author link", () => {
+    render(<Footer />);
+    const authorLink = screen.getByRole("link", { name: /footer.author/ });
+    expect(authorLink).toHaveAttribute("href", "https://github.com/johncegom");
   });
 });
