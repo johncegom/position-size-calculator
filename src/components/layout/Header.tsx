@@ -12,15 +12,22 @@ const Header = () => {
     (state: RootState) => state.calculator
   );
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isDark, setIsDark] = useState(
-    document.documentElement.classList.contains("dark")
-  );
+  const [isDark, setIsDark] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [formValues, setFormValues] = useState({
     totalCapital: tradeParameters.totalCapital?.toString() || "",
     riskPercentage: tradeParameters.riskPercentage?.toString() || "",
   });
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      setIsDark(true);
+    } else {
+      setIsDark(false);
+    }
+  }, []);
 
   useEffect(() => {
     setFormValues({
@@ -55,9 +62,10 @@ const Header = () => {
   };
 
   const toggleTheme = () => {
+    const newIsDark = !isDark;
+    setIsDark(newIsDark);
     document.documentElement.classList.toggle("dark");
-    setIsDark(!isDark);
-    localStorage.setItem("theme", isDark ? "dark" : "light");
+    localStorage.setItem("theme", newIsDark ? "dark" : "light");
   };
 
   const handleSave = (e: React.MouseEvent<HTMLButtonElement>) => {

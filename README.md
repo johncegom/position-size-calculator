@@ -82,12 +82,12 @@ Result: `(10,000 × 0.02) / 5 = 40 units`
 
 ## 🚦 Continuous Integration & Deployment
 
-- **Automated Testing:**  
-  All pushes and pull requests to `main` run unit and integration tests automatically via GitHub Actions (`.github/workflows/test.yml`).  
+- **Automated Testing:**
+  All pushes and pull requests to `main` run unit and integration tests automatically via GitHub Actions (`.github/workflows/test.yml`).
   The workflow uses a `unit-test` job and is ready for future jobs like `integration-test` or `e2e-test`.
 
-- **Deployment:**  
-  Production and preview deployments are handled by [Vercel](https://vercel.com/).  
+- **Deployment:**
+  Production and preview deployments are handled by [Vercel](https://vercel.com/).
   Every push to `main` triggers a new deployment. Pull requests get preview deployments.
 
 ---
