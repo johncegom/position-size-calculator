@@ -3,6 +3,7 @@
 // - Would a chart library be useful here?
 // - How can we visually represent the relationship between risk and potential reward?
 
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import {
@@ -22,40 +23,42 @@ const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
     text: string;
   };
 
-  const badgeConfigs: BadgeConfig[] = [
-    {
-      condition: (ratio) => ratio >= GOOD,
-      className:
-        "text-green-800  bg-green-100 dark:bg-green-700 dark:text-green-100",
-      text: t("riskReward.excellentRatio"),
-    },
-    {
-      condition: (ratio) => ratio >= DECENT,
-      className:
-        "text-yellow-800 bg-yellow-100 dark:bg-yellow-700 dark:text-yellow-100",
-      text: t("riskReward.acceptableRatio"),
-    },
-    {
-      condition: (ratio) => ratio > 0,
-      className: "text-red-800 bg-red-100 dark:bg-red-700 dark:text-red-100 ",
-      text: t("riskReward.improveRatio"),
-    },
-  ];
+  const badgeConfig = useMemo(() => {
+    const configs: BadgeConfig[] = [
+      {
+        condition: (r) => r >= GOOD,
+        className:
+          "text-teal-700 bg-teal-100 dark:bg-teal-900/50 dark:text-teal-300",
+        text: t("riskReward.excellentRatio"),
+      },
+      {
+        condition: (r) => r >= DECENT,
+        className:
+          "text-yellow-700 bg-yellow-100 dark:bg-yellow-900/50 dark:text-yellow-300",
+        text: t("riskReward.acceptableRatio"),
+      },
+      {
+        condition: (r) => r > 0,
+        className:
+          "text-red-700 bg-red-100 dark:bg-red-900/50 dark:text-red-300",
+        text: t("riskReward.improveRatio"),
+      },
+    ];
+    return configs.find((cfg) => cfg.condition(ratio));
+  }, [ratio, t, GOOD, DECENT]);
 
-  const config = badgeConfigs.find((cfg) => {
-    return cfg.condition(ratio);
-  });
-
-  if (config) {
+  if (badgeConfig) {
     return (
-      <div className={`px-3 py-1 rounded-full ${config.className}`}>
-        {config.text}
+      <div
+        className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider ${badgeConfig.className}`}
+      >
+        {badgeConfig.text}
       </div>
     );
   }
 
   return (
-    <div className="px-3 py-1 text-gray-600 bg-gray-100 rounded-full dark:text-gray-200 dark:bg-gray-700">
+    <div className="px-3 py-1.5 text-gray-600 bg-gray-100 rounded-lg text-xs font-bold uppercase tracking-wider dark:text-gray-300 dark:bg-white/10">
       {t("riskReward.noData")}
     </div>
   );
@@ -66,10 +69,10 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
   const { t } = useTranslation();
 
   const getRatioTextColor = () => {
-    if (ratio >= GOOD) return "text-green-600 dark:text-green-400";
+    if (ratio >= GOOD) return "text-teal-600 dark:text-teal-400";
     if (ratio >= DECENT) return "text-yellow-600 dark:text-yellow-400";
     if (ratio > 0) return "text-red-600 dark:text-red-400";
-    return "text-gray-600 dark:text-gray-200";
+    return "text-gray-600 dark:text-gray-400";
   };
 
   return (
@@ -108,21 +111,22 @@ type ProgressBarProps = {
  * @returns A JSX element containing a labeled progress bar with formatted value display
  */
 const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
-  const barBg =
-    color === "text-red-600"
-      ? "bg-red-500 dark:bg-red-700"
-      : "bg-green-500 dark:bg-green-700";
-  const textColor =
-    color === "text-red-600"
-      ? "text-red-600 dark:text-red-400"
-      : "text-green-600 dark:text-green-400";
+  const isRed = color.includes("red");
+  const barBg = isRed
+    ? "bg-red-500 dark:bg-red-500"
+    : "bg-teal-500 dark:bg-teal-500";
+
+  // Use the passed color class directly for text if suitable, or map it to ensured colors
+  const valueColor = isRed
+    ? "text-red-600 dark:text-red-400"
+    : "text-teal-600 dark:text-teal-400";
   return (
     <div>
       <div className="flex justify-between mb-1">
         <span className="text-sm font-medium cursor-default dark:text-gray-200">
           {label}
         </span>
-        <span className={`text-sm font-bold ${textColor}`}>
+        <span className={`text-sm font-bold ${valueColor}`}>
           ${formatToTwoDecimals(value)}
         </span>
       </div>
@@ -141,6 +145,7 @@ type PriceLevelCardProps = {
   value: number | null;
   bgColor: string;
   borderColor: string;
+  textColor: string;
 };
 
 const PriceLevelCard = ({
@@ -148,29 +153,20 @@ const PriceLevelCard = ({
   value,
   bgColor,
   borderColor,
+  textColor,
 }: PriceLevelCardProps) => {
   const formatValue = value ? formatToEightDecimals(value) : null;
-  // Add dark mode classes for bg and border
-  const darkBg =
-    bgColor === "bg-red-50"
-      ? "dark:bg-red-900"
-      : bgColor === "bg-blue-50"
-      ? "dark:bg-blue-900"
-      : "dark:bg-green-900";
-  const darkBorder =
-    borderColor === "border border-red-100"
-      ? "dark:border-red-900"
-      : borderColor === "border border-blue-100"
-      ? "dark:border-blue-900"
-      : "dark:border-green-900";
+
   return (
     <div
-      className={`${bgColor} ${borderColor} ${darkBg} ${darkBorder} rounded-md p-2`}
+      className={`${bgColor} ${borderColor} rounded-xl p-4 transition-all hover:bg-opacity-70`}
     >
-      <p className="mb-1 text-xs text-gray-500 cursor-default dark:text-gray-200">
+      <p
+        className={`mb-1 text-xs font-bold tracking-wider uppercase opacity-80 ${textColor}`}
+      >
         {label}
       </p>
-      <p className="font-semibold text-gray-900 dark:text-gray-50">
+      <p className={`font-mono font-bold text-lg ${textColor}`}>
         {formatValue ? `$${formatValue}` : "N/A"}
       </p>
     </div>
@@ -179,7 +175,7 @@ const PriceLevelCard = ({
 
 const RiskRewardVisual = () => {
   const { calculationResult, tradeParameters } = useSelector(
-    (state: RootState) => state.calculator
+    (state: RootState) => state.calculator,
   );
   const { t } = useTranslation();
 
@@ -194,8 +190,8 @@ const RiskRewardVisual = () => {
   const rewardWidth = maxValue > 0 ? (rewardAmount / maxValue) * 100 : 0;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:shadow-[0_2px_16px_0_rgba(255,255,255,0.08)]">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 cursor-default dark:text-gray-50">
+    <div className="p-6 glass-panel rounded-2xl">
+      <h2 className="mb-6 text-xl font-bold text-gray-900 cursor-default dark:text-white font-display">
         {t("riskReward.title")}
       </h2>
 
@@ -203,51 +199,77 @@ const RiskRewardVisual = () => {
       <RatioDisplay ratio={ratio} />
 
       {/* Visual comparison bars */}
-      <div className="mb-6 space-y-4">
+      <div className="mb-8 space-y-6">
         {/* Risk visualization */}
         <ProgressBar
           label={t("riskReward.risk")}
           value={riskAmount}
           width={riskWidth}
-          color="text-red-600"
+          color="text-red-500"
         />
         {/* Reward visualization */}
         <ProgressBar
           label={t("riskReward.potentialReward")}
           value={rewardAmount}
           width={rewardWidth}
-          color="text-green-600"
+          color="text-teal-500"
         />
       </div>
 
       {/* Price levels grid */}
-      <div className="grid grid-cols-3 gap-2 mt-6 text-center">
+      <p className="mb-3 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">
+        {t("riskReward.keyLevels")}
+      </p>
+      <div className="grid grid-cols-3 gap-3 text-center">
         <PriceLevelCard
           label={t("riskReward.stopLoss")}
           value={tradeParameters.stopLossPrice}
-          bgColor="bg-red-50"
-          borderColor="border border-red-100"
+          bgColor="bg-red-50 dark:bg-red-900/40"
+          borderColor="border border-red-100 dark:border-red-500/30"
+          textColor="text-red-700 dark:text-red-300"
         />
         <PriceLevelCard
           label={t("riskReward.entryPrice")}
           value={tradeParameters.entryPrice}
-          bgColor="bg-blue-50"
-          borderColor="border border-blue-100"
+          bgColor="bg-indigo-50 dark:bg-indigo-900/40"
+          borderColor="border border-indigo-100 dark:border-indigo-500/30"
+          textColor="text-indigo-700 dark:text-indigo-300"
         />
         <PriceLevelCard
           label={t("riskReward.takeProfit")}
           value={tradeParameters.takeProfitPrice ?? null}
-          bgColor="bg-green-50"
-          borderColor="border border-green-100"
+          bgColor="bg-teal-50 dark:bg-teal-900/40"
+          borderColor="border border-teal-100 dark:border-teal-500/30"
+          textColor="text-teal-700 dark:text-teal-300"
         />
       </div>
 
       {/* Trading tip */}
-      <div className="p-3 mt-6 text-xs text-gray-700 border border-blue-100 rounded-md dark:text-gray-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950">
-        <p className="mb-1 font-medium cursor-default">
-          {t("riskReward.tradingTip")}
-        </p>
-        <p>{t("riskReward.tipText")}</p>
+      <div className="p-4 mt-8 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 dark:border dark:border-indigo-800/50">
+        <div className="flex items-start gap-3">
+          <div className="p-1 mt-0.5 bg-indigo-100 rounded-full dark:bg-indigo-800 text-indigo-600 dark:text-indigo-300">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-4 h-4"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>
+            <p className="mb-1 text-sm font-bold text-indigo-900 dark:text-indigo-200">
+              {t("riskReward.tradingTip")}
+            </p>
+            <p className="text-sm text-indigo-700 dark:text-indigo-300 leading-relaxed">
+              {t("riskReward.tipText")}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 const App = () => {
   const { tradeParameters } = useSelector(
-    (state: RootState) => state.calculator
+    (state: RootState) => state.calculator,
   );
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const App = () => {
         updateTradeParameter({
           name: key as keyof TradeParameters,
           value: numericValue,
-        })
+        }),
       );
     });
   }, []);
@@ -40,7 +40,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen dark:bg-gray-800">
+    <div className="flex flex-col min-h-screen dark:bg-dark-bg">
       <Header />
       <main>
         <Home />

@@ -1,71 +1,75 @@
 {
   "header": {
-    "title": "Công Cụ Tính Kích Thước Vị Thế",
+    "title": "Trình Tính Toán Vị Thế",
     "titleShort": "Tính Vị Thế",
     "risk": "Rủi ro:",
-    "capital": "Vốn:",
-    "toggleTheme": "Chuyển đổi giao diện",
-    "openSettings": "Mở cài đặt",
-    "settings": "Cài đặt",
-    "closeSettings": "Đóng cài đặt",
-    "settingsPlaceholder": "Form cài đặt sẽ được triển khai trong Task 4"
+    "capital": "Tổng vốn:",
+    "toggleTheme": "Thay đổi giao diện",
+    "openSettings": "Mở thiết lập",
+    "settings": "Cấu hình hệ thống",
+    "closeSettings": "Đóng thiết lập"
   },
   "settingsModal": {
-    "title": "Thiết Lập",
-    "totalCapital": "Tổng Vốn Giao Dịch ($)",
-    "riskPercentage": "Tỷ Lệ Rủi Ro (%)"
+    "title": "Cấu Hình Giao Dịch Mặc Định",
+    "totalCapital": "Vốn Giao Dịch",
+    "riskPercentage": "Cấu Hình Rủi Ro Tiêu Chuẩn"
   },
   "calculator": {
-    "title": "Công Cụ Tính Kích Thước Vị Thế",
-    "subtitle": "Tính toán kích thước giao dịch tối ưu dựa trên khả năng chịu rủi ro của bạn",
-    "totalCapital": "Tổng Vốn Giao Dịch ($)",
-    "entryPrice": "Giá Vào Lệnh ($)",
-    "stopLossPrice": "Giá Cắt Lỗ ($)",
-    "riskPercentage": "Tỷ Lệ Rủi Ro (%)",
-    "takeProfitPrice": "Giá Chốt Lời ($) (Tùy chọn)",
-    "calculateButton": "Tính Toán",
-    "resultsTitle": "Kết Quả Tính Toán",
-    "noResults": "Nhập các thông số giao dịch và nhấn Tính Toán để xem kết quả.",
-    "positionSize": "Kích Thước Vị Thế",
-    "potentialLoss": "Thua Lỗ Tiềm Năng",
-    "potentialProfit": "Lợi Nhuận Tiềm Năng"
+    "title": "Trình Tính Toán Vị Thế Giao Dịch",
+    "subtitle": "Tối ưu hóa lệnh của bạn và bảo vệ nguồn vốn với các phép tính chuẩn xác.",
+    "totalCapital": "Vốn Giao Dịch Tổng",
+    "entryPrice": "Mức Giá Vào Lệnh",
+    "stopLossPrice": "Mức Chặn Lỗ (Stop Loss)",
+    "riskPercentage": "Cấu Hình Rủi Ro",
+    "riskAmount": "Cấu Hình Rủi Ro",
+    "takeProfitPrice": "Mục Tiêu Chốt Lời",
+    "calculateButton": "Phân Tích Vị Thế",
+    "resultsTitle": "Chi Tiết Phân Tích Giao Dịch",
+    "noResults": "Vui lòng nhập các thông số phía trên để xem kích thước vị thế tối ưu dành cho bạn.",
+    "positionSize": "Kích Thước Vị Thế Tối Ưu",
+    "potentialLoss": "Mức Lỗ Dự Kiến (tại SL)",
+    "potentialProfit": "Lợi Nhuận Dự Kiến (tại TP)"
   },
   "riskReward": {
-    "title": "Phân Tích Rủi Ro/Lợi Nhuận",
-    "ratio": "Tỷ Lệ Rủi Ro/Lợi Nhuận",
-    "excellentRatio": "Tỷ lệ xuất sắc",
-    "acceptableRatio": "Tỷ lệ tạm chấp nhận",
-    "improveRatio": "Cải thiện tỷ lệ của bạn",
-    "noData": "Không có dữ liệu",
-    "risk": "Rủi Ro",
+    "title": "Phân Tích Hồ Sơ Rủi Ro",
+    "ratio": "Hiệu Suất Rủi Ro/Lợi Nhuận",
+    "excellentRatio": "Hiệu Suất Cao",
+    "acceptableRatio": "Rủi Ro Cân Bằng",
+    "improveRatio": "Cần Xem Lại Chiến Lược",
+    "noData": "Đang Đợi Dữ Liệu",
+    "risk": "Rủi Ro Phân Bổ",
     "potentialReward": "Lợi Nhuận Tiềm Năng",
-    "stopLoss": "Cắt Lỗ",
-    "entryPrice": "Giá Vào",
-    "takeProfit": "Chốt Lời",
-    "tradingTip": "💡 Mẹo Giao Dịch:",
-    "tipText": "Các nhà giao dịch chuyên nghiệp thường hướng đến tỷ lệ RR ít nhất là 1:2 hoặc tốt hơn. Điều này có nghĩa là rủi ro $1 để có khả năng kiếm được $2, cải thiện cơ hội sinh lời dài hạn của bạn."
+    "stopLoss": "Mức Chặn Lỗ",
+    "entryPrice": "Điểm Vào Lệnh",
+    "takeProfit": "Mục Tiêu Lợi Nhuận",
+    "keyLevels": "Các Điểm Giá Chiến Lược",
+    "tradingTip": "Góc Nhìn Chuyên Gia:",
+    "tipText": "Giao dịch thành công là trò chơi của xác suất. Việc hướng tới tỷ lệ Rủi ro/Lợi nhuận từ 1:2 trở lên giúp đảm bảo rằng ngay cả khi tỷ lệ thắng chỉ là 50%, tài khoản của bạn vẫn có lợi nhuận trong dài hạn."
   },
   "simulator": {
-    "title": "Kịch Bản Rủi Ro/Lợi Nhuận (RR)",
-    "subtitle": "So sánh các tỷ lệ RR khác nhau dựa trên thiết lập giao dịch hiện tại:",
-    "positionLabel": "Vị thế:",
-    "takeProfitPrice": "Giá Chốt Lời:",
-    "potentialProfit": "Lợi Nhuận Tiềm Năng:",
-    "profitPercentage": "% Lợi Nhuận:",
-    "riskAmount": "Số Tiền Rủi Ro:",
-    "good": "Tốt",
-    "fair": "Tạm được",
-    "risk": "Rủi Ro",
-    "reward": "Lợi Nhuận",
-    "simulationTip": "💡 Mẹo Mô Phỏng:",
-    "simulationTipText": "Những kịch bản này cho thấy kết quả tiềm năng dựa trên các mức chốt lời khác nhau. Tỷ lệ RR 1:2 hoặc 1:3 thường được các nhà giao dịch chuyên nghiệp ưa chuộng để có lợi nhuận dài hạn tốt hơn."
+    "title": "Dự Phóng Rủi Ro/Lợi Nhuận",
+    "subtitle": "Trực quan hóa lợi nhuận tiềm năng dựa trên các cột mốc hiệu suất khác nhau:",
+    "positionLabel": "Khối Lượng Thực Thi:",
+    "takeProfitPrice": "Mục Tiêu Giá",
+    "potentialProfit": "Mức Tăng Trưởng",
+    "profitPercentage": "Tỷ Suất LN/Tổng Vốn",
+    "riskAmount": "Tổng Rủi Ro",
+    "good": "Đã Tối Ưu",
+    "fair": "Trung Tính",
+    "risk": "Rủi ro",
+    "reward": "Lợi nhuận",
+    "simulationTip": "Lưu Ý Hiệu Suất:",
+    "simulationTipText": "Các kịch bản này so sánh tỷ suất lợi nhuận dựa trên mức rủi ro cố định. Duy trì lợi nhuận dài hạn đòi hỏi sự tập trung vào các lệnh có tiềm năng lợi nhuận vượt trội so với rủi ro."
   },
   "footer": {
-    "title": "Công Cụ Tính Kích Thước Vị Thế",
-    "description": "Được dựng bởi",
-    "author": "Dương Minh"
+    "title": "Trình Tính Toán Vị Thế Giao Dịch",
+    "description": "Được hoàn thiện tỉ mỉ bởi",
+    "author": "Minh Dương"
   },
   "common": {
-    "language": "Ngôn ngữ"
+    "language": "Ngôn ngữ",
+    "riskValue": "Giá Trị Rủi Ro",
+    "riskPercentageShort": "Rủi ro %",
+    "optional": "Tùy chọn"
   }
 }

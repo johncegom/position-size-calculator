@@ -1,5 +1,9 @@
 import { test, expect, describe } from "vitest";
-import { calculatePositionSize } from "./calculations";
+import {
+  calculatePositionSize,
+  priceDistance,
+  stoplossPercentage,
+} from "./calculations";
 
 describe("calculatePositionSize", () => {
   const validParams = {
@@ -178,4 +182,75 @@ describe("calculatePositionSize", () => {
     const result = calculatePositionSize(params);
     expect(result.potentialLoss).toBeCloseTo(params.totalCapital, 2);
   });
+
+  describe("throws error for invalid take profit price", () => {
+    const longParams = {
+      totalCapital: 200,
+      entryPrice: 2450,
+      stopLossPrice: 2185,
+      riskPercentage: 5,
+    }; // entry price > stop loss price
+
+    const shortParams = {
+      totalCapital: 200,
+      entryPrice: 2450,
+      stopLossPrice: 2550,
+      riskPercentage: 5,
+    }; // entry price < stop loss price
+
+    test("take profit price is higher entry price in short position", () => {
+      const params = { ...shortParams, takeProfitPrice: 2700 };
+      expect(() => calculatePositionSize(params)).toThrowError(
+        "Take profit price must be below for short positions."
+      );
+    });
+    test("take profit price is less than entry price in long position", () => {
+      const params = { ...longParams, takeProfitPrice: 2400 };
+      expect(() => calculatePositionSize(params)).toThrowError(
+        "Take profit price must be above entry price for long positions."
+      );
+    });
+  });
 });
+
+describe("stoplossPercentage", () => {
+  describe("throws error for negative input", () => {
+    test("stop loss price is negative", () => {
+      expect(() => stoplossPercentage(-500, 500)).toThrowError(
+        "Stop loss price and entry price must be positive numbers"
+      );
+    });
+    test("entry price is negative", () => {
+      expect(() => stoplossPercentage(200, -150)).toThrowError(
+        "Stop loss price and entry price must be positive numbers"
+      );
+    });
+  });
+  test("throws error when stop loss price equal entry price", () => {
+    expect(() => stoplossPercentage(200, 200)).toThrowError(
+      "Stop loss price cannot be equal to entry price"
+    );
+  });
+});
+
+describe("priceDistance", () => {
+  describe("throws error for negative input", () => {
+    test("begin price is negative", () => {
+      expect(() => priceDistance(-500, 500)).toThrowError(
+        "Either price must be positive numbers"
+      );
+    });
+    test("end price is negative", () => {
+      expect(() => priceDistance(200, -150)).toThrowError(
+        "Either price must be positive numbers"
+      );
+    });
+  });
+  test("throws error when begin price equal end price", () => {
+    expect(() => priceDistance(200, 200)).toThrowError(
+      "Both prices cannot be equal"
+    );
+  });
+});
+
+describe("calculateTakeProfitPrice", () => {});

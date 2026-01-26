@@ -1,71 +1,75 @@
 {
   "header": {
     "title": "Position Size Calculator",
-    "titleShort": "PSC",
-    "risk": "Risk:",
-    "capital": "Capital:",
-    "toggleTheme": "Toggle theme",
-    "openSettings": "Open settings",
-    "settings": "Settings",
-    "closeSettings": "Close settings",
-    "settingsPlaceholder": "Settings form will be implemented in Task 4"
+    "titleShort": "Calculator",
+    "risk": "Risk Profile:",
+    "capital": "Account Value:",
+    "toggleTheme": "Switch Theme",
+    "openSettings": "Open Settings",
+    "settings": "Configurations",
+    "closeSettings": "Close Settings"
   },
   "settingsModal": {
-    "title": "Settings",
-    "totalCapital": "Total Trading Capital ($)",
-    "riskPercentage": "Risk Percentage (%)"
+    "title": "Default Trade Parameters",
+    "totalCapital": "Trading Capital",
+    "riskPercentage": "Standard Risk Profile"
   },
   "calculator": {
     "title": "Position Size Calculator",
-    "subtitle": "Calculate optimal trade sizes based on your risk tolerance",
-    "totalCapital": "Total Trading Capital ($)",
-    "entryPrice": "Entry Price ($)",
-    "stopLossPrice": "Stop-Loss Price ($)",
-    "riskPercentage": "Risk Percentage (%)",
-    "takeProfitPrice": "Take-Profit Price ($) (Optional)",
-    "calculateButton": "Calculate",
-    "resultsTitle": "Calculation Results",
-    "noResults": "Enter your trade parameters and click Calculate to see results.",
-    "positionSize": "Position Size",
-    "potentialLoss": "Potential Loss",
-    "potentialProfit": "Potential Profit"
+    "subtitle": "Maximize your strategy and protect your capital with precision-engineered calculations.",
+    "totalCapital": "Trading Capital",
+    "entryPrice": "Planned Entry Price",
+    "stopLossPrice": "Protective Stop Loss",
+    "riskPercentage": "Risk Profile",
+    "riskAmount": "Risk Profile",
+    "takeProfitPrice": "Target Take Profit",
+    "calculateButton": "Analyze Position",
+    "resultsTitle": "Trade Analysis Breakdown",
+    "noResults": "Configure your trade parameters above to reveal your optimized position sizes.",
+    "positionSize": "Optimal Position Size",
+    "potentialLoss": "Expected Loss (at SL)",
+    "potentialProfit": "Projected Profit (at TP)"
   },
   "riskReward": {
-    "title": "Risk/Reward Analysis",
-    "ratio": "Risk/Reward Ratio",
-    "excellentRatio": "Excellent ratio",
-    "acceptableRatio": "Acceptable ratio",
-    "improveRatio": "Improve your ratio",
-    "noData": "No data available",
-    "risk": "Risk",
+    "title": "Risk Profile Analysis",
+    "ratio": "Risk/Reward Performance",
+    "excellentRatio": "High Performance",
+    "acceptableRatio": "Balanced Risk",
+    "improveRatio": "Review Strategy",
+    "noData": "Awaiting Parameters",
+    "risk": "Allocated Risk",
     "potentialReward": "Potential Reward",
     "stopLoss": "Stop Loss",
-    "entryPrice": "Entry Price",
-    "takeProfit": "Take Profit",
-    "tradingTip": "💡 Trading Tip:",
-    "tipText": "Professional traders typically aim for a risk/reward ratio of at least 1:2 or better. This means risking $1 to potentially gain $2, improving your chances of long-term profitability."
+    "entryPrice": "Entry Point",
+    "takeProfit": "Profit Target",
+    "keyLevels": "Strategic Price Levels",
+    "tradingTip": "Pro Insight:",
+    "tipText": "Successful trading is a game of probability. Aiming for a Risk/Reward ratio of 1:2 or higher helps ensure that even with a 50% win rate, your portfolio remains profitable over time."
   },
   "simulator": {
-    "title": "Risk/Reward Scenarios",
-    "subtitle": "Compare different risk/reward ratios based on your current trade setup:",
-    "positionLabel": "Position:",
-    "takeProfitPrice": "Take Profit Price:",
-    "potentialProfit": "Potential Profit:",
-    "profitPercentage": "Profit %:",
-    "riskAmount": "Risk Amount:",
-    "good": "Good",
-    "fair": "Fair",
+    "title": "Risk/Reward Projections",
+    "subtitle": "Visualize your potential profitability across different performance benchmarks:",
+    "positionLabel": "Execution Size:",
+    "takeProfitPrice": "Price Target",
+    "potentialProfit": "Potential Gain",
+    "profitPercentage": "Return on Account",
+    "riskAmount": "Total Risk",
+    "good": "Optimized",
+    "fair": "Neutral",
     "risk": "Risk",
     "reward": "Reward",
-    "simulationTip": "💡 Simulation Tip:",
-    "simulationTipText": "These scenarios show potential outcomes based on different take-profit levels. A 1:2 or 1:3 ratio is generally preferred by professional traders for better long-term profitability."
+    "simulationTip": "Performance Note:",
+    "simulationTipText": "These scenarios compare potential returns based on fixed risk. Maintaining a positive expectancy requires focusing on trades where the upside significantly outweighs the downside."
   },
   "footer": {
     "title": "Position Size Calculator",
-    "description": "Built by",
+    "description": "Crafted with precision by",
     "author": "Minh Duong"
   },
   "common": {
-    "language": "Language"
+    "language": "Language",
+    "riskValue": "Risk Value",
+    "riskPercentageShort": "Risk %",
+    "optional": "Optional"
   }
 }

@@ -9,7 +9,7 @@ import type { TradeParameters } from "../../types";
 
 const Header = () => {
   const { tradeParameters } = useSelector(
-    (state: RootState) => state.calculator
+    (state: RootState) => state.calculator,
   );
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -76,7 +76,7 @@ const Header = () => {
         updateTradeParameter({
           name: paramName as keyof TradeParameters,
           value: value,
-        })
+        }),
       );
     });
     toggleSettings();
@@ -220,20 +220,20 @@ const Header = () => {
       {/* Settings Modal */}
       {isSettingsOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/60 dark:bg-gray-900/70 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity"
           onClick={toggleSettings}
         >
           <div
-            className="w-full max-w-xl p-6 mt-24 bg-white rounded-lg shadow-xl dark:bg-gray-700"
+            className="w-full max-w-md p-8 overflow-hidden text-left align-middle transition-all transform shadow-2xl rounded-2xl bg-white dark:bg-[#0f172a] border border-gray-100 dark:border-white/10"
             onClick={handleModalClick}
           >
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900 cursor-default dark:text-gray-200">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-display">
                 {t("settingsModal.title")}
               </h2>
               <button
                 onClick={toggleSettings}
-                className="text-gray-400 cursor-pointer dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+                className="p-2 text-gray-400 transition-colors rounded-full hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-slate-800 dark:hover:text-gray-300"
                 aria-label="Close settings"
               >
                 <svg
@@ -251,69 +251,81 @@ const Header = () => {
                 </svg>
               </button>
             </div>
-            <form className="w-full space-y-4">
+            <form className="space-y-6">
               <div className="form-group">
                 <label
                   htmlFor="totalCapital"
                   id="totalCapitalLabel"
-                  className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
+                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
                   {t("settingsModal.totalCapital")}
                 </label>
-                <input
-                  type="tel"
-                  inputMode="decimal"
-                  pattern="(0|[1-9]\d*)([.,]\d*)?"
-                  id="totalCapital"
-                  name="totalCapital"
-                  min="0"
-                  required
-                  aria-labelledby="totalCapitalLabel"
-                  aria-required="true"
-                  value={formValues.totalCapital || ""}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
+                <div className="relative group">
+                  <input
+                    type="tel"
+                    inputMode="decimal"
+                    pattern="(0|[1-9]\d*)([.,]\d*)?"
+                    id="totalCapital"
+                    name="totalCapital"
+                    min="0"
+                    required
+                    aria-labelledby="totalCapitalLabel"
+                    aria-required="true"
+                    value={formValues.totalCapital || ""}
+                    onChange={handleInputChange}
+                    className="w-full py-3 pl-8 pr-4 text-lg transition-all bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-800/50 dark:border-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium text-gray-900"
+                    placeholder="0.00"
+                  />
+                  <span className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:-translate-x-1 pointer-events-none">
+                    $
+                  </span>
+                </div>
               </div>
               <div className="form-group">
                 <label
                   htmlFor="riskPercentage"
                   id="riskPercentageLabel"
-                  className="block mb-3 text-sm font-medium text-gray-700 dark:text-gray-200"
+                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                 >
                   {t("settingsModal.riskPercentage")}
                 </label>
-                <input
-                  type="tel"
-                  inputMode="decimal"
-                  pattern="(0|[1-9]\d*)([.,]\d*)?"
-                  id="riskPercentage"
-                  name="riskPercentage"
-                  min="0"
-                  required
-                  aria-labelledby="riskPercentageLabel"
-                  aria-required="true"
-                  value={formValues.riskPercentage || ""}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 text-gray-900 bg-white border border-gray-300 rounded-md shadow-sm dark:border-gray-400 dark:bg-gray-200 dark:text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
+                <div className="relative group">
+                  <input
+                    type="tel"
+                    inputMode="decimal"
+                    pattern="(0|[1-9]\d*)([.,]\d*)?"
+                    id="riskPercentage"
+                    name="riskPercentage"
+                    min="0"
+                    required
+                    aria-labelledby="riskPercentageLabel"
+                    aria-required="true"
+                    value={formValues.riskPercentage || ""}
+                    onChange={handleInputChange}
+                    className="w-full pl-4 pr-8 py-3 text-lg transition-all bg-white border border-gray-200 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-800/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
+                    placeholder="1.0"
+                  />
+                  <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:translate-x-1">
+                    %
+                  </span>
+                </div>
               </div>
-              <div className="flex mt-6 gap-14">
+              <div className="flex gap-4 pt-2 mt-8">
                 <button
                   type="button"
-                  aria-label="Calculate Position Size"
-                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-blue-600 rounded-md shadow-sm cursor-pointer hover:bg-blue-700 active:bg-blue-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
-                  onClick={handleSave}
-                >
-                  Save
-                </button>
-                <button
-                  type="button"
-                  aria-label="Calculate Position Size"
-                  className="w-full px-4 py-3 font-medium text-white transition-all duration-150 bg-gray-500 rounded-md shadow-sm cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-800 active:bg-gray-800 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 touch-manipulation"
+                  aria-label="Cancel"
+                  className="flex-1 px-4 py-3 font-medium text-gray-700 transition-all bg-white border border-gray-200 shadow-sm rounded-xl hover:bg-gray-50 dark:bg-transparent dark:border-gray-700 dark:text-gray-300 dark:hover:bg-white/5 active:scale-[0.98] outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700"
                   onClick={handleCancel}
                 >
                   Cancel
+                </button>
+                <button
+                  type="button"
+                  aria-label="Save Settings"
+                  className="flex-1 px-4 py-3 font-bold text-white transition-all shadow-lg bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-xl hover:to-indigo-600 hover:shadow-indigo-500/25 active:scale-[0.98] outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                  onClick={handleSave}
+                >
+                  Save
                 </button>
               </div>
             </form>

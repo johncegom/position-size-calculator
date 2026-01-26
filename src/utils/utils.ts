@@ -1,3 +1,5 @@
+const STORAGE_VERSION = "v1";
+
 /**
  * Saves a string value to the browser's localStorage under the specified parameter name.
  *
@@ -10,7 +12,13 @@ export const saveToLocalStorage = (
   value: string
 ): boolean => {
   if (value === "null") return false;
-  localStorage.setItem(paramName, value);
+
+  const storageItem = {
+    version: STORAGE_VERSION,
+    value: value,
+  };
+
+  localStorage.setItem(paramName, JSON.stringify(storageItem));
   return true;
 };
 
@@ -21,7 +29,24 @@ export const saveToLocalStorage = (
  * @returns The value associated with the given key, or `null` if the key does not exist.
  */
 export const loadFromLocalStorage = (key: string) => {
-  return localStorage.getItem(key);
+  const item = localStorage.getItem(key);
+  if (!item) return null;
+
+  try {
+    const parsed = JSON.parse(item);
+    if (parsed && typeof parsed === "object" && "version" in parsed) {
+      if (parsed.version === STORAGE_VERSION) {
+        return parsed.value;
+      }
+      // Version mismatch: return null or handle migration
+      return null;
+    }
+    // If parsed but not our shape (shouldn't happen with strict control, but just in case)
+    return null;
+  } catch {
+    // Legacy support: if parse fails, it's likely the old raw string value
+    return item;
+  }
 };
 
 /**

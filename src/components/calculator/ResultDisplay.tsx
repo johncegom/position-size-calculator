@@ -23,17 +23,17 @@ const ResultItem = ({ label, value }: ResultItemProps) => {
 
 const ResultDisplay = () => {
   const { calculationResult } = useSelector(
-    (state: RootState) => state.calculator
+    (state: RootState) => state.calculator,
   );
   const { t } = useTranslation();
 
   if (!calculationResult) {
     return (
-      <div className="p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:shadow-[0_2px_16px_0_rgba(255,255,255,0.08)]">
-        <h2 className="mb-4 text-xl font-semibold text-gray-900 dark:text-gray-50">
+      <div className="p-8 text-center glass-panel rounded-2xl">
+        <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white font-display">
           {t("calculator.resultsTitle")}
         </h2>
-        <p className="italic text-gray-500 dark:text-gray-200">
+        <p className="text-gray-500 dark:text-gray-400">
           {t("calculator.noResults")}
         </p>
       </div>
@@ -43,27 +43,47 @@ const ResultDisplay = () => {
   const { positionSize, potentialLoss, potentialProfit } = calculationResult;
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:shadow-[0_2px_16px_0_rgba(255,255,255,0.08)]">
-      <h2 className="mb-4 text-xl font-semibold text-gray-900 cursor-default dark:text-gray-50">
+    <div className="p-6 glass-panel rounded-2xl">
+      <h2 className="mb-6 text-xl font-bold text-gray-900 cursor-default dark:text-white font-display">
         {t("calculator.resultsTitle")}
       </h2>
-      {positionSize > 0 && (
-        <ResultItem label={t("calculator.positionSize")} value={positionSize} />
-      )}
 
-      {potentialLoss > 0 && (
-        <ResultItem
-          label={t("calculator.potentialLoss")}
-          value={potentialLoss}
-        />
-      )}
+      <div className="grid grid-cols-1 gap-4">
+        {positionSize > 0 && (
+          <div className="p-5 transition-transform border border-indigo-100 shadow-sm rounded-xl bg-indigo-50/50 dark:bg-indigo-900/20 dark:border-indigo-800 hover:scale-[1.02]">
+            <p className="text-xs font-semibold tracking-wider text-indigo-600 uppercase dark:text-indigo-300">
+              {t("calculator.positionSize")}
+            </p>
+            <p className="mt-1 text-4xl font-bold text-indigo-700 font-mono dark:text-indigo-400">
+              ${formatToTwoDecimals(positionSize)}
+            </p>
+          </div>
+        )}
 
-      {potentialProfit > 0 && (
-        <ResultItem
-          label={t("calculator.potentialProfit")}
-          value={potentialProfit}
-        />
-      )}
+        <div className="grid grid-cols-2 gap-4">
+          {potentialLoss > 0 && (
+            <div className="p-5 border border-red-100 shadow-sm rounded-xl bg-red-50/50 dark:bg-red-900/20 dark:border-red-900/50">
+              <p className="text-xs font-semibold tracking-wider text-red-600 uppercase dark:text-red-300">
+                {t("calculator.potentialLoss")}
+              </p>
+              <p className="mt-1 text-2xl font-bold text-red-600 font-mono dark:text-red-400">
+                ${formatToTwoDecimals(potentialLoss)}
+              </p>
+            </div>
+          )}
+
+          {potentialProfit > 0 && (
+            <div className="p-5 border border-emerald-100 shadow-sm rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 dark:border-emerald-900/50">
+              <p className="text-xs font-semibold tracking-wider text-emerald-600 uppercase dark:text-emerald-300">
+                {t("calculator.potentialProfit")}
+              </p>
+              <p className="mt-1 text-3xl font-bold text-transparent font-mono bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300">
+                ${formatToTwoDecimals(potentialProfit)}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

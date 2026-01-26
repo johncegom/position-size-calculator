@@ -1,2 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-brand-primary: #6366f1;
+  --color-brand-secondary: #4f46e5;
+  --color-success: #10b981;
+  --color-danger: #ff6b6b;
+  --color-warning: #fbbf24;
+
+  --bg-app-light: #f8fafc;
+  --bg-app-dark: #0f172a;
+
+  --bg-card-light: #ffffff;
+  --bg-card-dark: #0f172a;
+
+  --text-primary-light: #1e293b;
+  --text-primary-dark: #f8fafc;
+
+  --font-display: "Be Vietnam Pro", sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--bg-app-light);
+  color: var(--text-primary-light);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.dark body {
+  background-color: var(--bg-app-dark);
+  color: var(--text-primary-dark);
+}
+
+.font-mono-numbers {
+  font-family: var(--font-mono);
+  font-feature-settings:
+    "tnum" on,
+    "lnum" on;
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Input Styles */
+.input-premium {
+  transition: all 0.2s ease;
+  font-family: var(--font-mono);
+}
+
+.input-premium:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}

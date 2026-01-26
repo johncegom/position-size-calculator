@@ -51,13 +51,13 @@ export function calculatePositionSize({
   const isLong = stopLossPrice < entryPrice;
 
   if (takeProfitPrice) {
-    if (
-      (isLong && takeProfitPrice < entryPrice) ||
-      (!isLong && takeProfitPrice > entryPrice)
-    ) {
+    if (isLong && takeProfitPrice < entryPrice) {
       throw new Error(
-        "Take profit price must be above entry price for long positions or below for short positions."
+        "Take profit price must be above entry price for long positions."
       );
+    }
+    if (!isLong && takeProfitPrice > entryPrice) {
+      throw new Error("Take profit price must be below for short positions.");
     }
   }
 
@@ -105,7 +105,10 @@ function riskAmount(totalCapital: number, riskPercentage: number): number {
  * @returns The formatted percentage difference between the stop-loss and entry prices,
  *          calculated as (|stoplossPrice - entryPrice| / entryPrice)
  */
-function stoplossPercentage(stoplossPrice: number, entryPrice: number): number {
+export function stoplossPercentage(
+  stoplossPrice: number,
+  entryPrice: number
+): number {
   if (stoplossPrice <= 0 || entryPrice <= 0) {
     throw new Error("Stop loss price and entry price must be positive numbers");
   }
@@ -146,12 +149,41 @@ export function calculateTakeProfitPrice(
   stopLossPrice: number,
   riskRewardRatio: number
 ): number {
+  if (
+    !isFinite(entryPrice) ||
+    !isFinite(stopLossPrice) ||
+    !isFinite(riskRewardRatio)
+  ) {
+    throw new Error("All inputs must be finite numbers.");
+  }
+  if (entryPrice <= 0 || stopLossPrice <= 0) {
+    throw new Error(
+      "Entry price and stop loss price must be positive numbers."
+    );
+  }
+  if (entryPrice === stopLossPrice) {
+    throw new Error("Entry price and stop loss price cannot be equal.");
+  }
+  if (riskRewardRatio <= 0) {
+    throw new Error("Risk-reward ratio must be a positive number.");
+  }
+
   const stopLossDistance = priceDistance(stopLossPrice, entryPrice);
   const takeProfitDistance = stopLossDistance * riskRewardRatio;
   const isLong = stopLossPrice < entryPrice;
   const takeProfitPrice = isLong
     ? entryPrice + takeProfitDistance
     : entryPrice - takeProfitDistance;
+
+  if (
+    (isLong && takeProfitPrice <= entryPrice) ||
+    (!isLong && takeProfitPrice >= entryPrice)
+  ) {
+    throw new Error(
+      "Calculated take profit price is not valid for the position direction."
+    );
+  }
+
   return takeProfitPrice;
 }
 
@@ -165,7 +197,7 @@ export function calculateTakeProfitPrice(
  * @throws {Error} When either price is not a positive number
  * @throws {Error} When both prices are equal
  */
-function priceDistance(beginPrice: number, endPrice: number): number {
+export function priceDistance(beginPrice: number, endPrice: number): number {
   if (beginPrice <= 0 || endPrice <= 0) {
     throw new Error("Either price must be positive numbers");
   }
