@@ -54,16 +54,32 @@ const ResultDisplay = () => {
             </div>
           )}
 
-          {potentialProfit > 0 && (
-            <div className="p-5 border border-emerald-100 shadow-sm rounded-xl bg-emerald-50/50 dark:bg-emerald-900/20 dark:border-emerald-900/50">
-              <p className="text-xs font-semibold tracking-wider text-emerald-600 uppercase dark:text-emerald-300">
-                {t("calculator.potentialProfit")}
-              </p>
+          <div
+            className={`p-5 border shadow-sm rounded-xl transition-all ${
+              potentialProfit > 0
+                ? "border-emerald-100 bg-emerald-50/50 dark:bg-emerald-900/20 dark:border-emerald-900/50"
+                : "border-gray-100 bg-gray-50/50 dark:bg-slate-800/50 dark:border-gray-700/50"
+            }`}
+          >
+            <p
+              className={`text-xs font-semibold tracking-wider uppercase ${
+                potentialProfit > 0
+                  ? "text-emerald-600 dark:text-emerald-300"
+                  : "text-gray-400 dark:text-gray-500"
+              }`}
+            >
+              {t("calculator.potentialProfit")}
+            </p>
+            {potentialProfit > 0 ? (
               <p className="mt-1 text-3xl font-bold text-transparent font-mono bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-400 dark:from-emerald-400 dark:to-emerald-300">
                 ${formatToTwoDecimals(potentialProfit)}
               </p>
-            </div>
-          )}
+            ) : (
+              <p className="mt-1 text-2xl font-bold text-gray-400 font-mono dark:text-gray-500 italic">
+                {t("common.optional").toLowerCase()}...
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

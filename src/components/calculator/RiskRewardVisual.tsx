@@ -82,7 +82,7 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
           {t("riskReward.ratio")}
         </p>
         <p className={`text-2xl font-bold ${getRatioTextColor()}`}>
-          {ratio ? `1:${formatToTwoDecimals(ratio)}` : "N/A"}
+          {ratio > 0 ? `1:${formatToTwoDecimals(ratio)}` : t("common.optional")}
         </p>
       </div>
       <div className="mt-2 text-sm cursor-default sm:mt-0">
@@ -112,29 +112,35 @@ type ProgressBarProps = {
  */
 const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
   const isRed = color.includes("red");
+  const isEmptyReward = !isRed && value === 0;
+
   const barBg = isRed
     ? "bg-red-500 dark:bg-red-500"
     : "bg-teal-500 dark:bg-teal-500";
 
-  // Use the passed color class directly for text if suitable, or map it to ensured colors
   const valueColor = isRed
     ? "text-red-600 dark:text-red-400"
-    : "text-teal-600 dark:text-teal-400";
+    : isEmptyReward
+      ? "text-gray-400 dark:text-gray-500"
+      : "text-teal-600 dark:text-teal-400";
+
   return (
     <div>
       <div className="flex justify-between mb-1">
         <span className="text-sm font-medium cursor-default dark:text-gray-200">
           {label}
         </span>
-        <span className={`text-sm font-bold ${valueColor}`}>
-          ${formatToTwoDecimals(value)}
+        <span className={`text-sm font-bold ${valueColor} font-mono`}>
+          {isEmptyReward ? "--" : `$${formatToTwoDecimals(value)}`}
         </span>
       </div>
-      <div className="h-8 overflow-hidden bg-gray-100 rounded-lg dark:bg-gray-700">
-        <div
-          className={`h-full ${barBg} rounded-lg transition-all duration-300 ease-out`}
-          style={{ width: `${width}%` }}
-        ></div>
+      <div className="h-4 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-700/50">
+        {!isEmptyReward && (
+          <div
+            className={`h-full ${barBg} rounded-full transition-all duration-500 ease-out`}
+            style={{ width: `${width}%` }}
+          ></div>
+        )}
       </div>
     </div>
   );
