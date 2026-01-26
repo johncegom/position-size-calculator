@@ -1,6 +1,7 @@
 import { test, expect, describe } from "vitest";
 import {
   calculatePositionSize,
+  calculateTakeProfitPrice,
   priceDistance,
   stoplossPercentage,
 } from "./calculations";
@@ -78,7 +79,7 @@ describe("calculatePositionSize", () => {
       stopLossPrice: validParams.entryPrice,
     };
     expect(() => calculatePositionSize(invalidParams)).toThrowError(
-      "Entry price and stop loss price cannot be equal."
+      "Entry price and stop loss price cannot be equal.",
     );
   });
 
@@ -90,9 +91,9 @@ describe("calculatePositionSize", () => {
           entryPrice: -2450,
           stopLossPrice: -2185,
           riskPercentage: -5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
 
@@ -103,9 +104,9 @@ describe("calculatePositionSize", () => {
           entryPrice: 2450,
           stopLossPrice: 2185,
           riskPercentage: 5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
 
@@ -116,9 +117,9 @@ describe("calculatePositionSize", () => {
           entryPrice: -2450,
           stopLossPrice: 2185,
           riskPercentage: 5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
 
@@ -129,9 +130,9 @@ describe("calculatePositionSize", () => {
           entryPrice: 2450,
           stopLossPrice: -2185,
           riskPercentage: 5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
     test("negative riskPercentage", () => {
@@ -141,9 +142,9 @@ describe("calculatePositionSize", () => {
           entryPrice: 2450,
           stopLossPrice: 2185,
           riskPercentage: -5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
 
@@ -154,9 +155,9 @@ describe("calculatePositionSize", () => {
           entryPrice: 2450,
           stopLossPrice: -2185,
           riskPercentage: 5,
-        })
+        }),
       ).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
   });
@@ -165,14 +166,14 @@ describe("calculatePositionSize", () => {
     test("riskPercentage is 0", () => {
       const params = { ...validParams, riskPercentage: 0 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
 
     test("riskPercentage is greater than 100", () => {
       const params = { ...validParams, riskPercentage: 113 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "All inputs must be positive numbers. Risk % must be between 0 and 100."
+        "All inputs must be positive numbers. Risk % must be between 0 and 100.",
       );
     });
   });
@@ -201,13 +202,13 @@ describe("calculatePositionSize", () => {
     test("take profit price is higher entry price in short position", () => {
       const params = { ...shortParams, takeProfitPrice: 2700 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "Take profit price must be below for short positions."
+        "Take profit price must be below for short positions.",
       );
     });
     test("take profit price is less than entry price in long position", () => {
       const params = { ...longParams, takeProfitPrice: 2400 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "Take profit price must be above entry price for long positions."
+        "Take profit price must be above entry price for long positions.",
       );
     });
   });
@@ -217,18 +218,18 @@ describe("stoplossPercentage", () => {
   describe("throws error for negative input", () => {
     test("stop loss price is negative", () => {
       expect(() => stoplossPercentage(-500, 500)).toThrowError(
-        "Stop loss price and entry price must be positive numbers"
+        "Stop loss price and entry price must be positive numbers",
       );
     });
     test("entry price is negative", () => {
       expect(() => stoplossPercentage(200, -150)).toThrowError(
-        "Stop loss price and entry price must be positive numbers"
+        "Stop loss price and entry price must be positive numbers",
       );
     });
   });
   test("throws error when stop loss price equal entry price", () => {
     expect(() => stoplossPercentage(200, 200)).toThrowError(
-      "Stop loss price cannot be equal to entry price"
+      "Stop loss price cannot be equal to entry price",
     );
   });
 });
@@ -237,20 +238,59 @@ describe("priceDistance", () => {
   describe("throws error for negative input", () => {
     test("begin price is negative", () => {
       expect(() => priceDistance(-500, 500)).toThrowError(
-        "Either price must be positive numbers"
+        "Either price must be positive numbers",
       );
     });
     test("end price is negative", () => {
       expect(() => priceDistance(200, -150)).toThrowError(
-        "Either price must be positive numbers"
+        "Either price must be positive numbers",
       );
     });
   });
   test("throws error when begin price equal end price", () => {
     expect(() => priceDistance(200, 200)).toThrowError(
-      "Both prices cannot be equal"
+      "Both prices cannot be equal",
     );
   });
 });
 
-describe("calculateTakeProfitPrice", () => {});
+describe("calculateTakeProfitPrice", () => {
+  test("calculates correctly for long positions", () => {
+    // entry 100, sl 90 (dist 10), rr 2 -> tp should be 100 + (10 * 2) = 120
+    expect(calculateTakeProfitPrice(100, 90, 2)).toBeCloseTo(120, 2);
+  });
+
+  test("calculates correctly for short positions", () => {
+    // entry 100, sl 110 (dist 10), rr 3 -> tp should be 100 - (10 * 3) = 70
+    expect(calculateTakeProfitPrice(100, 110, 3)).toBeCloseTo(70, 2);
+  });
+
+  describe("throws error for invalid inputs", () => {
+    test("non-finite inputs", () => {
+      expect(() => calculateTakeProfitPrice(Infinity, 100, 2)).toThrowError(
+        "All inputs must be finite numbers.",
+      );
+    });
+
+    test("non-positive prices", () => {
+      expect(() => calculateTakeProfitPrice(0, 100, 2)).toThrowError(
+        "Entry price and stop loss price must be positive numbers.",
+      );
+      expect(() => calculateTakeProfitPrice(100, -5, 2)).toThrowError(
+        "Entry price and stop loss price must be positive numbers.",
+      );
+    });
+
+    test("equal entry and stop loss prices", () => {
+      expect(() => calculateTakeProfitPrice(100, 100, 2)).toThrowError(
+        "Entry price and stop loss price cannot be equal.",
+      );
+    });
+
+    test("non-positive risk-reward ratio", () => {
+      expect(() => calculateTakeProfitPrice(100, 90, 0)).toThrowError(
+        "Risk-reward ratio must be a positive number.",
+      );
+    });
+  });
+});
