@@ -71,5 +71,20 @@
     "riskValue": "Giá Trị Rủi Ro",
     "riskPercentageShort": "Rủi ro %",
     "optional": "Tùy chọn"
+  },
+  "growthSimulator": {
+    "title": "Dự Báo Tăng Trưởng Tài Khoản",
+    "subtitle": "Trực quan hóa tác động của việc quản lý vốn. Mô phỏng này so sánh chiến lược hiện tại với cách đánh rủi ro cao (x5) qua 20 lệnh để bạn thấy tầm quan trọng của sự bền vững.",
+    "currentStrategy": "Chiến Lược Hiện Tại",
+    "aggressiveStrategy": "Mạo Hiểm (Rủi Ro x5)",
+    "busted": "Mạo Hiểm (Cháy Tài Khoản)",
+    "reshuffle": "Mô Phỏng Lại",
+    "winRate": "Tỷ Lệ Thắng",
+    "trade": "Lệnh",
+    "trades": "Giao Dịch",
+    "accountBalance": "Số Dư",
+    "requiredWin": "Tỷ Lệ Thắng Tối Thiểu",
+    "safe": "An toàn",
+    "aggressiveShort": "Mạo hiểm"
   }
 }

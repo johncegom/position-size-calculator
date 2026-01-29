@@ -71,5 +71,17 @@
     "riskValue": "Risk Value",
     "riskPercentageShort": "Risk %",
     "optional": "Optional"
+  },
+  "growthSimulator": {
+    "title": "Account Growth Projection",
+    "subtitle": "Visualize the long-term impact of your risk settings. This simulation compares your current strategy against a high-risk approach (5x risk) over 20 simulated trades to demonstrate the importance of survival.",
+    "currentStrategy": "Current Risk",
+    "aggressiveStrategy": "Aggressive (5x Risk)",
+    "winRate": "Win Rate",
+    "trades": "Trades",
+    "accountBalance": "Balance",
+    "requiredWin": "Required to Win",
+    "safe": "Safe",
+    "aggressiveShort": "Aggr."
   }
 }

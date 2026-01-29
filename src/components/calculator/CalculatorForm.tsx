@@ -50,9 +50,14 @@ const CalculatorForm = () => {
     if (riskInputMode === "percentage") {
       return formValues.riskPercentage;
     }
+
+    // If input is empty, ensure we return empty string so it doesn't snap to "0.00"
+    if (formValues.riskPercentage === "") return "";
+
     // Calculate dollar amount from percentage for display
     const capital = parseFloat(formValues.totalCapital) || 0;
     const percent = parseFloat(formValues.riskPercentage) || 0;
+
     if (capital === 0) return "";
 
     const value = (capital * percent) / 100;

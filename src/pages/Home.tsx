@@ -11,6 +11,9 @@ const RiskRewardVisual = lazy(
 const RiskRewardSimulator = lazy(
   () => import("../components/calculator/RiskRewardSimulator"),
 );
+const GrowthSimulator = lazy(
+  () => import("../components/calculator/GrowthSimulator"),
+);
 
 const Home = () => {
   const { t } = useTranslation();
@@ -43,6 +46,7 @@ const Home = () => {
             <ResultDisplay />
             <RiskRewardVisual />
             <RiskRewardSimulator />
+            <GrowthSimulator />
           </Suspense>
         </article>
       </section>
