@@ -12,7 +12,9 @@
   "settingsModal": {
     "title": "Cấu Hình Giao Dịch Mặc Định",
     "totalCapital": "Vốn Giao Dịch",
-    "riskPercentage": "Cấu Hình Rủi Ro Tiêu Chuẩn"
+    "riskPercentage": "Cấu Hình Rủi Ro Tiêu Chuẩn",
+    "save": "Lưu cấu hình",
+    "cancel": "Hủy bỏ"
   },
   "calculator": {
     "title": "Trình Tính Toán Vị Thế Giao Dịch",
@@ -28,7 +30,8 @@
     "noResults": "Vui lòng nhập các thông số phía trên để xem kích thước vị thế tối ưu dành cho bạn.",
     "positionSize": "Kích Thước Vị Thế Tối Ưu",
     "potentialLoss": "Mức Lỗ Dự Kiến (tại SL)",
-    "potentialProfit": "Lợi Nhuận Dự Kiến (tại TP)"
+    "potentialProfit": "Lợi Nhuận Dự Kiến (tại TP)",
+    "proTip": "Mẹo chuyên gia: Trader chuyên nghiệp thường chỉ rủi ro 1-2% vốn cho mỗi lệnh. Điều này giúp bảo vệ tài khoản khi gặp chuỗi thua lỗ."
   },
   "riskReward": {
     "title": "Phân Tích Hồ Sơ Rủi Ro",
@@ -59,7 +62,8 @@
     "risk": "Rủi ro",
     "reward": "Lợi nhuận",
     "simulationTip": "Lưu Ý Hiệu Suất:",
-    "simulationTipText": "Các kịch bản này so sánh tỷ suất lợi nhuận dựa trên mức rủi ro cố định. Duy trì lợi nhuận dài hạn đòi hỏi sự tập trung vào các lệnh có tiềm năng lợi nhuận vượt trội so với rủi ro."
+    "simulationTipText": "Các kịch bản này so sánh tỷ suất lợi nhuận dựa trên mức rủi ro cố định. Duy trì lợi nhuận dài hạn đòi hỏi sự tập trung vào các lệnh có tiềm năng lợi nhuận vượt trội so với rủi ro.",
+    "calculatedBasedOn": "*Được tính dựa trên kích thước vị thế hiện tại"
   },
   "footer": {
     "title": "Trình Tính Toán Vị Thế Giao Dịch",
@@ -84,6 +88,7 @@
     "trades": "Giao Dịch",
     "accountBalance": "Số Dư",
     "requiredWin": "Tỷ Lệ Thắng Tối Thiểu",
+    "requiredLabel": "Bắt buộc",
     "safe": "An toàn",
     "aggressiveShort": "Mạo hiểm"
   }

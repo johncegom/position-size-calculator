@@ -178,7 +178,7 @@ const GrowthSimulator = () => {
     simulationData.riskPath[simulationData.riskPath.length - 1] === 0;
 
   return (
-    <div className="p-6 glass-panel rounded-2xl relative overflow-visible shadow-lg border border-white/20 dark:border-white/5 bg-gradient-to-b from-white/80 to-indigo-50/30 dark:from-gray-900/80 dark:to-indigo-900/10 backdrop-blur-xl">
+    <div className="p-8 glass-panel rounded-2xl relative overflow-visible shadow-lg border border-white/20 dark:border-white/5 bg-gradient-to-b from-white/80 to-indigo-50/30 dark:from-gray-900/80 dark:to-indigo-900/10 backdrop-blur-xl">
       {/* Inline Gradients */}
       <svg width="0" height="0">
         <defs>
@@ -193,8 +193,8 @@ const GrowthSimulator = () => {
         </defs>
       </svg>
 
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-6 z-10 relative gap-4">
-        <div>
+      <div className="flex flex-col gap-4 mb-6 z-10 relative">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-gray-900 cursor-default dark:text-white font-display">
               {t("growthSimulator.title", "Account Growth Projection")}
@@ -222,45 +222,45 @@ const GrowthSimulator = () => {
               </svg>
             </button>
           </div>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            {t(
-              "growthSimulator.subtitle",
-              "Visualize the long-term impact of your risk settings. This simulation compares your current strategy against a high-risk approach (risking 5x more capital per trade) to demonstrate the importance of survival.",
-            )}
-          </p>
+
+          {/* Win Rate Control - Moved to top right for better compact layout */}
+          <div className="bg-white/60 dark:bg-black/20 p-2.5 rounded-xl border border-indigo-100/50 dark:border-white/10 w-full sm:w-auto min-w-[200px]">
+            <div className="flex justify-between items-center mb-1.5">
+              <span className="text-[10px] font-bold uppercase text-gray-500 tracking-wider">
+                {t("growthSimulator.winRate", "Win Rate")}
+              </span>
+              <span
+                className={`text-xs font-bold ${isSafeWinRate ? "text-teal-600 dark:text-teal-400" : "text-red-500"}`}
+              >
+                {targetWinRate}%
+              </span>
+            </div>
+            <input
+              type="range"
+              min="10"
+              max="90"
+              step="5"
+              value={targetWinRate}
+              onChange={(e) => setTargetWinRate(Number(e.target.value))}
+              className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600 transition-all block mb-1.5"
+            />
+            <div className="flex justify-between items-center">
+              <span className="text-[9px] text-gray-400 uppercase font-semibold">
+                {t("growthSimulator.requiredLabel")}
+              </span>
+              <span className="text-[9px] font-mono font-bold text-gray-600 dark:text-gray-300">
+                &gt;{formatToTwoDecimals(requiredWinRate)}%
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Win Rate Control */}
-        <div className="bg-white/60 dark:bg-black/20 p-3 rounded-xl border border-indigo-100/50 dark:border-white/10 w-full lg:w-auto min-w-[240px]">
-          <div className="flex justify-between mb-2">
-            <span className="text-xs font-bold uppercase text-gray-500 tracking-wider">
-              {t("growthSimulator.winRate", "Win Rate")}
-            </span>
-            <span
-              className={`text-xs font-bold ${isSafeWinRate ? "text-teal-600 dark:text-teal-400" : "text-red-500"}`}
-            >
-              {targetWinRate}%
-            </span>
-          </div>
-          <input
-            type="range"
-            min="10"
-            max="90"
-            step="5"
-            value={targetWinRate}
-            onChange={(e) => setTargetWinRate(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600 transition-all"
-          />
-          {/* Break Even Indicator */}
-          <div className="flex justify-between mt-2 pt-2 border-t border-gray-100 dark:border-white/5">
-            <span className="text-[10px] text-gray-400 uppercase font-semibold">
-              {t("growthSimulator.requiredWin", "Required to Win")}
-            </span>
-            <span className="text-[10px] font-mono font-bold text-gray-600 dark:text-gray-300">
-              &gt;{formatToTwoDecimals(requiredWinRate)}%
-            </span>
-          </div>
-        </div>
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-none">
+          {t(
+            "growthSimulator.subtitle",
+            "Visualize the long-term impact of your risk settings. This simulation compares your current strategy against a high-risk approach.",
+          )}
+        </p>
       </div>
 
       <div

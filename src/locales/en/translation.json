@@ -12,7 +12,9 @@
   "settingsModal": {
     "title": "Default Trade Parameters",
     "totalCapital": "Trading Capital",
-    "riskPercentage": "Standard Risk Profile"
+    "riskPercentage": "Standard Risk Profile",
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "calculator": {
     "title": "Position Size Calculator",
@@ -28,7 +30,8 @@
     "noResults": "Configure your trade parameters above to reveal your optimized position sizes.",
     "positionSize": "Optimal Position Size",
     "potentialLoss": "Expected Loss (at SL)",
-    "potentialProfit": "Projected Profit (at TP)"
+    "potentialProfit": "Projected Profit (at TP)",
+    "proTip": "Pro Tip: Professional traders typically risk 1-2% of their capital per trade. This protects your account from ruin during inevitable losing streaks."
   },
   "riskReward": {
     "title": "Risk Profile Analysis",
@@ -59,7 +62,8 @@
     "risk": "Risk",
     "reward": "Reward",
     "simulationTip": "Performance Note:",
-    "simulationTipText": "These scenarios compare potential returns based on fixed risk. Maintaining a positive expectancy requires focusing on trades where the upside significantly outweighs the downside."
+    "simulationTipText": "These scenarios compare potential returns based on fixed risk. Maintaining a positive expectancy requires focusing on trades where the upside significantly outweighs the downside.",
+    "calculatedBasedOn": "*Calculated based on current position size"
   },
   "footer": {
     "title": "Position Size Calculator",
@@ -77,10 +81,14 @@
     "subtitle": "Visualize the long-term impact of your risk settings. This simulation compares your current strategy against a high-risk approach (5x risk) over 20 simulated trades to demonstrate the importance of survival.",
     "currentStrategy": "Current Risk",
     "aggressiveStrategy": "Aggressive (5x Risk)",
+    "busted": "Aggressive (Busted)",
+    "reshuffle": "Reshuffle Simulation",
     "winRate": "Win Rate",
+    "trade": "Trade",
     "trades": "Trades",
     "accountBalance": "Balance",
     "requiredWin": "Required to Win",
+    "requiredLabel": "Required",
     "safe": "Safe",
     "aggressiveShort": "Aggr."
   }

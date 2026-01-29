@@ -189,7 +189,7 @@ const CalculatorForm = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-full space-y-5">
+      <form onSubmit={handleSubmit} className="w-full space-y-6">
         <div className="form-group">
           <label
             htmlFor="totalCapital"

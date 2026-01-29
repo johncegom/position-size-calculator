@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
@@ -107,38 +108,40 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm dark:bg-gray-800 dark:border-gray-400">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 sm:h-16">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md transition-colors">
+      {/* Creative Gradient Border */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 dark:via-indigo-400/20 to-transparent" />
+
+      <div className="px-4 mx-auto max-w-[1600px] sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* App Branding - Left Side */}
-          <div className="flex items-center">
-            <div className="flex-shrink-0">
-              <h1 className="text-lg font-bold text-gray-900 dark:text-gray-50 sm:text-xl">
-                <span className="block cursor-pointer sm:hidden">PSC</span>
-                <span className="hidden cursor-default sm:block">
-                  {t("header.title")}
-                </span>
-              </h1>
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30">
+              P
             </div>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white sm:text-2xl font-display tracking-tight">
+              {t("header.titleShort")}
+            </h1>
           </div>
 
           {/* Action Buttons - Right Side */}
-          <div className="flex items-center space-x-2 sm:space-x-3">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Status Indicators - Center (Hidden on mobile) */}
-            <div className="items-center hidden space-x-4 text-sm text-gray-600 dark:text-gray-200 md:flex">
-              <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 cursor-default dark:text-gray-200">
+            <div className="items-center hidden gap-6 mr-4 text-sm md:flex">
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                   {t("header.risk")}
                 </span>
-                <span className="font-medium">
+                <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
                   {`${tradeParameters.riskPercentage}%`}
                 </span>
               </div>
-              <div className="flex items-center space-x-2">
-                <span className="text-xs text-gray-500 cursor-default dark:text-gray-200">
+              <div className="h-8 w-px bg-gray-200 dark:bg-white/10"></div>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
                   {t("header.capital")}
                 </span>
-                <span className="font-medium">{`$${tradeParameters.totalCapital}`}</span>
+                <span className="font-mono font-bold text-gray-900 dark:text-white">{`$${tradeParameters.totalCapital}`}</span>
               </div>
             </div>
 
@@ -148,7 +151,7 @@ const Header = () => {
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 text-gray-500 transition-colors duration-200 rounded-md cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200 hover:bg-gray-100 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2.5 text-gray-500 transition-all duration-200 rounded-xl hover:bg-gray-100 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 active:scale-95"
               aria-label="Toggle theme"
             >
               {isDark ? (
@@ -188,7 +191,7 @@ const Header = () => {
             {/* Settings Button */}
             <button
               onClick={toggleSettings}
-              className="p-2 text-gray-500 transition-colors duration-200 rounded-md cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="p-2.5 text-gray-500 transition-all duration-200 rounded-xl hover:bg-gray-100 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 active:scale-95"
               aria-label="Open settings"
             >
               {/* Settings gear icon */}
@@ -217,121 +220,126 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Settings Modal */}
-      {isSettingsOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity"
-          onClick={toggleSettings}
-        >
+      {/* Settings Modal - Portalled to body to avoid z-index issues */}
+      {isSettingsOpen &&
+        createPortal(
           <div
-            className="w-full max-w-md p-8 overflow-hidden text-left align-middle transition-all transform shadow-2xl rounded-2xl bg-white dark:bg-[#0f172a] border border-gray-100 dark:border-white/10"
-            onClick={handleModalClick}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-all duration-300"
+            onClick={toggleSettings}
           >
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-display">
-                {t("settingsModal.title")}
-              </h2>
-              <button
-                onClick={toggleSettings}
-                className="p-2 text-gray-400 transition-colors rounded-full hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-slate-800 dark:hover:text-gray-300"
-                aria-label="Close settings"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            <div
+              className="w-full max-w-md p-8 overflow-hidden text-left align-middle transition-all transform shadow-2xl rounded-3xl bg-white dark:bg-[#0f172a] border border-gray-100 dark:border-white/10 relative"
+              onClick={handleModalClick}
+            >
+              {/* Modal Glow Effect */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white font-display">
+                  {t("settingsModal.title")}
+                </h2>
+                <button
+                  onClick={toggleSettings}
+                  className="p-2 text-gray-400 transition-colors rounded-full hover:bg-gray-100 hover:text-gray-600 dark:hover:bg-slate-800 dark:hover:text-gray-300"
+                  aria-label="Close settings"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <form className="space-y-6">
+                <div className="form-group">
+                  <label
+                    htmlFor="totalCapital"
+                    id="totalCapitalLabel"
+                    className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    {t("settingsModal.totalCapital")}
+                  </label>
+                  <div className="relative group">
+                    <input
+                      type="tel"
+                      inputMode="decimal"
+                      pattern="(0|[1-9]\d*)([.,]\d*)?"
+                      id="totalCapital"
+                      name="totalCapital"
+                      min="0"
+                      required
+                      aria-labelledby="totalCapitalLabel"
+                      aria-required="true"
+                      value={formValues.totalCapital || ""}
+                      onChange={handleInputChange}
+                      className="w-full py-3 pl-8 pr-4 text-lg transition-all bg-gray-50 border border-gray-200 shadow-sm rounded-xl dark:bg-slate-800/50 dark:border-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium text-gray-900"
+                      placeholder="0.00"
+                    />
+                    <span className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2 dark:text-gray-500 group-focus-within:text-indigo-500 transition-colors pointer-events-none font-bold">
+                      $
+                    </span>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label
+                    htmlFor="riskPercentage"
+                    id="riskPercentageLabel"
+                    className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
+                    {t("settingsModal.riskPercentage")}
+                  </label>
+                  <div className="relative group">
+                    <input
+                      type="tel"
+                      inputMode="decimal"
+                      pattern="(0|[1-9]\d*)([.,]\d*)?"
+                      id="riskPercentage"
+                      name="riskPercentage"
+                      min="0"
+                      required
+                      aria-labelledby="riskPercentageLabel"
+                      aria-required="true"
+                      value={formValues.riskPercentage || ""}
+                      onChange={handleInputChange}
+                      className="w-full pl-4 pr-8 py-3 text-lg transition-all bg-gray-50 border border-gray-200 shadow-sm rounded-xl dark:bg-slate-800/50 dark:border-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
+                      placeholder="1.0"
+                    />
+                    <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:text-indigo-500 transition-colors font-bold">
+                      %
+                    </span>
+                  </div>
+                </div>
+                <div className="flex gap-4 pt-4 mt-8 border-t border-gray-100 dark:border-gray-800/50">
+                  <button
+                    type="button"
+                    aria-label="Cancel"
+                    className="flex-1 px-4 py-3 font-medium text-gray-700 transition-all bg-white border border-gray-200 shadow-sm rounded-xl hover:bg-gray-50 hover:border-gray-300 dark:bg-slate-800 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-slate-700 active:scale-[0.98]"
+                    onClick={handleCancel}
+                  >
+                    {t("settingsModal.cancel")}
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Save Settings"
+                    className="flex-1 px-4 py-3 font-bold text-white transition-all shadow-lg bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-xl hover:to-indigo-600 hover:shadow-indigo-500/25 active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
+                    onClick={handleSave}
+                  >
+                    {t("settingsModal.save")}
+                  </button>
+                </div>
+              </form>
             </div>
-            <form className="space-y-6">
-              <div className="form-group">
-                <label
-                  htmlFor="totalCapital"
-                  id="totalCapitalLabel"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  {t("settingsModal.totalCapital")}
-                </label>
-                <div className="relative group">
-                  <input
-                    type="tel"
-                    inputMode="decimal"
-                    pattern="(0|[1-9]\d*)([.,]\d*)?"
-                    id="totalCapital"
-                    name="totalCapital"
-                    min="0"
-                    required
-                    aria-labelledby="totalCapitalLabel"
-                    aria-required="true"
-                    value={formValues.totalCapital || ""}
-                    onChange={handleInputChange}
-                    className="w-full py-3 pl-8 pr-4 text-lg transition-all bg-white border border-gray-200 shadow-sm rounded-xl dark:bg-slate-800/50 dark:border-gray-700 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium text-gray-900"
-                    placeholder="0.00"
-                  />
-                  <span className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:-translate-x-1 pointer-events-none">
-                    $
-                  </span>
-                </div>
-              </div>
-              <div className="form-group">
-                <label
-                  htmlFor="riskPercentage"
-                  id="riskPercentageLabel"
-                  className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  {t("settingsModal.riskPercentage")}
-                </label>
-                <div className="relative group">
-                  <input
-                    type="tel"
-                    inputMode="decimal"
-                    pattern="(0|[1-9]\d*)([.,]\d*)?"
-                    id="riskPercentage"
-                    name="riskPercentage"
-                    min="0"
-                    required
-                    aria-labelledby="riskPercentageLabel"
-                    aria-required="true"
-                    value={formValues.riskPercentage || ""}
-                    onChange={handleInputChange}
-                    className="w-full pl-4 pr-8 py-3 text-lg transition-all bg-white border border-gray-200 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-800/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
-                    placeholder="1.0"
-                  />
-                  <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:translate-x-1">
-                    %
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-4 pt-2 mt-8">
-                <button
-                  type="button"
-                  aria-label="Cancel"
-                  className="flex-1 px-4 py-3 font-medium text-gray-700 transition-all bg-white border border-gray-200 shadow-sm rounded-xl hover:bg-gray-50 dark:bg-transparent dark:border-gray-700 dark:text-gray-300 dark:hover:bg-white/5 active:scale-[0.98] outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700"
-                  onClick={handleCancel}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="button"
-                  aria-label="Save Settings"
-                  className="flex-1 px-4 py-3 font-bold text-white transition-all shadow-lg bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-xl hover:to-indigo-600 hover:shadow-indigo-500/25 active:scale-[0.98] outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
-                  onClick={handleSave}
-                >
-                  Save
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </header>
   );
 };
