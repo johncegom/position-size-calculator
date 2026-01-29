@@ -11,7 +11,7 @@ vi.mock("react-i18next", () => ({
 describe("Footer", () => {
   test("renders footer with translated title", () => {
     render(<Footer />);
-    const title = screen.getByText(/footer.title/);
+    const title = screen.getByText(/header.titleShort/);
     expect(title).toBeInTheDocument();
   });
 
