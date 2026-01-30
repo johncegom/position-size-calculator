@@ -1,139 +1,95 @@
 # 📊 Position Size Calculator
 
-A modern React + TypeScript app for traders to calculate optimal position sizes using robust risk management. Powered by Redux Toolkit and TailwindCSS.
+A professional, fintech-grade React + TypeScript application designed for traders to calculate optimal position sizes using robust risk management principles.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Key Simulations & Features
 
-```sh
-git clone https://github.com/your-username/position-size-calculator.git
-cd position-size-calculator
-npm install
-npm run dev
-```
-
----
-
-## 🧩 Features
-
-- **Position Size Calculation**: Based on capital, entry, stop-loss, take-profit, and risk %.
-- **Risk/Reward Visualization**: Dynamic charts and progress bars.
-- **Redux State Management**: Global state, persistent settings, and input history.
-- **Internationalization**: Multi-language support (EN, VI).
-- **Responsive UI**: Mobile-first, TailwindCSS-powered.
-- **Local Storage Persistence**: Remembers your preferences and last-used values.
-- **Trade Outcome Simulation**: Visualize profit/loss scenarios.
-- **Extensible**: Modular codebase for easy feature addition.
+- **Optimal Position Sizing**: Calculates the exact **Notional Value** you should allocate based on your risk appetite and trade geometry.
+- **Account Growth Projection**: A dynamic simulator that visualizes how your account balance evolves over time based on win rate, risk/reward, and compounding.
+- **Risk/Reward Scenarios**: Instantly see your potential Profit/Loss across different R:R targets (1:1, 1:2, 1:3, etc.) tailored to your entry.
+- **Premium Fintech UI**: Modern "Glassmorphism" interface with full Dark/Light mode support, featuring a custom design system built with Tailwind CSS v4.
+- **Internationalization (i18n)**: Native support for English and Vietnamese, including localized numeric formatting.
+- **Responsive & Persistent**: Mobile-first design that remembers your settings (Capital, Risk %) via Local Storage for a seamless workflow.
 
 ---
 
 ## 🛠️ Tech Stack
 
-- [React 19](https://react.dev/)
-- [Redux Toolkit](https://redux-toolkit.js.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TailwindCSS 4](https://tailwindcss.com/)
-- [Vite](https://vitejs.dev/)
+- **Framework**: [React 19](https://react.dev/)
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (using the latest JIT and design system features)
+- **Runtime/Bundler**: [Vite](https://vitejs.dev/)
+- **Testing**: [Vitest](https://vitest.dev/) with high coverage on core calculation utilities.
+- **Languages**: [i18next](https://www.i18next.com/)
 
 ---
 
-## 🗂️ Project Structure
+## 🧩 Project Structure
 
 ```
 src/
-├── components/      # UI components (layout, calculator, common)
-├── hooks/           # Custom React hooks
-├── pages/           # Page components (Home, etc.)
-├── store/           # Redux slices and store setup
-├── types/           # TypeScript types/interfaces
-├── utils/           # Calculation and formatting helpers
-└── locales/         # i18n translation files
+├── components/
+│   ├── calculator/   # Primary logic components (Form, Result, Visuals, Simulators)
+│   ├── layout/       # Global Header, Footer with glassmorphism
+│   └── common/       # Reusable UI elements (Buttons, Switches)
+├── store/            # Redux slices and persistence logic
+├── locales/          # Vietnamese and English translation JSONs
+├── utils/            # High-precision calculation engine and formatters
+└── types/            # Centralized TypeScript definitions
 ```
 
 ---
 
-## 🧪 Formula
+## 🧪 The Formula
 
+The calculator computes the **Notional Position Size** (Value) rather than just unit count, making it applicable to any asset class (Stocks, Forex, Crypto):
+
+```text
+Risk Amount = Capital × Risk %
+Stop Loss % = |Entry Price - Stop Loss Price| ÷ Entry Price
+Position Size (Value) = Risk Amount ÷ Stop Loss %
 ```
-Position Size = (Capital × Risk %) ÷ |Entry Price - Stop Loss Price|
-```
 
-Example:
+**Example:**
 
-- Capital = $10,000
-- Risk % = 2%
-- Entry = $100
-- SL = $95
-
-Result: `(10,000 × 0.02) / 5 = 40 units`
+- **Capital**: $10,000
+- **Risk %**: 2% ($200 at risk)
+- **Entry**: $100
+- **Stop Loss**: $95 (5% drop)
+- **Position Size**: $200 ÷ 0.05 = **$4,000**
 
 ---
 
-## 🧑‍💻 For Developers
+## 🚦 Getting Started
 
-- **Add a new input:** Edit `CalculatorForm.tsx`, update Redux slice, extend types.
-- **Change calculation logic:** Update `utils/calculations.ts`.
-- **Add a feature:** Scaffold a new component in `components/`, connect to Redux if needed.
-- **Testing:** See below for test instructions.
-- **Contributions:** PRs welcome! Please open an issue first for major changes.
-
----
-
-## 🚦 Continuous Integration & Deployment
-
-- **Automated Testing:**
-  All pushes and pull requests to `main` run unit and integration tests automatically via GitHub Actions (`.github/workflows/test.yml`).
-  The workflow uses a `unit-test` job and is ready for future jobs like `integration-test` or `e2e-test`.
-
-- **Deployment:**
-  Production and preview deployments are handled by [Vercel](https://vercel.com/).
-  Every push to `main` triggers a new deployment. Pull requests get preview deployments.
-
----
-
-## 🧪 Running Tests
-
-This project uses [Vitest](https://vitest.dev/) for unit and integration testing.
-
-### 1. Install dependencies
+### Installation
 
 ```sh
 npm install
 ```
 
-### 2. Run all tests
+### Development
 
 ```sh
-npm test
+npm run dev
 ```
 
-or
+### Testing & Coverage
+
+We maintain rigorous testing for the calculation engine to ensure financial accuracy.
 
 ```sh
-npx vitest
+npm run test          # Run all tests
+npm run coverage      # Generate coverage report
 ```
 
-### 3. Watch mode (recommended for development)
+### Build for Production
 
 ```sh
-npx vitest --watch
+npm run build
 ```
-
-### 4. View test coverage
-
-```sh
-npx vitest run --coverage
-```
-
-The coverage report will be available in the `coverage/` folder.
-
----
-
-## 🌐 Internationalization
-
-- Easily add new languages in `src/locales/`.
-- Language switcher in the UI.
 
 ---
 
@@ -141,6 +97,4 @@ The coverage report will be available in the `coverage/` folder.
 
 MIT
 
----
-
-> **Tip:** For detailed feature roadmap and tasks, see [Feature Tasks.md](Feature%20Tasks.md).
+> **Pro Tip:** Professional traders typically risk 1-2% of their capital per trade to ensure long-term survival in the markets.
