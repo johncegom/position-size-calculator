@@ -7,7 +7,15 @@
     "toggleTheme": "Switch Theme",
     "openSettings": "Open Settings",
     "settings": "Configurations",
-    "closeSettings": "Close Settings"
+    "closeSettings": "Close Settings",
+    "ariaToggleTheme": "Toggle theme",
+    "ariaOpenSettings": "Open settings",
+    "ariaCloseSettings": "Close settings"
+  },
+  "nav": {
+    "calculator": "Calculator",
+    "settings": "Settings",
+    "about": "About"
   },
   "settingsModal": {
     "title": "Default Trade Parameters",
@@ -91,5 +99,72 @@
     "requiredLabel": "Required",
     "safe": "Safe",
     "aggressiveShort": "Aggr."
+  },
+  "about": {
+    "hero": {
+      "title": "Master Your Risk",
+      "subtitle": "Trading isn't about predicting the future. It's about managing what you lose when you're wrong."
+    },
+    "philosophy": {
+      "title": "Why This Matters",
+      "description": "The #1 reason traders fail is lack of risk management. Even with a high win rate, a single unmanaged trade can wipe out weeks of progress. This tool ensures you never risk more than you can afford to lose."
+    },
+    "features": {
+      "precision": {
+        "title": "Mathematical Precision",
+        "desc": "Calculate exact lot sizes instantly based on your entry and stop loss levels."
+      },
+      "visual": {
+        "title": "Visual Analysis",
+        "desc": "See your Risk/Reward ratios clearly to ensure every trade has positive expectancy."
+      },
+      "protection": {
+        "title": "Capital Protection",
+        "desc": "Prevent emotional trading by strictly adhering to pre-defined risk percentages."
+      }
+    },
+    "howTo": {
+      "title": "Workflow",
+      "step1": "Define Capital",
+      "step1Desc": "Enter your total account balance in settings.",
+      "step2": "Set Risk",
+      "step2Desc": "Decide how much % of your account to risk (e.g., 1%).",
+      "step3": "Chart Levels",
+      "step3Desc": "Input Entry and Stop Loss prices from your technical analysis.",
+      "step4": "Execute",
+      "step4Desc": "Use the calculated position size to place your trade."
+    },
+    "cta": "Start Calculating"
+  },
+  "settingsPage": {
+    "title": "Configuration",
+    "subtitle": "Personalize your trading environment for maximum efficiency.",
+    "accountParams": "Account Parameters",
+    "riskManagement": "Risk Management",
+    "saved": "Settings saved successfully!",
+    "capitalDesc": "Your total trading account balance. This is the foundation for all position size calculations.",
+    "riskDesc": "The percentage of your account you are willing to lose on a single trade.",
+    "presets": "Quick Presets",
+    "conservative": "Conservative",
+    "moderate": "Moderate",
+    "aggressive": "Aggressive",
+    "custom": "Custom",
+    "riskLevel": {
+      "low": "Safe Zone",
+      "medium": "Growth Zone",
+      "high": "Danger Zone"
+    },
+    "switchToValue": "Switch to Value ($)",
+    "switchToPercentage": "Switch to Percentage (%)",
+    "riskValue": "Risk Value ($)",
+    "riskWarnings": {
+      "highPart1": "High risk! A losing streak of 5 trades draws down",
+      "highPart2": "of your capital.",
+      "aggressive": "Aggressive growth. Ensure your win rate is high to sustain this level.",
+      "sustainable": "Sustainable zone. Professional traders often stay between 0.5% - 2%."
+    },
+    "approxRiskOfCapital": "≈ {{percentage}}% of capital",
+    "approxRiskValue": "≈ ${{value}} risk",
+    "currency": "USD"
   }
 }

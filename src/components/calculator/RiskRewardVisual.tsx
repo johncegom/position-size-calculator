@@ -3,7 +3,6 @@
 // - Would a chart library be useful here?
 // - How can we visually represent the relationship between risk and potential reward?
 
-import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
 import {
@@ -13,82 +12,80 @@ import {
 import { useTranslation } from "react-i18next";
 import { RATIO_THRESHOLDS } from "../../constants/ratioThresholds";
 
-const RatioStatusBadge = ({ ratio }: { ratio: number }) => {
-  const { GOOD, DECENT } = RATIO_THRESHOLDS;
-  const { t } = useTranslation();
-
-  type BadgeConfig = {
-    condition: (ratio: number) => boolean;
-    className: string;
-    text: string;
-  };
-
-  const badgeConfig = useMemo(() => {
-    const configs: BadgeConfig[] = [
-      {
-        condition: (r) => r >= GOOD,
-        className:
-          "text-teal-700 bg-teal-100 dark:bg-teal-900/50 dark:text-teal-300 ring-1 ring-teal-500/20",
-        text: t("riskReward.excellentRatio"),
-      },
-      {
-        condition: (r) => r >= DECENT,
-        className:
-          "text-yellow-700 bg-yellow-100 dark:bg-yellow-900/50 dark:text-yellow-300 ring-1 ring-yellow-500/20",
-        text: t("riskReward.acceptableRatio"),
-      },
-      {
-        condition: (r) => r > 0,
-        className:
-          "text-red-700 bg-red-100 dark:bg-red-900/50 dark:text-red-300 ring-1 ring-red-500/20",
-        text: t("riskReward.improveRatio"),
-      },
-    ];
-    return configs.find((cfg) => cfg.condition(ratio));
-  }, [ratio, t, GOOD, DECENT]);
-
-  if (badgeConfig) {
-    return (
-      <div
-        className={`px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${badgeConfig.className}`}
-      >
-        {badgeConfig.text}
-      </div>
-    );
-  }
-
-  return (
-    <div className="px-3 py-1.5 text-gray-600 bg-gray-100 rounded-lg text-xs font-bold uppercase tracking-wider dark:text-gray-300 dark:bg-white/10">
-      {t("riskReward.noData")}
-    </div>
-  );
-};
-
 const RatioDisplay = ({ ratio }: { ratio: number }) => {
   const { GOOD, DECENT } = RATIO_THRESHOLDS;
   const { t } = useTranslation();
 
-  const getRatioTextColor = () => {
-    if (ratio >= GOOD) return "text-teal-600 dark:text-teal-400";
-    if (ratio >= DECENT) return "text-yellow-600 dark:text-yellow-400";
-    if (ratio > 0) return "text-red-600 dark:text-red-400";
-    return "text-gray-400 dark:text-gray-500";
+  const getStatus = () => {
+    if (ratio >= GOOD)
+      return {
+        color: "text-emerald-600 dark:text-emerald-400",
+        bgColor: "bg-emerald-50 dark:bg-emerald-500/10",
+        borderColor: "border-emerald-200 dark:border-emerald-500/20",
+        label: t("riskReward.excellentRatio"),
+      };
+    if (ratio >= DECENT)
+      return {
+        color: "text-amber-600 dark:text-amber-400",
+        bgColor: "bg-amber-50 dark:bg-amber-500/10",
+        borderColor: "border-amber-200 dark:border-amber-500/20",
+        label: t("riskReward.acceptableRatio"),
+      };
+    if (ratio > 0)
+      return {
+        color: "text-rose-600 dark:text-rose-400",
+        bgColor: "bg-rose-50 dark:bg-rose-500/10",
+        borderColor: "border-rose-200 dark:border-rose-500/20",
+        label: t("riskReward.improveRatio"),
+      };
+    return {
+      color: "text-slate-400 dark:text-slate-500",
+      bgColor: "bg-slate-50 dark:bg-slate-800/50",
+      borderColor: "border-slate-200 dark:border-slate-700",
+      label: t("riskReward.noData"),
+    };
   };
 
+  const status = getStatus();
+
   return (
-    <div className="flex flex-col items-start justify-between mb-8 sm:flex-row sm:items-center">
-      <div>
-        <div className="flex items-center gap-2 mb-1">
-          <p className="text-sm font-medium text-gray-500 uppercase tracking-widest dark:text-gray-400">
-            {t("riskReward.ratio")}
-          </p>
-          <RatioStatusBadge ratio={ratio} />
+    <div
+      className={`group relative p-6 mb-8 rounded-3xl border ${status.borderColor} ${status.bgColor} transition-all duration-500 overflow-hidden`}
+    >
+      {/* Dynamic Background Gradient */}
+      <div
+        className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-50 -mr-16 -mt-16 rounded-full blur-3xl`}
+      />
+
+      <div className="relative z-10 flex flex-col justify-between h-full gap-4 sm:flex-row sm:items-end">
+        <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2 mb-1">
+            <div
+              className={`w-2 h-2 rounded-full ${ratio > 0 ? "animate-pulse" : ""} bg-current ${status.color}`}
+            />
+            <h3 className="text-xs font-bold tracking-widest uppercase opacity-70 text-gray-600 dark:text-gray-300">
+              {t("riskReward.ratio")}
+            </h3>
+          </div>
+
+          <div className="flex items-baseline">
+            <span className="text-6xl font-black tracking-tighter sm:text-7xl font-display">
+              <span className="text-slate-900 dark:text-white">1</span>
+              <span className="mx-1 text-slate-300 dark:text-slate-600">:</span>
+              <span className={`${status.color}`}>
+                {ratio > 0 ? formatToTwoDecimals(ratio) : "--"}
+              </span>
+            </span>
+          </div>
         </div>
-        <p
-          className={`text-4xl font-bold font-mono tracking-tight ${getRatioTextColor()}`}
+
+        <div
+          className={`px-4 py-2 rounded-xl backdrop-blur-md bg-white/60 dark:bg-black/20 border border-white/20 shadow-sm ${status.color}`}
         >
-          {ratio > 0 ? `1:${formatToTwoDecimals(ratio)}` : "--"}
-        </p>
+          <p className="text-xs font-bold text-center uppercase tracking-wider">
+            {status.label}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -117,7 +114,7 @@ const ProgressBar = ({ label, value, width, color }: ProgressBarProps) => {
 
   return (
     <div className="relative">
-      <div className="flex justify-between mb-2">
+      <div className="flex flex-wrap justify-between items-baseline gap-2 mb-2">
         <span className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
           {label}
         </span>
@@ -180,7 +177,9 @@ const PriceLevelCard = ({ label, value, type }: PriceLevelCardProps) => {
       >
         {label}
       </p>
-      <p className={`font-mono font-bold text-base truncate ${textStyles}`}>
+      <p
+        className={`font-mono font-bold text-sm sm:text-base break-all ${textStyles}`}
+      >
         {formatValue ? `$${formatValue}` : "N/A"}
       </p>
     </div>
@@ -233,7 +232,7 @@ const RiskRewardVisual = () => {
         </div>
 
         {/* Price levels grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
           <PriceLevelCard
             label={t("riskReward.stopLoss")}
             value={tradeParameters.stopLossPrice}

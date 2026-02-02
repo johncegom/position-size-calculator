@@ -7,7 +7,15 @@
     "toggleTheme": "Thay đổi giao diện",
     "openSettings": "Mở thiết lập",
     "settings": "Cấu hình hệ thống",
-    "closeSettings": "Đóng thiết lập"
+    "closeSettings": "Đóng thiết lập",
+    "ariaToggleTheme": "Đổi giao diện",
+    "ariaOpenSettings": "Mở cài đặt",
+    "ariaCloseSettings": "Đóng cài đặt"
+  },
+  "nav": {
+    "calculator": "Tính Toán",
+    "settings": "Cài Đặt",
+    "about": "Giới Thiệu"
   },
   "settingsModal": {
     "title": "Cấu Hình Giao Dịch Mặc Định",
@@ -91,5 +99,72 @@
     "requiredLabel": "Bắt buộc",
     "safe": "An toàn",
     "aggressiveShort": "Mạo hiểm"
+  },
+  "about": {
+    "hero": {
+      "title": "Làm Chủ Rủi Ro",
+      "subtitle": "Giao dịch không phải là dự đoán tương lai. Đó là quản lý số tiền bạn mất khi bạn sai."
+    },
+    "philosophy": {
+      "title": "Tại Sao Quan Trọng?",
+      "description": "Lý do số 1 khiến trader thất bại là thiếu quản lý vốn. Ngay cả khi thắng nhiều, một lệnh thua không kiểm soát có thể xóa sạch mọi nỗ lực. Công cụ này đảm bảo bạn không bao giờ mất nhiều hơn mức cho phép."
+    },
+    "features": {
+      "precision": {
+        "title": "Chính Xác Tuyệt Đối",
+        "desc": "Tính toán khối lượng vào lệnh chuẩn xác dựa trên điểm vào và điểm cắt lỗ của bạn."
+      },
+      "visual": {
+        "title": "Trực Quan Hóa",
+        "desc": "Nhìn thấy tỷ lệ Rủi ro/Lợi nhuận rõ ràng để đảm bảo kỳ vọng dương cho mỗi lệnh."
+      },
+      "protection": {
+        "title": "Bảo Vệ Nguồn Vốn",
+        "desc": "Ngăn chặn giao dịch cảm xúc bằng cách tuân thủ nghiêm ngặt tỷ lệ rủi ro đã định."
+      }
+    },
+    "howTo": {
+      "title": "Quy Trình",
+      "step1": "Xác Định Vốn",
+      "step1Desc": "Nhập tổng số dư tài khoản của bạn trong phần cài đặt.",
+      "step2": "Mức Rủi Ro",
+      "step2Desc": "Quyết định % tài khoản chấp nhận mất cho 1 lệnh (VD: 1%).",
+      "step3": "Phân Tích",
+      "step3Desc": "Nhập giá Vào Lệnh và Cắt Lỗ dựa trên biểu đồ kỹ thuật.",
+      "step4": "Thực Thi",
+      "step4Desc": "Sử dụng khối lượng đã tính toán để đặt lệnh trên sàn."
+    },
+    "cta": "Bắt Đầu Tính Toán"
+  },
+  "settingsPage": {
+    "title": "Cấu Hình",
+    "subtitle": "Cá nhân hóa môi trường giao dịch để đạt hiệu quả tối đa.",
+    "accountParams": "Thông Số Tài Khoản",
+    "riskManagement": "Quản Lý Rủi Ro",
+    "saved": "Đã lưu cài đặt thành công!",
+    "capitalDesc": "Tổng số dư tài khoản giao dịch của bạn. Đây là nền tảng cho mọi tính toán khối lượng.",
+    "riskDesc": "Phần trăm tài khoản bạn sẵn sàng mất cho một lệnh giao dịch duy nhất.",
+    "presets": "Cài Đặt Nhanh",
+    "conservative": "Thận trọng",
+    "moderate": "Trung bình",
+    "aggressive": "Mạo hiểm",
+    "custom": "Tùy chỉnh",
+    "riskLevel": {
+      "low": "Vùng An Toàn",
+      "medium": "Vùng Tăng Trưởng",
+      "high": "Vùng Nguy Hiểm"
+    },
+    "switchToValue": "Chuyển sang Giá trị ($)",
+    "switchToPercentage": "Chuyển sang Phần trăm (%)",
+    "riskValue": "Giá trị Rủi ro ($)",
+    "riskWarnings": {
+      "highPart1": "Rủi ro cao! Chuỗi thua 5 lệnh sẽ làm giảm",
+      "highPart2": "tổng vốn của bạn.",
+      "aggressive": "Tăng trưởng nóng. Đảm bảo tỷ lệ thắng cao để duy trì mức này.",
+      "sustainable": "Vùng bền vững. Các trader chuyên nghiệp thường duy trì mức 0.5% - 2%."
+    },
+    "approxRiskOfCapital": "≈ {{percentage}}% vốn",
+    "approxRiskValue": "≈ ${{value}} rủi ro",
+    "currency": "USD"
   }
 }

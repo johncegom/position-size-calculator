@@ -11,34 +11,37 @@ const Footer = () => {
       {/* Ambient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-indigo-500/3 dark:bg-indigo-400/5 blur-[80px] -z-10 pointer-events-none" />
 
-      <div className="container mx-auto px-6 pt-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="container mx-auto px-4 md:px-6 pt-8">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-6">
           {/* Left: Brand Identity */}
-          <div className="text-center md:text-left">
-            <h3 className="font-display font-bold text-lg text-gray-900/90 dark:text-white/90 tracking-tight">
+          <div className="text-center md:text-left space-y-2">
+            <h3 className="font-display font-bold text-xl text-gray-900 dark:text-white tracking-tight">
               {t("header.titleShort")}
             </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-500 mt-1 font-medium tracking-widest uppercase">
-              &copy; {new Date().getFullYear()} All rights reserved.
+            <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium tracking-[0.2em] uppercase">
+              &copy; {new Date().getFullYear()}
             </p>
           </div>
 
+          {/* Mobile Divider */}
+          <div className="w-12 h-px bg-gray-200 dark:bg-white/10 md:hidden" />
+
           {/* Right: Credits & Interactive Link */}
-          <div className="flex flex-col items-center md:items-end gap-1">
-            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <div className="flex flex-col sm:flex-row items-center gap-1 sm:gap-2 text-sm text-gray-600 dark:text-gray-400">
               <span className="font-light">{t("footer.description")}</span>
               <a
                 href="https://github.com/johncegom"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center gap-1 font-bold text-gray-900 dark:text-white transition-colors"
+                className="group relative inline-flex items-center gap-1 font-bold text-gray-900 dark:text-white transition-colors py-1 px-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-full hover:bg-indigo-100 dark:hover:bg-indigo-500/20"
               >
-                <span className="bg-gradient-to-r from-indigo-500 to-indigo-600 dark:from-indigo-400 dark:to-indigo-300 bg-[length:0%_2px] bg-no-repeat bg-bottom transition-all duration-300 group-hover:bg-[length:100%_2px] pb-0.5">
+                <span className="text-indigo-600 dark:text-indigo-300">
                   {t("footer.author")}
                 </span>
                 {/* External Arrow Icon */}
                 <svg
-                  className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-indigo-500 dark:text-indigo-400"
+                  className="w-3 h-3 text-indigo-500 dark:text-indigo-400"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -56,8 +59,9 @@ const Footer = () => {
               href="https://github.com/johncegom/position-size-calculator"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-gray-400 hover:text-indigo-500 transition-colors"
+              className="text-[10px] text-gray-400 hover:text-indigo-500 transition-colors flex items-center gap-1.5"
             >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               v1.0.0 &bull; Open Source
             </a>
           </div>

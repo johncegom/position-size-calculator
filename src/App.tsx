@@ -1,14 +1,17 @@
-import Home from "./pages/Home";
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
-
-import "./App.css";
+import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./store/store";
 import { loadFromLocalStorage } from "./utils/utils";
 import { updateTradeParameter } from "./store/slices/calculatorSlice";
 import type { TradeParameters } from "./types";
-import { useEffect } from "react";
+
+import Home from "./pages/Home";
+import Settings from "./pages/Settings";
+import About from "./pages/About";
+import AppLayout from "./components/layout/AppLayout";
+import Footer from "./components/layout/Footer";
+import "./App.css";
 
 const App = () => {
   const { tradeParameters } = useSelector(
@@ -28,6 +31,7 @@ const App = () => {
         }),
       );
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -40,13 +44,14 @@ const App = () => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen dark:bg-dark-bg">
-      <Header />
-      <main>
-        <Home />
-      </main>
+    <AppLayout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/settings" element={<Settings />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
       <Footer />
-    </div>
+    </AppLayout>
   );
 };
 

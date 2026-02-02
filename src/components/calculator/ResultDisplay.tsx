@@ -34,11 +34,11 @@ const ResultDisplay = () => {
           <h2 className="text-sm font-semibold tracking-widest text-text-secondary-light dark:text-text-secondary-dark uppercase mb-1">
             {t("calculator.resultsTitle")}
           </h2>
-          <div className="flex items-baseline gap-2">
-            <span className="text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary font-mono tracking-tighter">
+          <div className="flex flex-wrap items-baseline gap-2">
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary font-mono tracking-tighter break-all">
               ${formatToTwoDecimals(positionSize)}
             </span>
-            <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">
+            <span className="text-xs sm:text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark whitespace-nowrap">
               {t("calculator.positionSize")}
             </span>
           </div>
@@ -51,7 +51,7 @@ const ResultDisplay = () => {
             <p className="text-xs font-bold tracking-wider text-red-500/80 uppercase mb-2">
               {t("calculator.potentialLoss")}
             </p>
-            <p className="text-3xl font-bold text-red-600 dark:text-red-400 font-mono">
+            <p className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400 font-mono break-all">
               ${formatToTwoDecimals(potentialLoss)}
             </p>
           </div>
@@ -74,7 +74,7 @@ const ResultDisplay = () => {
             {t("calculator.potentialProfit")}
           </p>
           {potentialProfit > 0 ? (
-            <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+            <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 font-mono break-all">
               ${formatToTwoDecimals(potentialProfit)}
             </p>
           ) : (
