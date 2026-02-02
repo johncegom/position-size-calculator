@@ -1,191 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
-import {
-  useEffect,
-  useState,
-  useRef,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
-import {
-  calculatePosition,
-  updateTradeParameter,
-} from "../../store/slices/calculatorSlice";
-import type { TradeParameters } from "../../types";
 import { useTranslation } from "react-i18next";
-import { processFormValues, saveToLocalStorage } from "../../utils/utils";
-
-const INPUT_VALIDATION_REGEX = /^(0|[1-9]\d*)([.,]\d*)?$/;
+import { useCalculator } from "../../hooks/useCalculator";
 
 const CalculatorForm = () => {
-  const { tradeParameters } = useSelector(
-    (state: RootState) => state.calculator,
-  );
-  const dispatch = useDispatch();
   const { t } = useTranslation();
-
-  // Local form state for handling input
-  const [formValues, setFormValues] = useState({
-    totalCapital: tradeParameters.totalCapital?.toString() || "",
-    entryPrice: tradeParameters.entryPrice?.toString() || "",
-    stopLossPrice: tradeParameters.stopLossPrice?.toString() || "",
-    riskPercentage: tradeParameters.riskPercentage?.toString() || "",
-    takeProfitPrice: tradeParameters.takeProfitPrice?.toString() || "",
-  });
-
-  const [riskInputMode, setRiskInputMode] = useState<"percentage" | "value">(
-    "percentage",
-  );
-
-  // Track previous trade parameters to detect external changes (e.g. from Settings)
-  const prevTradeParamsRef = useRef(tradeParameters);
-
-  const toggleRiskMode = () => {
-    setRiskInputMode((prev) =>
-      prev === "percentage" ? "value" : "percentage",
-    );
-  };
-
-  const getRiskInputValue = () => {
-    if (riskInputMode === "percentage") {
-      return formValues.riskPercentage;
-    }
-
-    // If input is empty, ensure we return empty string so it doesn't snap to "0.00"
-    if (formValues.riskPercentage === "") return "";
-
-    // Calculate dollar amount from percentage for display
-    const capital = parseFloat(formValues.totalCapital) || 0;
-    const percent = parseFloat(formValues.riskPercentage) || 0;
-
-    if (capital === 0) return "";
-
-    const value = (capital * percent) / 100;
-    // Return rounded to 2 decimals for display, but keep string to allow typing
-    return formatToTwoDecimals(value).toString();
-  };
-
-  // Helper to standardise string rounding
-  const formatToTwoDecimals = (num: number) => {
-    return Math.round((num + Number.EPSILON) * 100) / 100;
-  };
-
-  const handleRiskInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(",", ".");
-    if (!INPUT_VALIDATION_REGEX.test(value) && value !== "") return;
-
-    if (riskInputMode === "percentage") {
-      setFormValues((prev) => ({ ...prev, riskPercentage: value }));
-    } else {
-      // User is typing dollar value
-      const dollarAmount = parseFloat(value);
-      const capital = parseFloat(formValues.totalCapital) || 0;
-
-      if (value === "") {
-        // Keep percentage as is or clear it? Clearing it is safer.
-        setFormValues((prev) => ({ ...prev, riskPercentage: "" }));
-        return;
-      }
-
-      if (capital > 0) {
-        const calculatedPercent = (dollarAmount / capital) * 100;
-        // We store the precise percentage, but for display stability we might need to be careful
-        // For now, raw calc is best for accuracy
-        setFormValues((prev) => ({
-          ...prev,
-          riskPercentage: calculatedPercent.toString(),
-        }));
-      }
-    }
-  };
-
-  useEffect(() => {
-    const prevParams = prevTradeParamsRef.current;
-
-    setFormValues((currentFormValues) => {
-      const newValues = { ...currentFormValues };
-      let hasChanges = false;
-
-      // Only update local form if the STORE value has changed since last render.
-      // This prevents local edits (e.g. changing Risk% to 5%) from being reset
-      // by unrelated store updates (e.g. changing Entry Price), while still
-      // accepting explicit updates from the Settings modal.
-      (Object.keys(tradeParameters) as Array<keyof TradeParameters>).forEach(
-        (key) => {
-          if (tradeParameters[key] !== prevParams[key]) {
-            // Special handling for takeProfitPrice which can be null
-            const storeValue = tradeParameters[key];
-            const stringValue = storeValue?.toString() || "";
-
-            // Only update if different from current form to avoid cursor jumps if possible,
-            // though strict sync with store change is safer for "Settings" updates.
-            if (newValues[key] !== stringValue) {
-              newValues[key] = stringValue;
-              hasChanges = true;
-            }
-          }
-        },
-      );
-
-      return hasChanges ? newValues : currentFormValues;
-    });
-
-    prevTradeParamsRef.current = tradeParameters;
-  }, [tradeParameters]);
-
-  const handleResetToDefaults = () => {
-    setFormValues((prev) => ({
-      ...prev,
-      totalCapital: tradeParameters.totalCapital?.toString() || "",
-      riskPercentage: tradeParameters.riskPercentage?.toString() || "",
-    }));
-  };
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    const normalizedValue = value.replace(",", ".");
-
-    if (normalizedValue === "" || INPUT_VALIDATION_REGEX.test(value)) {
-      setFormValues((prev) => {
-        return {
-          ...prev,
-          [name]: normalizedValue,
-        };
-      });
-    }
-  };
-
-  const updateStoreParameters = () => {
-    // Parse and dispatch each form value with appropriate validation
-    processFormValues(formValues, (paramName, value) => {
-      // Do not sync 'Session' values (Capital/Risk) to Store 'Defaults'.
-      // These should only be updated via the Settings Modal.
-      if (paramName === "totalCapital" || paramName === "riskPercentage")
-        return;
-
-      saveToLocalStorage(paramName, value === null ? "0" : value.toString());
-      dispatch(
-        updateTradeParameter({
-          name: paramName as keyof TradeParameters,
-          value: value,
-        }),
-      );
-    });
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    updateStoreParameters();
-    const { totalCapital, riskPercentage } = formValues;
-
-    dispatch(
-      calculatePosition({
-        totalCapital: parseFloat(totalCapital),
-        riskPercentage: parseFloat(riskPercentage),
-      }),
-    );
-  };
+  const {
+    formValues,
+    riskInputMode,
+    riskInputValue,
+    toggleRiskMode,
+    handleInputChange,
+    handleRiskInputChange,
+    handleResetToDefaults,
+    handleSubmit,
+  } = useCalculator();
 
   return (
     <>
@@ -292,7 +119,7 @@ const CalculatorForm = () => {
               required
               aria-labelledby="riskInputLabel"
               aria-required="true"
-              value={getRiskInputValue()}
+              value={riskInputValue}
               onChange={handleRiskInputChange}
               className="w-full px-4 py-3 text-lg transition-all bg-white border-0 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-900/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
               placeholder={riskInputMode === "percentage" ? "1.0" : "0.00"}
