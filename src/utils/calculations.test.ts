@@ -293,15 +293,21 @@ describe("calculateTakeProfitPrice", () => {
       );
     });
 
-    test("throws error if calculated take profit is in the wrong direction (long)", () => {
-      // In a long position (sl < entry), TP must be > entry.
-      // If we somehow forced a calculation that resulted in TP <= entry, it should throw.
-      // Since our formula is entry + dist, and dist = abs(sl-entry) * rr,
-      // where rr > 0 and sl != entry, dist is always > 0.
-      // Thus entry + dist is always > entry.
-      // However, we test the safeguard in calculations.ts line 182-185.
-      // We can't easily trigger the error in line 182 with the current exported logic,
-      // but we covered the input validation which is the primary defense.
+    test("throws error if calculated take profit is invalid due to extreme precision loss", () => {
+      // Create a scenario where Floating Point precision causes entry + diff == entry
+      // 1e16 is larger than MAX_SAFE_INTEGER, resolution is > 1.
+      // We need entry != stopLoss. 1e16 and 1e16-1 might be equal.
+      // Use 1e16 and 1e16-10 to ensure they are distinct.
+      const entryPrice = 9007199254740992; // 2^53
+      const stopLossPrice = 9007199254740982; // 2^53 - 10 (distinct)
+      const riskRewardRatio = 0.0001; // dist = 10, tp dist = 0.001
+      // 2^53 + 0.001 === 2^53
+
+      expect(() =>
+        calculateTakeProfitPrice(entryPrice, stopLossPrice, riskRewardRatio),
+      ).toThrowError(
+        "Calculated take profit price is not valid for the position direction.",
+      );
     });
   });
 });
