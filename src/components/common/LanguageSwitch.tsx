@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Globe } from "lucide-react";
 
 interface Language {
   code: string;
@@ -31,12 +32,18 @@ const LanguageSwitch = () => {
     <div className="relative">
       <button
         onClick={() => toggleDropdown()}
-        className="flex items-center p-2 space-x-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200"
+        className="flex items-center p-2 space-x-1 sm:space-x-2 text-gray-500 transition-colors duration-200 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 hover:cursor-pointer dark:text-gray-200 dark:hover:text-gray-800 dark:hover:bg-gray-200"
         aria-label={t("common.language")}
       >
+        {/* Mobile: Globe Icon */}
+        <Globe className="w-5 h-5 sm:hidden" />
+
+        {/* Desktop: Text Code */}
         <span className="hidden text-sm font-medium sm:block">
           {currentLanguage.code.toUpperCase()}
         </span>
+
+        {/* Chevron */}
         <svg
           className={`w-4 h-4 transition-transform duration-200 ${
             isOpen ? "rotate-180" : ""

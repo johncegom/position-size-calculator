@@ -21,14 +21,14 @@ const Home = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14">
         {/* Left Sidebar: Controls - Sticky on Desktop */}
         <aside className="lg:col-span-5 xl:col-span-4">
-          <div className="lg:sticky lg:top-24">
+          <div>
             <div className="p-1 rounded-3xl bg-gradient-to-br from-white/40 to-white/10 dark:from-white/5 dark:to-transparent">
               <div className="p-6 rounded-2xl glass-panel shadow-xl dark:shadow-[0_0_40px_-10px_rgba(99,102,241,0.15)] ring-1 ring-black/5 dark:ring-white/10">
                 <CalculatorForm />
               </div>
             </div>
 
-            <div className="mt-6 p-4 rounded-xl bg-accent/5 border border-accent/10 lg:block hidden">
+            <div className="mt-6 p-4 rounded-xl bg-accent/5 border border-accent/10">
               <p className="text-xs text-text-secondary-light dark:text-text-secondary-dark font-mono text-center">
                 {t("calculator.proTip")}
               </p>

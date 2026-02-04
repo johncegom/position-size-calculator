@@ -159,3 +159,18 @@ h6 {
     0 8px 10px -6px rgba(99, 102, 241, 0.1);
   border-color: var(--color-brand-secondary);
 }
+
+/* Hide scrollbar but keep functionality */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Safe area handling for newly positioned bottom nav */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
