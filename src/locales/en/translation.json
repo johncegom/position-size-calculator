@@ -82,7 +82,8 @@
     "language": "Language",
     "riskValue": "Risk Value",
     "riskPercentageShort": "Risk %",
-    "optional": "Optional"
+    "optional": "Optional",
+    "systemActive": "System Active"
   },
   "growthSimulator": {
     "title": "Account Growth Projection",

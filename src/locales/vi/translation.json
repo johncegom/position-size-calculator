@@ -82,7 +82,8 @@
     "language": "Ngôn ngữ",
     "riskValue": "Giá Trị Rủi Ro",
     "riskPercentageShort": "Rủi ro %",
-    "optional": "Tùy chọn"
+    "optional": "Tùy chọn",
+    "systemActive": "HỆ THỐNG HOẠT ĐỘNG"
   },
   "growthSimulator": {
     "title": "Dự Báo Tăng Trưởng Tài Khoản",

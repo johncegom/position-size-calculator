@@ -79,7 +79,7 @@ const Sidebar = () => {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
           <span className="text-[10px] uppercase tracking-widest text-gray-400 dark:text-gray-500 font-semibold">
-            System Active
+            {t("common.systemActive")}
           </span>
         </div>
       </div>
