@@ -9,8 +9,6 @@ import type { TradeParameters } from "./types";
 import Home from "./pages/Home";
 import AppLayout from "./components/layout/AppLayout";
 import Footer from "./components/layout/Footer";
-import "./App.css";
-
 const Settings = lazy(() => import("./pages/Settings"));
 const About = lazy(() => import("./pages/About"));
 
