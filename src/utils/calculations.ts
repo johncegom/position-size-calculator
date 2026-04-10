@@ -51,13 +51,15 @@ export function calculatePositionSize({
   const isLong = stopLossPrice < entryPrice;
 
   if (takeProfitPrice) {
-    if (isLong && takeProfitPrice < entryPrice) {
+    if (isLong && takeProfitPrice <= entryPrice) {
       throw new Error(
-        "Take profit price must be above entry price for long positions."
+        "Take profit must be above entry price for long positions."
       );
     }
-    if (!isLong && takeProfitPrice > entryPrice) {
-      throw new Error("Take profit price must be below for short positions.");
+    if (!isLong && takeProfitPrice >= entryPrice) {
+      throw new Error(
+        "Take profit must be below entry price for short positions."
+      );
     }
   }
 

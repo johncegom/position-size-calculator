@@ -11,8 +11,15 @@ import {
 } from "../../utils/formatters";
 import { useTranslation } from "react-i18next";
 import { RATIO_THRESHOLDS } from "../../constants/ratioThresholds";
+import { calculateTakeProfitPrice } from "../../utils/calculations";
 
-const RatioDisplay = ({ ratio }: { ratio: number }) => {
+const RatioDisplay = ({
+  ratio,
+  expectedRatio,
+}: {
+  ratio: number;
+  expectedRatio: number;
+}) => {
   const { GOOD, DECENT } = RATIO_THRESHOLDS;
   const { t } = useTranslation();
 
@@ -79,13 +86,33 @@ const RatioDisplay = ({ ratio }: { ratio: number }) => {
           </div>
         </div>
 
-        <div
-          className={`px-4 py-2 rounded-xl backdrop-blur-md bg-white/60 dark:bg-black/20 border border-white/20 shadow-sm ${status.color}`}
-        >
-          <p className="text-xs font-bold text-center uppercase tracking-wider">
-            {status.label}
-          </p>
-        </div>
+        {expectedRatio > 0 && (
+          <div className="flex flex-col items-center sm:items-end gap-2">
+            <div className="px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1.5 shadow-sm">
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                {t("simulator.expected")}: 1:
+                {formatToTwoDecimals(expectedRatio)}
+              </span>
+            </div>
+            <div
+              className={`px-4 py-2 rounded-xl backdrop-blur-md bg-white/60 dark:bg-black/20 border border-white/20 shadow-sm ${status.color}`}
+            >
+              <p className="text-xs font-bold text-center uppercase tracking-wider">
+                {status.label}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {expectedRatio <= 0 && (
+          <div
+            className={`px-4 py-2 rounded-xl backdrop-blur-md bg-white/60 dark:bg-black/20 border border-white/20 shadow-sm ${status.color}`}
+          >
+            <p className="text-xs font-bold text-center uppercase tracking-wider">
+              {status.label}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -196,12 +223,38 @@ const RiskRewardVisual = () => {
   const riskAmount = calculationResult?.potentialLoss || 0;
   const rewardAmount = calculationResult?.potentialProfit || 0;
   const ratio = calculationResult?.riskRewardRatio || 0;
+  const expectedRatio = tradeParameters.expectedRR || 0;
 
   // Calculate bar widths (relative to each other)
   const maxValue = Math.max(riskAmount, rewardAmount);
   // Ensure bars are visible (min 5% if value > 0)
   const riskWidth = maxValue > 0 ? (riskAmount / maxValue) * 100 : 0;
   const rewardWidth = maxValue > 0 ? (rewardAmount / maxValue) * 100 : 0;
+
+  // Calculate user expected take profit for visualization comparison
+  let expectedTP = null;
+  if (
+    expectedRatio > 0 &&
+    tradeParameters.entryPrice > 0 &&
+    tradeParameters.stopLossPrice > 0
+  ) {
+    try {
+      expectedTP = calculateTakeProfitPrice(
+        tradeParameters.entryPrice,
+        tradeParameters.stopLossPrice,
+        expectedRatio,
+      );
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  // Only show the "Expected Target" if it's notably different from current take profit
+  // or if current take profit is not set.
+  const isExpectedDifferent =
+    expectedTP !== null &&
+    (!tradeParameters.takeProfitPrice ||
+      Math.abs(expectedTP - tradeParameters.takeProfitPrice) > 0.0000001);
 
   return (
     <div className="p-8 glass-panel rounded-3xl h-full flex flex-col justify-between">
@@ -211,7 +264,7 @@ const RiskRewardVisual = () => {
         </h2>
 
         {/* Ratio display with color coding */}
-        <RatioDisplay ratio={ratio} />
+        <RatioDisplay ratio={ratio} expectedRatio={expectedRatio} />
 
         {/* Visual comparison bars */}
         <div className="mb-10 space-y-8">
@@ -232,7 +285,9 @@ const RiskRewardVisual = () => {
         </div>
 
         {/* Price levels grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-center">
+        <div
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-${isExpectedDifferent ? "4" : "3"} gap-4 text-center`}
+        >
           <PriceLevelCard
             label={t("riskReward.stopLoss")}
             value={tradeParameters.stopLossPrice}
@@ -248,6 +303,13 @@ const RiskRewardVisual = () => {
             value={tradeParameters.takeProfitPrice ?? null}
             type="reward"
           />
+          {isExpectedDifferent && (
+            <PriceLevelCard
+              label={t("simulator.userExpected")}
+              value={expectedTP}
+              type="neutral"
+            />
+          )}
         </div>
       </div>
     </div>

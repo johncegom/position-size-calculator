@@ -19,19 +19,39 @@ interface SimulationScenario {
 const ScenarioRow = ({
   scenario,
   totalCapital,
+  isExpected = false,
 }: {
   scenario: SimulationScenario;
   totalCapital: number;
+  isExpected?: boolean;
 }) => {
   const { t } = useTranslation();
   const profitPercentage = (scenario.potentialProfit / totalCapital) * 100;
 
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 transition-all border shadow-sm border-indigo-50/50 bg-white/50 dark:bg-white/5 dark:border-white/5 rounded-xl hover:bg-white hover:shadow-md dark:hover:bg-white/10 group">
+    <div
+      className={`flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 transition-all border shadow-sm rounded-xl hover:shadow-md group relative ${
+        isExpected
+          ? "border-indigo-500 bg-indigo-50/50 dark:bg-indigo-500/10 ring-1 ring-indigo-500/20 shadow-indigo-100 dark:shadow-none"
+          : "border-indigo-50/50 bg-white/50 dark:bg-white/5 dark:border-white/5"
+      }`}
+    >
+      {isExpected && (
+        <span className="absolute -top-2.5 -left-2 bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm z-10 animate-pulse">
+          {t("simulator.userExpected")}
+        </span>
+      )}
+
       {/* Ratio & Status */}
       <div className="flex items-center gap-4 mb-3 sm:mb-0 w-full sm:w-1/3">
         <div className="flex flex-col">
-          <span className="text-xl font-bold font-display text-gray-900 dark:text-white">
+          <span
+            className={`text-xl font-bold font-display ${
+              isExpected
+                ? "text-indigo-700 dark:text-indigo-400"
+                : "text-gray-900 dark:text-white"
+            }`}
+          >
             {scenario.label}
           </span>
           <span
@@ -55,7 +75,13 @@ const ScenarioRow = ({
           <span className="text-[10px] uppercase text-gray-400 font-semibold tracking-wider">
             {t("simulator.takeProfitPrice")}
           </span>
-          <span className="font-mono text-sm font-bold text-gray-700 dark:text-gray-200">
+          <span
+            className={`font-mono text-sm font-bold ${
+              isExpected
+                ? "text-indigo-700 dark:text-indigo-300"
+                : "text-gray-700 dark:text-gray-200"
+            }`}
+          >
             ${formatToEightDecimals(scenario.takeProfitPrice)}
           </span>
         </div>
@@ -80,14 +106,18 @@ const ScenarioRow = ({
           </span>
         </div>
 
-        {/* Risk (Constant) - Maybe less important to show repeated? 
-            Actually let's show R-Multiple or Net Profit instead? 
-            Let's keep it simple: Net Result */}
+        {/* Net Result */}
         <div className="flex flex-col sm:items-end">
           <span className="text-[10px] uppercase text-gray-400 font-semibold tracking-wider">
             Net
           </span>
-          <span className="font-mono text-sm font-bold text-gray-900 dark:text-white">
+          <span
+            className={`font-mono text-sm font-bold ${
+              isExpected
+                ? "text-indigo-700 dark:text-indigo-300"
+                : "text-gray-900 dark:text-white"
+            }`}
+          >
             ${formatToTwoDecimals(scenario.potentialProfit)}
           </span>
         </div>
@@ -102,7 +132,8 @@ const RiskRewardSimulator = () => {
   );
   const { t } = useTranslation();
 
-  const { entryPrice, stopLossPrice, totalCapital } = tradeParameters;
+  const { entryPrice, stopLossPrice, totalCapital, expectedRR } =
+    tradeParameters;
   const positionSize = calculationResult?.positionSize || 0;
   const potentialLoss = calculationResult?.potentialLoss || 0;
 
@@ -110,40 +141,29 @@ const RiskRewardSimulator = () => {
     return null;
   }
 
-  const SCENARIOS: SimulationScenario[] = [
-    {
-      ratio: 1,
-      label: "1:1",
-      takeProfitPrice: 0,
-      potentialProfit: 0,
-      potentialLoss,
-    },
-    {
-      ratio: 2,
-      label: "1:2",
-      takeProfitPrice: 0,
-      potentialProfit: 0,
-      potentialLoss,
-    },
-    {
-      ratio: 3,
-      label: "1:3",
-      takeProfitPrice: 0,
-      potentialProfit: 0,
-      potentialLoss,
-    },
-  ].map((scenario) => {
-    const { ratio } = scenario;
+  const baseRatios = [1, 2, 3];
+  const userRatio = expectedRR || 0;
+
+  // Combine standard ratios with user expected ratio, filter out duplicates and zero
+  const uniqueRatios = Array.from(
+    new Set([...baseRatios, userRatio].filter((r) => r > 0)),
+  ).sort((a, b) => a - b);
+
+  const SCENARIOS: SimulationScenario[] = uniqueRatios.map((ratio) => {
     const takeProfitPrice = calculateTakeProfitPrice(
       entryPrice,
       stopLossPrice,
       ratio,
     );
     const potentialProfit = potentialLoss * ratio;
+    const label = `1:${formatToTwoDecimals(ratio)}`;
+
     return {
-      ...scenario,
+      ratio,
+      label,
       takeProfitPrice,
       potentialProfit,
+      potentialLoss,
     };
   });
 
@@ -166,6 +186,7 @@ const RiskRewardSimulator = () => {
             key={scenario.label}
             scenario={scenario}
             totalCapital={totalCapital}
+            isExpected={scenario.ratio === userRatio}
           />
         ))}
       </div>

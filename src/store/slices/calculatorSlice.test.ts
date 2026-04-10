@@ -14,17 +14,32 @@ describe("calculatorSlice", () => {
       entryPrice: 0,
       stopLossPrice: 0,
       takeProfitPrice: null,
+      expectedRR: 0,
     });
     expect(initialState.calculationResult).toBeNull();
     expect(initialState.error).toBeNull();
   });
 
   it("should handle updateTradeParameter", () => {
-    const prevState = calculatorReducer(undefined, { type: "unknown" });
     const action = updateTradeParameter({ name: "totalCapital", value: 10000 });
-    const state = calculatorReducer(prevState, action);
+    const state = calculatorReducer(undefined, action);
 
     expect(state.tradeParameters.totalCapital).toBe(10000);
+  });
+
+  it("should auto-update takeProfitPrice when expectedRR is updated", () => {
+    const store = configureStore({
+      reducer: { calculator: calculatorReducer },
+    });
+
+    store.dispatch(updateTradeParameter({ name: "entryPrice", value: 100 }));
+    store.dispatch(updateTradeParameter({ name: "stopLossPrice", value: 90 }));
+    store.dispatch(updateTradeParameter({ name: "expectedRR", value: 2 }));
+
+    const state = store.getState().calculator;
+    // For 1:2 RR on 100 entry / 90 stop (distance 10), TP should be 120
+    expect(state.tradeParameters.takeProfitPrice).toBe(120);
+    expect(state.tradeParameters.expectedRR).toBe(2);
   });
 
   it("should handle calculatePosition with valid parameters", () => {

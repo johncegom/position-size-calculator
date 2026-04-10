@@ -39,6 +39,7 @@
     "positionSize": "Kích Thước Vị Thế Tối Ưu",
     "potentialLoss": "Mức Lỗ Dự Kiến (tại SL)",
     "potentialProfit": "Lợi Nhuận Dự Kiến (tại TP)",
+    "expectedRR": "Rủi ro/Lợi nhuận Kì vọng (R:R)",
     "proTip": "Mẹo chuyên gia: Trader chuyên nghiệp thường chỉ rủi ro 1-2% vốn cho mỗi lệnh. Điều này giúp bảo vệ tài khoản khi gặp chuỗi thua lỗ."
   },
   "riskReward": {
@@ -71,7 +72,9 @@
     "reward": "Lợi nhuận",
     "simulationTip": "Lưu Ý Hiệu Suất:",
     "simulationTipText": "Các kịch bản này so sánh tỷ suất lợi nhuận dựa trên mức rủi ro cố định. Duy trì lợi nhuận dài hạn đòi hỏi sự tập trung vào các lệnh có tiềm năng lợi nhuận vượt trội so với rủi ro.",
-    "calculatedBasedOn": "*Được tính dựa trên kích thước vị thế hiện tại"
+    "calculatedBasedOn": "*Được tính dựa trên kích thước vị thế hiện tại",
+    "expected": "Kì vọng",
+    "userExpected": "Mục tiêu của bạn"
   },
   "footer": {
     "title": "Trình Tính Toán Vị Thế Giao Dịch",
@@ -83,7 +86,9 @@
     "riskValue": "Giá Trị Rủi Ro",
     "riskPercentageShort": "Rủi ro %",
     "optional": "Tùy chọn",
-    "systemActive": "HỆ THỐNG HOẠT ĐỘNG"
+    "systemActive": "HỆ THỐNG HOẠT ĐỘNG",
+    "long": "Giao dịch Mua (Long)",
+    "short": "Giao dịch Bán (Short)"
   },
   "growthSimulator": {
     "title": "Dự Báo Tăng Trưởng Tài Khoản",

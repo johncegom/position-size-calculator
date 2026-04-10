@@ -202,13 +202,13 @@ describe("calculatePositionSize", () => {
     test("take profit price is higher entry price in short position", () => {
       const params = { ...shortParams, takeProfitPrice: 2700 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "Take profit price must be below for short positions.",
+        "Take profit must be below entry price for short positions.",
       );
     });
     test("take profit price is less than entry price in long position", () => {
       const params = { ...longParams, takeProfitPrice: 2400 };
       expect(() => calculatePositionSize(params)).toThrowError(
-        "Take profit price must be above entry price for long positions.",
+        "Take profit must be above entry price for long positions.",
       );
     });
   });

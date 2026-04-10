@@ -9,6 +9,7 @@ export interface TradeParameters {
   entryPrice: number;
   stopLossPrice: number;
   takeProfitPrice?: number | null;
+  expectedRR?: number;
 }
 
 // Questions to consider for CalculationResult:

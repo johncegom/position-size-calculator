@@ -29,6 +29,7 @@ export const useCalculator = () => {
     stopLossPrice: tradeParameters.stopLossPrice?.toString() || "",
     riskPercentage: tradeParameters.riskPercentage?.toString() || "",
     takeProfitPrice: tradeParameters.takeProfitPrice?.toString() || "",
+    expectedRR: tradeParameters.expectedRR?.toString() || "",
   });
 
   const [riskInputMode, setRiskInputMode] = useState<"percentage" | "value">(
@@ -146,17 +147,35 @@ export const useCalculator = () => {
   /**
    * Generic handler for standard numeric input fields.
    */
-  const handleInputChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    const normalizedValue = value.replace(",", ".");
+  const handleInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      const normalizedValue = value.replace(",", ".");
 
-    if (normalizedValue === "" || INPUT_VALIDATION_REGEX.test(value)) {
-      setFormValues((prev) => ({
-        ...prev,
-        [name]: normalizedValue,
-      }));
-    }
-  }, []);
+      if (normalizedValue === "" || INPUT_VALIDATION_REGEX.test(normalizedValue)) {
+        setFormValues((prev) => ({
+          ...prev,
+          [name]: normalizedValue,
+        }));
+
+        // Real-time sync for reactive fields to keep parameters and results in sync
+        const reactiveFields = ["expectedRR", "entryPrice", "stopLossPrice", "takeProfitPrice"];
+        if (reactiveFields.includes(name)) {
+          const numericValue = parseFloat(normalizedValue);
+          dispatch(
+            updateTradeParameter({
+              name: name as keyof TradeParameters,
+              value: isNaN(numericValue) ? null : numericValue,
+            })
+          );
+
+          // Force real-time calculation to keep analysis results in sync
+          dispatch(calculatePosition());
+        }
+      }
+    },
+    [dispatch]
+  );
 
   /**
    * Processes form submission:
@@ -182,12 +201,13 @@ export const useCalculator = () => {
         );
       });
 
-      const { totalCapital, riskPercentage } = currentValues;
+      const { totalCapital, riskPercentage, expectedRR } = currentValues;
 
       dispatch(
         calculatePosition({
           totalCapital: parseFloat(totalCapital),
           riskPercentage: parseFloat(riskPercentage),
+          expectedRR: parseFloat(expectedRR),
         }),
       );
     },
@@ -204,5 +224,14 @@ export const useCalculator = () => {
     handleResetToDefaults,
     handleSubmit,
     tradeParameters,
+    tradeDirection:
+      tradeParameters.entryPrice && tradeParameters.stopLossPrice
+        ? tradeParameters.stopLossPrice < tradeParameters.entryPrice
+          ? "long"
+          : "short"
+        : null,
+    error: useSelector((state: RootState) => state.calculator.error),
   };
 };
+
+export default useCalculator;

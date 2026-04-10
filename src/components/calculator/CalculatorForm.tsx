@@ -12,11 +12,69 @@ const CalculatorForm = () => {
     handleRiskInputChange,
     handleResetToDefaults,
     handleSubmit,
+    error,
+    tradeDirection,
   } = useCalculator();
+
+  const isLong = tradeDirection === "long";
 
   return (
     <>
       <form onSubmit={handleSubmit} className="w-full space-y-6">
+        {/* Trade Direction Badge Indicator */}
+        {tradeDirection && (
+          <div className="flex justify-center mb-2 animate-in zoom-in-95 fade-in duration-300">
+            <div
+              className={`px-4 py-1.5 rounded-full border flex items-center gap-2 shadow-sm ${
+                isLong
+                  ? "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                  : "bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400"
+              }`}
+            >
+              <div
+                className={`w-2 h-2 rounded-full animate-pulse ${
+                  isLong ? "bg-emerald-500" : "bg-rose-500"
+                }`}
+              />
+              <span className="text-xs font-bold uppercase tracking-widest font-display">
+                {isLong ? t("common.long") : t("common.short")}
+              </span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className={`w-4 h-4 transition-transform duration-500 ${isLong ? "rotate-180" : ""}`}
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+          </div>
+        )}
+        {error && (
+          <div className="p-4 mb-4 text-sm font-medium border rounded-xl bg-red-50 dark:bg-red-900/10 border-red-100 dark:border-red-900/20 text-red-600 dark:text-red-400 animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="w-5 h-5 flex-shrink-0"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                />
+              </svg>
+              {error}
+            </div>
+          </div>
+        )}
         <div className="form-group">
           <label
             htmlFor="totalCapital"
@@ -192,34 +250,62 @@ const CalculatorForm = () => {
           </div>
         </div>
 
-        <div className="form-group">
-          <label
-            htmlFor="takeProfitPrice"
-            id="takeProfitPriceLabel"
-            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            {t("calculator.takeProfitPrice")}{" "}
-            <span className="text-gray-400 text-xs font-normal ml-1">
-              ({t("common.optional")})
-            </span>
-          </label>
-          <div className="relative group">
-            <input
-              type="tel"
-              inputMode="decimal"
-              pattern="(0|[1-9]\d*)([.,]\d*)?"
-              id="takeProfitPrice"
-              name="takeProfitPrice"
-              min="0"
-              aria-labelledby="takeProfitPriceLabel"
-              value={formValues.takeProfitPrice || ""}
-              onChange={handleInputChange}
-              className="w-full py-3 pl-8 pr-4 text-lg transition-all bg-white border-0 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-900/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
-              placeholder="0.00"
-            />
-            <span className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:-translate-x-1 pointer-events-none">
-              $
-            </span>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="form-group">
+            <label
+              htmlFor="expectedRR"
+              className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              {t("calculator.expectedRR")}
+            </label>
+            <div className="relative group">
+              <input
+                type="tel"
+                inputMode="decimal"
+                pattern="(0|[1-9]\d*)([.,]\d*)?"
+                id="expectedRR"
+                name="expectedRR"
+                min="0"
+                value={formValues.expectedRR || ""}
+                onChange={handleInputChange}
+                className="w-full py-3 pr-12 pl-4 text-lg transition-all bg-white border-0 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-900/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
+                placeholder="2.0"
+              />
+              <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:translate-x-1 pointer-events-none text-xs font-bold font-mono">
+                R:R
+              </span>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label
+              htmlFor="takeProfitPrice"
+              id="takeProfitPriceLabel"
+              className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              {t("calculator.takeProfitPrice")}{" "}
+              <span className="text-gray-400 text-xs font-normal ml-1">
+                ({t("common.optional")})
+              </span>
+            </label>
+            <div className="relative group">
+              <input
+                type="tel"
+                inputMode="decimal"
+                pattern="(0|[1-9]\d*)([.,]\d*)?"
+                id="takeProfitPrice"
+                name="takeProfitPrice"
+                min="0"
+                aria-labelledby="takeProfitPriceLabel"
+                value={formValues.takeProfitPrice || ""}
+                onChange={handleInputChange}
+                className="w-full py-3 pl-8 pr-4 text-lg transition-all bg-white border-0 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-900/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
+                placeholder="0.00"
+              />
+              <span className="absolute text-gray-400 transform -translate-y-1/2 left-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:-translate-x-1 pointer-events-none">
+                $
+              </span>
+            </div>
           </div>
         </div>
 

@@ -39,6 +39,7 @@
     "positionSize": "Optimal Position Size",
     "potentialLoss": "Expected Loss (at SL)",
     "potentialProfit": "Projected Profit (at TP)",
+    "expectedRR": "Expected Risk/Reward (R:R)",
     "proTip": "Pro Tip: Professional traders typically risk 1-2% of their capital per trade. This protects your account from ruin during inevitable losing streaks."
   },
   "riskReward": {
@@ -71,7 +72,9 @@
     "reward": "Reward",
     "simulationTip": "Performance Note:",
     "simulationTipText": "These scenarios compare potential returns based on fixed risk. Maintaining a positive expectancy requires focusing on trades where the upside significantly outweighs the downside.",
-    "calculatedBasedOn": "*Calculated based on current position size"
+    "calculatedBasedOn": "*Calculated based on current position size",
+    "expected": "Expected",
+    "userExpected": "Your Target"
   },
   "footer": {
     "title": "Position Size Calculator",
@@ -83,7 +86,9 @@
     "riskValue": "Risk Value",
     "riskPercentageShort": "Risk %",
     "optional": "Optional",
-    "systemActive": "System Active"
+    "systemActive": "System Active",
+    "long": "Long (Buy)",
+    "short": "Short (Sell)"
   },
   "growthSimulator": {
     "title": "Account Growth Projection",
