@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./store/store";
 import { loadFromLocalStorage } from "./utils/utils";
-import { updateTradeParameter } from "./store/slices/calculatorSlice";
+import { initializeParameters } from "./store/slices/calculatorSlice";
 import type { TradeParameters } from "./types";
 
 import Home from "./pages/Home";
@@ -19,17 +19,22 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const keys: string[] = Object.keys(tradeParameters);
-    keys.forEach((key) => {
-      const value = loadFromLocalStorage(key);
-      const numericValue = value === null ? 0 : parseFloat(value);
-      dispatch(
-        updateTradeParameter({
-          name: key as keyof TradeParameters,
-          value: numericValue,
-        }),
-      );
-    });
+    const initialParams = { ...tradeParameters };
+    let hasLoadedAny = false;
+
+    (Object.keys(tradeParameters) as Array<keyof TradeParameters>).forEach(
+      (key) => {
+        const value = loadFromLocalStorage(key);
+        if (value !== null) {
+          initialParams[key] = parseFloat(value) as never;
+          hasLoadedAny = true;
+        }
+      },
+    );
+
+    if (hasLoadedAny) {
+      dispatch(initializeParameters(initialParams as TradeParameters));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

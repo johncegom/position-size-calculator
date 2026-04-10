@@ -127,10 +127,22 @@ const calculatorSlice = createSlice({
         state.calculationResult = null;
       }
     },
+    initializeParameters: (state, action: PayloadAction<TradeParameters>) => {
+      state.tradeParameters = action.payload;
+      // Also trigger a calculation with the new initial parameters
+      try {
+        state.calculationResult = calculatePositionSize(action.payload);
+      } catch {
+        /* ignore */
+      }
+    },
   },
 });
 
-export const { updateTradeParameter, calculatePosition } =
-  calculatorSlice.actions;
+export const {
+  updateTradeParameter,
+  calculatePosition,
+  initializeParameters,
+} = calculatorSlice.actions;
 
 export default calculatorSlice.reducer;

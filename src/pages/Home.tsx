@@ -1,9 +1,11 @@
+import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import CalculatorForm from "../components/calculator/CalculatorForm";
 import ResultDisplay from "../components/calculator/ResultDisplay";
 import RiskRewardVisual from "../components/calculator/RiskRewardVisual";
-import RiskRewardSimulator from "../components/calculator/RiskRewardSimulator";
-import GrowthSimulator from "../components/calculator/GrowthSimulator";
+
+const RiskRewardSimulator = lazy(() => import("../components/calculator/RiskRewardSimulator"));
+const GrowthSimulator = lazy(() => import("../components/calculator/GrowthSimulator"));
 
 const Home = () => {
   const { t } = useTranslation();
@@ -49,13 +51,13 @@ const Home = () => {
               <RiskRewardVisual />
             </div>
 
-            <div>
+            <Suspense fallback={<div className="h-64 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-2xl" />}>
               <RiskRewardSimulator />
-            </div>
+            </Suspense>
 
-            <div>
+            <Suspense fallback={<div className="h-96 animate-pulse bg-gray-100 dark:bg-gray-800 rounded-2xl" />}>
               <GrowthSimulator />
-            </div>
+            </Suspense>
           </div>
         </section>
       </div>
