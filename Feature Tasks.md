@@ -445,3 +445,26 @@ This document outlines the tasks required to implement the planned features for 
 - UI/UX is intuitive and accessible on all devices.
 
 ---
+
+### Task 20: Position Scaling & DCA Calculator
+
+**Title**: Implement Position Scaling & DCA (Average Down) Calculator
+
+**Description**: Add an advanced entry mode designed for both spot holders and margin traders. This tool allows users to calculate how to scale into a position using multi-entry target planning (DCA). It helps answer questions like "How much capital do I need to deploy now to move my average to target $X?" and "What is my final average entry if I place multiple limit orders?".
+
+**Acceptance Criteria**:
+
+- Create a new "Scaling / DCA" mode or tab in the calculator UI that adheres to premium, high-quality **frontend-design** aesthetics (using sleek animations, dynamic layouts, and modern typography instead of generic styles).
+- Build the component architecture utilizing scalable **vercel-composition-patterns** to keep the multi-entry logic modular and maintainable.
+- **Sub-feature 1 (Target Planner):** Input Initial Capital, Initial Entry Price, Current Price, and Target Average Price. Output the Required Additional Capital to reach the target.
+- **Sub-feature 2 (Multi-Entry Calculator):** Allow dynamic addition of multiple entry tiers (e.g., "$A at price X", "$B at price Y") and output the Final Average Entry Price and Total Position Size.
+- (Optional/Future Expansion) Display a warning about how adding to a losing position impacts the **liquidation price** for margin traders.
+
+**Definition of Done**:
+
+- Calculation functions for both target planning and multi-entry averaging are fully unit-tested with edge cases.
+- Redux slice handles state for dynamic input lists and scaling target parameters.
+- UI seamlessly switches between the primary risk calculator and the scaling mode with smooth micro-animations.
+- Visual output makes complex averaging math instantly clear and visually stunning, highlighting critical metrics like total capital deployed and new average entry price.
+
+---
