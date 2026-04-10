@@ -102,11 +102,10 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         continue-on-error: true
         with:
-          urls: |
-            http://localhost:5432/
           staticDistDir: ./dist
           uploadArtifacts: true
           temporaryPublicStorage: true
+          chromeFlags: --no-sandbox --headless --disable-gpu
 
   deploy:
     name: Deploy to Vercel
