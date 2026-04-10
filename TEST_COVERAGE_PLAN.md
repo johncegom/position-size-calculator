@@ -30,13 +30,13 @@ Testing the Redux logic and custom hooks to bridge the gap between utils and com
 
 Start with components that have less external dependency.
 
-- [ ] **`ResultDisplay.tsx`**
+- [x] **`ResultDisplay.tsx`**
   - Verify that values from Redux state are displayed correctly.
   - Test "Empty State" (no results message).
-- [ ] **`LanguageSwitch.tsx`**
+- [x] **`LanguageSwitch.tsx`**
   - Test language change triggers.
   - Verify active state styling.
-- [ ] **`RiskRewardVisual.tsx`**
+- [x] **`RiskRewardVisual.tsx`**
   - Test bar width calculations based on input values.
   - Verify color coding for different RR ratios.
 

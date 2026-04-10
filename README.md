@@ -67,13 +67,13 @@ Position Size (Value) = Risk Amount ÷ Stop Loss %
 ### Installation
 
 ```sh
-npm install
+yarn install
 ```
 
 ### Development
 
 ```sh
-npm run dev
+yarn dev
 ```
 
 ### Testing & Coverage
@@ -81,14 +81,14 @@ npm run dev
 We maintain rigorous testing for the calculation engine to ensure financial accuracy.
 
 ```sh
-npm run test          # Run all tests
-npm run coverage      # Generate coverage report
+yarn test          # Run all tests
+yarn coverage      # Generate coverage report
 ```
 
 ### Build for Production
 
 ```sh
-npm run build
+yarn build
 ```
 
 ---
