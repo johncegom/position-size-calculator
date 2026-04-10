@@ -12,9 +12,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   validate:
     name: Lint & Type Check
@@ -105,10 +102,9 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         continue-on-error: true
         with:
-          staticDistDir: ./dist
+          configPath: ./.lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-          chromeFlags: --no-sandbox --headless --disable-gpu
 
   deploy:
     name: Deploy to Vercel
