@@ -23,6 +23,7 @@ Testing the Redux logic and custom hooks to bridge the gap between utils and com
   - Test initial state.
   - Test `updateTradeParameter` and `calculatePosition` reducers.
   - Verify state updates correctly after complex calculation triggers.
+  - **Task 19 sync**: [x] Test two-way synchronization between `expectedRR` and `takeProfitPrice`.
 - [x] **`useCalculator.ts`**
   - Add unit tests for the custom hook using `@testing-library/react-hooks`.
 
@@ -39,6 +40,10 @@ Start with components that have less external dependency.
 - [x] **`RiskRewardVisual.tsx`**
   - Test bar width calculations based on input values.
   - Verify color coding for different RR ratios.
+  - **Task 19 highlight**: [x] Verify that the user's expected R/R and TP price are visually called out.
+- [x] **`RiskRewardSimulator.tsx`**
+  - Test scenario generation for 1:1, 1:2, 1:3. [x]
+  - **Task 19 simulation**: [x] Verify that the user's custom R/R is added and highlighted in the list.
 
 ## Phase 4: Interactive Component Testing (Complex)
 
@@ -52,6 +57,7 @@ Testing components with heavy user interaction and side effects.
   - Test input validation (numeric only, no negatives).
   - Test "Risk Mode" toggle (Percentage vs. Value).
   - Verify that "Calculate" button dispatches the correct Redux action.
+  - **Task 19 input**: Test the `expectedRR` field and its automated impact on the `takeProfitPrice` field.
 
 ## Phase 5: Integration & Quality Assurance
 

@@ -118,7 +118,7 @@ const Settings = () => {
     <div className="max-w-3xl mx-auto pb-12 animate-fade-in-up">
       {/* Header */}
       <div className="mb-10 text-center">
-        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white font-display">
+        <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-gray-900 via-indigo-800 to-gray-900 dark:from-white dark:via-indigo-200 dark:to-white font-display">
           {t("settingsPage.title")}
         </h1>
         <p className="mt-3 text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto">
@@ -279,7 +279,7 @@ const Settings = () => {
                 <div className="flex-1 w-full text-sm text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-slate-900/50 p-4 rounded-xl border border-gray-100 dark:border-white/5 flex items-center gap-3 min-h-[82px] mt-2 lg:mt-0">
                   {currentRiskPercentage > 5 ? (
                     <>
-                      <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <AlertTriangle className="w-5 h-5 text-red-500 shrink-0" />
                       <span>
                         {t("settingsPage.riskWarnings.highPart1")}{" "}
                         <strong>
@@ -294,12 +294,12 @@ const Settings = () => {
                     </>
                   ) : currentRiskPercentage > 2 ? (
                     <>
-                      <TrendingUp className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                      <TrendingUp className="w-5 h-5 text-orange-500 shrink-0" />
                       <span>{t("settingsPage.riskWarnings.aggressive")}</span>
                     </>
                   ) : (
                     <>
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
                       <span>{t("settingsPage.riskWarnings.sustainable")}</span>
                     </>
                   )}
@@ -422,7 +422,7 @@ const Settings = () => {
           )}
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto text-white transition-all shadow-xl shadow-indigo-500/20 bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-2xl hover:to-indigo-600 hover:shadow-indigo-500/40 active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 font-bold text-lg"
+            className="flex items-center justify-center gap-2 px-8 py-4 w-full sm:w-auto text-white transition-all shadow-xl shadow-indigo-500/20 bg-linear-to-r from-indigo-600 to-indigo-500 rounded-2xl hover:to-indigo-600 hover:shadow-indigo-500/40 active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 font-bold text-lg"
           >
             <Save className="w-5 h-5" />
             {t("settingsModal.save")}

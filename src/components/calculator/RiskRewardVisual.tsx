@@ -61,7 +61,7 @@ const RatioDisplay = ({
     >
       {/* Dynamic Background Gradient */}
       <div
-        className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-white/40 to-transparent dark:from-white/5 opacity-50 -mr-16 -mt-16 rounded-full blur-3xl`}
+        className={`absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-white/40 to-transparent dark:from-white/5 opacity-50 -mr-16 -mt-16 rounded-full blur-3xl`}
       />
 
       <div className="relative z-10 flex flex-col justify-between h-full gap-4 sm:flex-row sm:items-end">
@@ -244,7 +244,7 @@ const RiskRewardVisual = () => {
         tradeParameters.stopLossPrice,
         expectedRatio,
       );
-    } catch (e) {
+    } catch {
       /* ignore */
     }
   }

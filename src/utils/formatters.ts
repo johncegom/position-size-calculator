@@ -1,5 +1,8 @@
-export const formatToTwoDecimals = (value: number): number => {
-  return parseFloat(value.toFixed(2));
+export const formatToTwoDecimals = (value: number | string): string => {
+  const num = typeof value === "string" ? parseFloat(value) : value;
+  if (isNaN(num)) return "0";
+  const formatted = num.toFixed(2);
+  return formatted.endsWith(".00") ? num.toFixed(0) : formatted;
 };
 
 export const formatToEightDecimals = (value: number): string => {

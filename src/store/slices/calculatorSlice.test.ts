@@ -42,6 +42,39 @@ describe("calculatorSlice", () => {
     expect(state.tradeParameters.expectedRR).toBe(2);
   });
 
+  it("should auto-update expectedRR when takeProfitPrice is updated", () => {
+    const store = configureStore({
+      reducer: { calculator: calculatorReducer },
+    });
+
+    store.dispatch(updateTradeParameter({ name: "entryPrice", value: 100 }));
+    store.dispatch(updateTradeParameter({ name: "stopLossPrice", value: 90 }));
+    store.dispatch(updateTradeParameter({ name: "takeProfitPrice", value: 130 }));
+
+    const state = store.getState().calculator;
+    // Distance 10 SL, Distance 30 TP -> 1:3 RR
+    expect(state.tradeParameters.expectedRR).toBe(3);
+  });
+
+  it("should update expectedRR when entry/stop change while keeping TP fixed", () => {
+    const store = configureStore({
+      reducer: { calculator: calculatorReducer },
+    });
+
+    // Initial setup: 100 entry, 90 stop, 120 TP (1:2 RR)
+    store.dispatch(updateTradeParameter({ name: "entryPrice", value: 100 }));
+    store.dispatch(updateTradeParameter({ name: "stopLossPrice", value: 90 }));
+    store.dispatch(updateTradeParameter({ name: "takeProfitPrice", value: 120 }));
+    expect(store.getState().calculator.tradeParameters.expectedRR).toBe(2);
+
+    // Change SL to 95. Distance becomes 5. TP is still 120. Distance becomes 20. 20/5 = 4
+    store.dispatch(updateTradeParameter({ name: "stopLossPrice", value: 95 }));
+
+    const state = store.getState().calculator;
+    expect(state.tradeParameters.takeProfitPrice).toBe(120);
+    expect(state.tradeParameters.expectedRR).toBe(4);
+  });
+
   it("should handle calculatePosition with valid parameters", () => {
     const prevState = calculatorReducer(undefined, { type: "unknown" });
     const params = {

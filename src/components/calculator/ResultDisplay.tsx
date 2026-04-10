@@ -35,7 +35,7 @@ const ResultDisplay = () => {
             {t("calculator.resultsTitle")}
           </h2>
           <div className="flex flex-wrap items-baseline gap-2">
-            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-secondary font-mono tracking-tighter break-all">
+            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-r from-brand-primary to-brand-secondary font-mono tracking-tighter break-all">
               ${formatToTwoDecimals(positionSize)}
             </span>
             <span className="text-xs sm:text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark whitespace-nowrap">
@@ -47,7 +47,7 @@ const ResultDisplay = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         {potentialLoss > 0 && (
-          <div className="p-6 border border-red-200/50 shadow-sm rounded-2xl bg-gradient-to-br from-white to-red-50/30 dark:from-slate-800 dark:to-red-900/10 dark:border-red-500/10 backdrop-blur-sm">
+          <div className="p-6 border border-red-200/50 shadow-sm rounded-2xl bg-linear-to-br from-white to-red-50/30 dark:from-slate-800 dark:to-red-900/10 dark:border-red-500/10 backdrop-blur-sm">
             <p className="text-xs font-bold tracking-wider text-red-500/80 uppercase mb-2">
               {t("calculator.potentialLoss")}
             </p>
@@ -60,7 +60,7 @@ const ResultDisplay = () => {
         <div
           className={`p-6 border shadow-sm rounded-2xl transition-all ${
             potentialProfit > 0
-              ? "border-emerald-200/50 bg-gradient-to-br from-white to-emerald-50/30 dark:from-slate-800 dark:to-emerald-900/10 dark:border-emerald-500/10"
+              ? "border-emerald-200/50 bg-linear-to-br from-white to-emerald-50/30 dark:from-slate-800 dark:to-emerald-900/10 dark:border-emerald-500/10"
               : "border-gray-200 bg-gray-50/50 dark:bg-slate-800/50 dark:border-gray-700/50"
           }`}
         >

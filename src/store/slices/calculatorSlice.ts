@@ -6,7 +6,7 @@ import {
   calculateTakeProfitPrice,
 } from "../../utils/calculations";
 
-const initialCalculatorState: CalculatorState = {
+export const initialCalculatorState: CalculatorState = {
   tradeParameters: {
     totalCapital: 0,
     riskPercentage: 1,
@@ -29,7 +29,7 @@ const calculatorSlice = createSlice({
       action: PayloadAction<{
         name: keyof TradeParameters;
         value: number | null;
-      }>
+      }>,
     ) => {
       const { name, value } = action.payload;
 
@@ -39,7 +39,7 @@ const calculatorSlice = createSlice({
         [name]: value,
       };
 
-      const { entryPrice, stopLossPrice, takeProfitPrice, expectedRR } =
+      const { entryPrice, stopLossPrice, takeProfitPrice } =
         state.tradeParameters;
 
       // 1. If Expected R/R is edited -> Update Take Profit Price
@@ -54,9 +54,9 @@ const calculatorSlice = createSlice({
           state.tradeParameters.takeProfitPrice = calculateTakeProfitPrice(
             entryPrice,
             stopLossPrice,
-            value
+            value,
           );
-        } catch (e) {
+        } catch {
           /* ignore */
         }
       }
@@ -80,7 +80,7 @@ const calculatorSlice = createSlice({
         (name === "entryPrice" || name === "stopLossPrice") &&
         entryPrice > 0 &&
         stopLossPrice > 0 &&
-        takeProfitPrice !== null &&
+        takeProfitPrice != null &&
         takeProfitPrice > 0
       ) {
         const stopLossDistance = Math.abs(stopLossPrice - entryPrice);
@@ -94,7 +94,7 @@ const calculatorSlice = createSlice({
 
     calculatePosition: (
       state,
-      action: PayloadAction<Partial<TradeParameters> | undefined>
+      action: PayloadAction<Partial<TradeParameters> | undefined>,
     ) => {
       try {
         const params = {

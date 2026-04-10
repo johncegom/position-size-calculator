@@ -9,19 +9,27 @@ import {
 describe("formatters", () => {
   describe("formatToTwoDecimals", () => {
     test("rounds 1.234 to 1.23", () => {
-      expect(formatToTwoDecimals(1.234)).toBe(1.23);
+      expect(formatToTwoDecimals(1.234)).toBe("1.23");
     });
 
     test("rounds 1.235 to 1.24", () => {
-      expect(formatToTwoDecimals(1.235)).toBe(1.24);
+      expect(formatToTwoDecimals(1.235)).toBe("1.24");
     });
 
     test("handles zero", () => {
-      expect(formatToTwoDecimals(0)).toBe(0);
+      expect(formatToTwoDecimals(0)).toBe("0");
+    });
+
+    test("handles integers", () => {
+      expect(formatToTwoDecimals(100)).toBe("100");
+    });
+
+    test("keeps two decimals for non-integers", () => {
+      expect(formatToTwoDecimals(1.1)).toBe("1.10");
     });
 
     test("handles negative numbers", () => {
-      expect(formatToTwoDecimals(-1.236)).toBe(-1.24);
+      expect(formatToTwoDecimals(-1.236)).toBe("-1.24");
     });
   });
 

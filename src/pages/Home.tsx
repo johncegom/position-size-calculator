@@ -10,7 +10,7 @@ const Home = () => {
   return (
     <div className="container min-h-screen py-8 mx-auto pt-24 lg:pt-32 max-w-[1600px]">
       <header className="mb-12 text-center lg:text-left lg:mb-16">
-        <h1 className="text-4xl font-bold tracking-tight text-transparent cursor-default lg:text-7xl font-display bg-clip-text bg-gradient-to-r from-brand-primary via-brand-secondary to-accent drop-shadow-sm">
+        <h1 className="text-4xl font-bold tracking-tight text-transparent cursor-default lg:text-7xl font-display bg-clip-text bg-linear-to-r from-brand-primary via-brand-secondary to-accent drop-shadow-sm">
           {t("calculator.title")}
         </h1>
         <p className="mt-5 text-xl text-text-secondary-light dark:text-text-secondary-dark font-light tracking-wide max-w-2xl">

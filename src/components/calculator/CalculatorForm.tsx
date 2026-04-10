@@ -63,7 +63,7 @@ const CalculatorForm = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={2}
                 stroke="currentColor"
-                className="w-5 h-5 flex-shrink-0"
+                className="w-5 h-5 shrink-0"
               >
                 <path
                   strokeLinecap="round"
@@ -313,7 +313,7 @@ const CalculatorForm = () => {
           <button
             type="submit"
             aria-label="Calculate Position Size"
-            className="flex-1 px-6 py-4 text-lg font-bold tracking-wide text-white transition-all transform shadow-lg bg-gradient-to-r from-indigo-600 to-indigo-500 rounded-xl shadow-indigo-500/30 hover:to-indigo-600 hover:shadow-indigo-500/40 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="flex-1 px-6 py-4 text-lg font-bold tracking-wide text-white transition-all transform shadow-lg bg-linear-to-r from-indigo-600 to-indigo-500 rounded-xl shadow-indigo-500/30 hover:to-indigo-600 hover:shadow-indigo-500/40 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             {t("calculator.calculateButton")}
           </button>

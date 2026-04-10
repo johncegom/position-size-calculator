@@ -1,18 +1,7 @@
-import { render, screen } from "@testing-library/react";
+import { renderWithProviders } from "../../test-utils";
+import { screen } from "@testing-library/react";
 import RiskRewardVisual from "./RiskRewardVisual";
-import { useSelector } from "react-redux";
-import { vi, describe, it, expect } from "vitest";
-
-// Mock dependencies
-vi.mock("react-redux", () => ({
-  useSelector: vi.fn(),
-}));
-
-vi.mock("react-i18next", () => ({
-  useTranslation: () => ({
-    t: (key: string) => key,
-  }),
-}));
+import { describe, it, expect } from "vitest";
 
 describe("RiskRewardVisual Component", () => {
   const mockTradeParameters = {
@@ -22,52 +11,56 @@ describe("RiskRewardVisual Component", () => {
   };
 
   it("renders correctly with full data", () => {
-    (useSelector as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      calculationResult: {
-        potentialLoss: 100,
-        potentialProfit: 300,
-        riskRewardRatio: 3,
+    renderWithProviders(<RiskRewardVisual />, {
+      preloadedState: {
+        calculator: {
+          calculationResult: {
+            potentialLoss: 100,
+            potentialProfit: 300,
+            riskRewardRatio: 3,
+          },
+          tradeParameters: mockTradeParameters,
+        },
       },
-      tradeParameters: mockTradeParameters,
     });
 
-    render(<RiskRewardVisual />);
-
     // Check ratio display
-    expect(screen.getByText("riskReward.ratio")).toBeInTheDocument();
+    expect(screen.getByText("Risk/Reward Performance")).toBeInTheDocument();
     // 1 : 3.00
     expect(screen.getByText("1")).toBeInTheDocument();
     expect(screen.getByText("3")).toBeInTheDocument();
 
     // Check progress bars labels/values
-    expect(screen.getByText("riskReward.risk")).toBeInTheDocument();
+    expect(screen.getByText("Allocated Risk")).toBeInTheDocument();
     expect(screen.getByText("$100")).toBeInTheDocument();
 
-    expect(screen.getByText("riskReward.potentialReward")).toBeInTheDocument();
+    expect(screen.getByText("Potential Reward")).toBeInTheDocument();
     expect(screen.getByText("$300")).toBeInTheDocument();
 
     // Check price levels
-    expect(screen.getByText("riskReward.stopLoss")).toBeInTheDocument();
+    expect(screen.getByText("Stop Loss")).toBeInTheDocument();
     expect(screen.getByText("$48000")).toBeInTheDocument();
-    expect(screen.getByText("riskReward.entryPrice")).toBeInTheDocument();
+    expect(screen.getByText("Entry Point")).toBeInTheDocument();
     expect(screen.getByText("$50000")).toBeInTheDocument();
-    expect(screen.getByText("riskReward.takeProfit")).toBeInTheDocument();
+    expect(screen.getByText("Profit Target")).toBeInTheDocument();
     expect(screen.getByText("$56000")).toBeInTheDocument();
   });
 
   it("renders 'N/A' or placeholders when data is missing", () => {
-    (useSelector as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      calculationResult: null,
-      tradeParameters: {
-        entryPrice: 0,
-        stopLossPrice: 0,
-        takeProfitPrice: 0,
+    renderWithProviders(<RiskRewardVisual />, {
+      preloadedState: {
+        calculator: {
+          calculationResult: null,
+          tradeParameters: {
+            entryPrice: 0,
+            stopLossPrice: 0,
+            takeProfitPrice: 0,
+          },
+        },
       },
     });
 
-    render(<RiskRewardVisual />);
-
-    expect(screen.getByText("riskReward.noData")).toBeInTheDocument();
+    expect(screen.getByText("Awaiting Parameters")).toBeInTheDocument();
     // Ratio part
     expect(screen.getAllByText("--").length).toBeGreaterThan(0);
     // Price Levels N/A
@@ -76,37 +69,70 @@ describe("RiskRewardVisual Component", () => {
   });
 
   it("handles High Risk scenario (Risk > Reward)", () => {
-    (useSelector as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      calculationResult: {
-        potentialLoss: 300,
-        potentialProfit: 100, // Reward is smaller
-        riskRewardRatio: 0.33,
+    renderWithProviders(<RiskRewardVisual />, {
+      preloadedState: {
+        calculator: {
+          calculationResult: {
+            potentialLoss: 300,
+            potentialProfit: 100, // Reward is smaller
+            riskRewardRatio: 0.33,
+          },
+          tradeParameters: mockTradeParameters,
+        },
       },
-      tradeParameters: mockTradeParameters,
     });
-
-    render(<RiskRewardVisual />);
 
     // Risk bar should exist and likely be larger or max width logic
     expect(screen.getByText("$300")).toBeInTheDocument();
     expect(screen.getByText("$100")).toBeInTheDocument();
 
     // Check ratio (Improve Ratio message should appear)
-    expect(screen.getByText("riskReward.improveRatio")).toBeInTheDocument();
+    expect(screen.getByText("Review Strategy")).toBeInTheDocument();
   });
 
   it("handles Excellent Ratio scenario", () => {
-    (useSelector as unknown as ReturnType<typeof vi.fn>).mockReturnValue({
-      calculationResult: {
-        potentialLoss: 100,
-        potentialProfit: 500, // 1:5 ratio
-        riskRewardRatio: 5,
+    renderWithProviders(<RiskRewardVisual />, {
+      preloadedState: {
+        calculator: {
+          calculationResult: {
+            potentialLoss: 100,
+            potentialProfit: 500, // 1:5 ratio
+            riskRewardRatio: 5,
+          },
+          tradeParameters: mockTradeParameters,
+        },
       },
-      tradeParameters: mockTradeParameters,
     });
 
-    render(<RiskRewardVisual />);
+    expect(screen.getByText("High Performance")).toBeInTheDocument();
+  });
 
-    expect(screen.getByText("riskReward.excellentRatio")).toBeInTheDocument();
+  it("highlights the Expected R/R ratio and price level when expectedRR is set", () => {
+    renderWithProviders(<RiskRewardVisual />, {
+      preloadedState: {
+        calculator: {
+          calculationResult: {
+            potentialLoss: 100,
+            potentialProfit: 300,
+            riskRewardRatio: 3,
+          },
+          tradeParameters: {
+            ...mockTradeParameters,
+            expectedRR: 2.5,
+          },
+        },
+      },
+    });
+
+    // Should indicate the expected ratio in the badge
+    // Real string from simulator.expected: "Expected"
+    expect(screen.getByText(/Expected: 1:2\.50/)).toBeInTheDocument();
+
+    // Because 2.5 is different than the current ratio of 3, 
+    // it should show a PriceLevelCard for "Your Target"
+    expect(screen.getByText("Your Target")).toBeInTheDocument();
+    
+    // For 2.5 ratio on that range, price should be 55000
+    expect(screen.getByText("$55000")).toBeInTheDocument();
   });
 });
