@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "./store/store";
@@ -7,11 +7,12 @@ import { updateTradeParameter } from "./store/slices/calculatorSlice";
 import type { TradeParameters } from "./types";
 
 import Home from "./pages/Home";
-import Settings from "./pages/Settings";
-import About from "./pages/About";
 import AppLayout from "./components/layout/AppLayout";
 import Footer from "./components/layout/Footer";
 import "./App.css";
+
+const Settings = lazy(() => import("./pages/Settings"));
+const About = lazy(() => import("./pages/About"));
 
 const App = () => {
   const { tradeParameters } = useSelector(
@@ -45,11 +46,13 @@ const App = () => {
 
   return (
     <AppLayout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/settings" element={<Settings />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen" />}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </AppLayout>
   );
