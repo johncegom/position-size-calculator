@@ -18,7 +18,7 @@ const Footer = () => {
             <h3 className="font-display font-bold text-xl text-gray-900 dark:text-white tracking-tight">
               {t("header.titleShort")}
             </h3>
-            <p className="text-[10px] text-gray-400 dark:text-gray-500 font-medium tracking-[0.2em] uppercase">
+            <p className="text-xs text-gray-400 dark:text-gray-500 font-medium tracking-[0.2em] uppercase">
               &copy; {new Date().getFullYear()}
             </p>
           </div>
@@ -59,7 +59,7 @@ const Footer = () => {
               href="https://github.com/johncegom/position-size-calculator"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[10px] text-gray-400 hover:text-indigo-500 transition-colors flex items-center gap-1.5"
+              className="text-xs text-gray-400 hover:text-indigo-500 transition-colors flex items-center gap-1.5"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               v1.0.0 &bull; Open Source

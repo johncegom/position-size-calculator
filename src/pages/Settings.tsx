@@ -352,7 +352,7 @@ const Settings = () => {
                       )}
                     />
                     <span className="text-lg font-bold">1.0%</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">
+                    <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                       {t("settingsPage.conservative")}
                     </span>
                   </button>
@@ -376,7 +376,7 @@ const Settings = () => {
                       )}
                     />
                     <span className="text-lg font-bold">2.0%</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">
+                    <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                       {t("settingsPage.moderate")}
                     </span>
                   </button>
@@ -400,7 +400,7 @@ const Settings = () => {
                       )}
                     />
                     <span className="text-lg font-bold">5.0%</span>
-                    <span className="text-[10px] font-bold uppercase tracking-wider opacity-70">
+                    <span className="text-xs font-bold uppercase tracking-wider opacity-70">
                       {t("settingsPage.aggressive")}
                     </span>
                   </button>

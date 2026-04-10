@@ -38,7 +38,7 @@ const ResultDisplay = () => {
             <span className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-linear-to-r from-brand-primary to-brand-secondary font-mono tracking-tighter break-all">
               ${formatToTwoDecimals(positionSize)}
             </span>
-            <span className="text-xs sm:text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark whitespace-nowrap">
+            <span className="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark whitespace-nowrap">
               {t("calculator.positionSize")}
             </span>
           </div>
@@ -48,7 +48,7 @@ const ResultDisplay = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         {potentialLoss > 0 && (
           <div className="p-6 border border-red-200/50 shadow-sm rounded-2xl bg-linear-to-br from-white to-red-50/30 dark:from-slate-800 dark:to-red-900/10 dark:border-red-500/10 backdrop-blur-sm">
-            <p className="text-xs font-bold tracking-wider text-red-500/80 uppercase mb-2">
+            <p className="text-sm font-bold tracking-wider text-red-500/80 uppercase mb-2">
               {t("calculator.potentialLoss")}
             </p>
             <p className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400 font-mono break-all">
@@ -65,7 +65,7 @@ const ResultDisplay = () => {
           }`}
         >
           <p
-            className={`text-xs font-bold tracking-wider uppercase mb-2 ${
+            className={`text-sm font-bold tracking-wider uppercase mb-2 ${
               potentialProfit > 0
                 ? "text-emerald-600/80 dark:text-emerald-400/80"
                 : "text-gray-400 dark:text-gray-500"

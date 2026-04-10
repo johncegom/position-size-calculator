@@ -36,7 +36,7 @@ const CalculatorForm = () => {
                   isLong ? "bg-emerald-500" : "bg-rose-500"
                 }`}
               />
-              <span className="text-xs font-bold uppercase tracking-widest font-display">
+              <span className="text-sm font-bold uppercase tracking-widest font-display">
                 {isLong ? t("common.long") : t("common.short")}
               </span>
               <svg
@@ -122,7 +122,7 @@ const CalculatorForm = () => {
                 {riskInputMode === "percentage"
                   ? `${t("common.riskValue")}: `
                   : `${t("common.riskPercentageShort")}: `}
-                <span className="font-bold font-mono text-indigo-600 dark:text-indigo-400">
+                <span className="text-sm font-bold font-mono text-indigo-600 dark:text-indigo-400">
                   {riskInputMode === "percentage"
                     ? `$${(
                         (parseFloat(formValues.totalCapital || "0") *
@@ -271,7 +271,7 @@ const CalculatorForm = () => {
                 className="w-full py-3 pr-12 pl-4 text-lg transition-all bg-white border-0 shadow-sm ring-1 ring-gray-200 dark:ring-gray-700/50 rounded-xl dark:bg-slate-900/50 dark:text-white focus:ring-2 focus:ring-indigo-500 placeholder-gray-400 dark:placeholder-gray-600 font-mono input-premium"
                 placeholder="2.0"
               />
-              <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:translate-x-1 pointer-events-none text-xs font-bold font-mono">
+              <span className="absolute text-gray-400 transform -translate-y-1/2 right-4 top-1/2 dark:text-gray-500 group-focus-within:opacity-20 transition-all duration-300 group-focus-within:translate-x-1 pointer-events-none text-sm font-bold font-mono">
                 R:R
               </span>
             </div>
@@ -284,7 +284,7 @@ const CalculatorForm = () => {
               className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               {t("calculator.takeProfitPrice")}{" "}
-              <span className="text-gray-400 text-xs font-normal ml-1">
+              <span className="text-gray-400 text-sm font-normal ml-1">
                 ({t("common.optional")})
               </span>
             </label>

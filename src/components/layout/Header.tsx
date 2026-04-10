@@ -49,7 +49,7 @@ const Header = () => {
             {/* Status Indicators - Center (Hidden on mobile) */}
             <div className="items-center hidden gap-6 mr-4 text-sm md:flex">
               <div className="flex flex-col items-end">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                   {t("header.risk")}
                 </span>
                 <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
@@ -58,7 +58,7 @@ const Header = () => {
               </div>
               <div className="h-8 w-px bg-gray-200 dark:bg-white/10"></div>
               <div className="flex flex-col items-end">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">
                   {t("header.capital")}
                 </span>
                 <span className="font-mono font-bold text-gray-900 dark:text-white">{`$${tradeParameters.totalCapital}`}</span>
