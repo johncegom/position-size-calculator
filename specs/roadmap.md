@@ -16,7 +16,7 @@
 - [x] Theme Engine (Light/Dark mode).
 - [x] Multi-language support (English/Vietnamese).
 
-## Phase 4: Trade Journaling
+## Phase 4: Trade Journaling (Active 🔄)
 - [ ] Journal Entry System (Local CRUD).
 - [ ] Trade performance analytics dashboard.
 - [ ] History and sorting/filtering.
